@@ -1,0 +1,1472 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <!-- SEO: Título transacional -->
+    <title>Sistema de Gestão de Estoque para Empresas de Eventos</title>
+    <meta name="description" content="Gerencie equipamentos de som, luz, vídeo e mobiliário para eventos com controle total de estoque, rastreamento de avarias, prevenção de overbooking e histórico completo de locações.">
+    <meta name="keywords" content="sistema de estoque para eventos, controle de equipamentos de eventos, gestão de locação de equipamentos, rastreamento de avarias em eventos, controle de som luz vídeo eventos, software estoque empresa de eventos, prevenção de overbooking equipamentos">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://estoque.24hlocacoes.com/">
+
+    <!-- Open Graph / Compartilhamento social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://estoque.24hlocacoes.com/">
+    <meta property="og:title" content="Sistema de Gestão de Estoque para Eventos">
+    <meta property="og:description" content="Controle total do estoque de som, luz, vídeo e mobiliário. Previna overbooking, rastreie avarias e gerencie locações em tempo real.">
+    <meta property="og:image" content="https://estoque.24hlocacoes.com/assets/images/logo.webp">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="EquipTrack">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sistema de Gestão de Estoque para Eventos">
+    <meta name="twitter:description" content="Controle total do estoque de som, luz, vídeo e mobiliário para eventos. Previna overbooking e gerencie locações em tempo real.">
+    <meta name="twitter:image" content="https://estoque.24hlocacoes.com/assets/images/logo.webp">
+
+    <!-- Dados Estruturados JSON-LD: SoftwareApplication (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "EquipTrack — Sistema de Estoque para Eventos",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://estoque.24hlocacoes.com/",
+      "description": "Sistema completo de gestão de estoque para empresas de eventos. Controle equipamentos de som, luz, vídeo e mobiliário, previna overbooking de materiais em eventos simultâneos, rastreie avarias e gerencie todas as movimentações de locação em tempo real.",
+      "featureList": [
+        "Controle de estoque de equipamentos de áudio, vídeo e iluminação para eventos",
+        "Prevenção de overbooking de equipamentos em eventos simultâneos",
+        "Rastreamento de avarias e histórico completo de manutenção",
+        "Gestão de devolução e logística de materiais locados",
+        "Controle de cabos, conectores e itens auxiliares",
+        "Relatório histórico de movimentações por evento",
+        "Cadastro de equipamentos com código de barras",
+        "Controle de estoque de itens de buffet e mobiliário"
+      ],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Empresas de locação de equipamentos para eventos"
+      },
+      "inLanguage": "pt-BR",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      }
+    }
+    </script>
+
+    <link rel="icon" type="image/webp" href="assets/images/favicon.webp">
+    <link rel="stylesheet" href="css/app.css?v=2705261">
+    <link rel="stylesheet" href="css/theme.css?v=29b2b7k">
+    <link rel="stylesheet" href="css/chat-widget.css?v=29b2b7f">
+</head>
+<body style="visibility:hidden">
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="logo">
+                <img id="customLogo" src="assets/images/logo.webp" alt="EquipTrack — Sistema de Gestão de Estoque para Eventos" class="logo-image">
+            </div>
+
+            <nav class="menu">
+                <ul>
+                    <li><a href="#home" class="menu-item active" onclick="showSection('home')">
+                        <span class="lottie-icon" id="lottie-home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> Eventos
+                    </a></li>
+                    <li><a href="#locacao" id="rentalMenuItem" class="menu-item" onclick="showSection('locacao')">
+                        <span class="lottie-icon" id="lottie-rental"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span> Locação
+                    </a></li>
+                    <li><a href="#manutencao" class="menu-item" onclick="showSection('manutencao')">
+                        <span class="lottie-icon" id="lottie-maintenance"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span> Manutenção
+                    </a></li>
+                    <li><a href="#inventario" class="menu-item" onclick="showSection('inventario')">
+                        <span class="lottie-icon" id="lottie-database"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></span> Inventário
+                    </a></li>
+                    <li><a href="#historico" class="menu-item" onclick="showSection('historico')">
+                        <span class="lottie-icon" id="lottie-historical"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.53-4.8"/><polyline points="12 7 12 12 14 14"/></svg></span> Histórico
+                    </a></li>
+                </ul>
+            </nav>
+            
+            <div class="bottom-actions">
+                <button type="button" class="menu-item logout-button btn-logout" onclick="logout()">
+                    <span class="lottie-icon" id="lottie-exit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span> 
+                    <span class="logout-label">Sair •</span>
+                    <span class="logout-name-viewport">
+                        <span id="logout-user-text"></span>
+                    </span>
+                </button>
+                <button type="button" class="menu-item bottom-icon-button btn-notification-icon" onclick="showSection('notificacoes')" aria-label="Notificações">
+                    <span class="lottie-icon" id="lottie-notifications"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>
+                    <span id="notificationBadge" class="notification-badge" style="display:none;">0</span>
+                </button>
+                <button type="button" class="menu-item bottom-icon-button btn-settings-icon" onclick="showSection('config')" aria-label="Configurações">
+                    <span class="lottie-icon" id="lottie-settings"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+                </button>
+            </div>
+        </aside>
+
+        <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" aria-label="Alternar menu">
+            <svg class="sidebar-toggle-icon" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 1L1 7L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <main class="main-content">
+            <section id="home" class="section active">
+                <div class="section-header">
+                    <h1>Eventos Cadastrados</h1>
+                    <div class="search-container search-with-filter">
+                        <input type="text" id="searchEventInput" placeholder="Buscar evento..." onkeyup="searchEvents()">
+                        <div class="filter-control">
+                            <button type="button" class="filter-button" onclick="toggleFilterMenu('eventSortMenu', this)" aria-expanded="false" aria-controls="eventSortMenu" aria-label="Ordenar eventos">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
+                                <span>Filtro</span>
+                            </button>
+                            <div id="eventSortMenu" class="filter-menu" role="menu">
+                                <button type="button" data-sort-option="events:created_desc" onclick="setSortMode('events', 'created_desc')">Inclusão: recentes</button>
+                                <button type="button" data-sort-option="events:created_asc" onclick="setSortMode('events', 'created_asc')">Inclusão: antigas</button>
+                                <button type="button" data-sort-option="events:name_asc" onclick="setSortMode('events', 'name_asc')">Ordem alfabética A-Z</button>
+                                <button type="button" data-sort-option="events:name_desc" onclick="setSortMode('events', 'name_desc')">Ordem alfabética Z-A</button>
+                                <button type="button" data-sort-option="events:date_asc" onclick="setSortMode('events', 'date_asc')">Data do evento: próxima</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="rentalReturnAlert" class="rental-return-alert" style="display: none;"></div>
+                <div class="events-grid" id="eventsGrid"></div>
+            </section>
+
+            <section id="cadastro" class="section creation-modal-section" style="display: none;">
+                <div class="modal-card create-modal-card inventory-create-modal-card">
+                    <button type="button" class="modal-close" onclick="closeCadastroModal()" aria-label="Fechar">X</button>
+                    <div class="section-header">
+                        <div class="section-header-content">
+                            <h1 id="cadastroTitle">Cadastro do Inventário</h1>
+                            <div class="database-toggle">
+                                <button type="button" id="cadastroEquipamentosTabButton" class="btn-secondary active" onclick="setCadastroTab('equipamentos')">Equipamentos</button>
+                                <button type="button" id="cadastroCabosTabButton" class="btn-secondary" onclick="setCadastroTab('cabos')">Cabos</button>
+                                <button type="button" id="cadastroOutrosTabButton" class="btn-secondary" onclick="setCadastroTab('outros')">Outros</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="cadastroEquipamentosView" class="database-view active">
+                        <form id="equipmentForm" class="form-grid">
+                            <div class="form-group">
+                                <label for="equipmentName">Nome do Equipamento</label>
+                                <input type="text" id="equipmentName" name="name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="equipmentBarcode">Codigo de Barras</label>
+                                <input type="text" id="equipmentBarcode" name="barcode" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="equipmentCategory">Categorias</label>
+                                <input type="text" id="equipmentCategory" name="category" list="equipmentCategoryList" placeholder="Digite a categoria..." required>
+                                <datalist id="equipmentCategoryList"></datalist>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">Cadastrar Equipamento</button>
+                                <button type="button" onclick="cancelEquipmentForm()" class="btn-secondary">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="cadastroCabosView" class="database-view">
+                        <form id="cableForm" class="form-grid">
+                            <div class="form-group">
+                                <label for="cableName">Nome do Cabo</label>
+                                <input type="text" id="cableName" name="name" placeholder="Ex: Cabo HDMI 10m" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cableQuantity">Quantidade</label>
+                                <input type="number" id="cableQuantity" name="quantity" min="0" step="1" placeholder="0" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cableCategory">Categoria</label>
+                                <input type="text" id="cableCategory" name="category" list="cableCategoryList" placeholder="Digite a categoria..." required>
+                                <datalist id="cableCategoryList"></datalist>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">Cadastrar Cabo</button>
+                                <button type="button" onclick="cancelCableForm()" class="btn-secondary">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="cadastroOutrosView" class="database-view">
+                        <form id="otherItemForm" class="form-grid">
+                            <div class="form-group">
+                                <label for="otherItemName">Nome do Item</label>
+                                <input type="text" id="otherItemName" name="name" placeholder="Ex: Capacete" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="otherItemQuantity">Quantidade Inicial</label>
+                                <input type="number" id="otherItemQuantity" name="quantity" min="0" step="1" placeholder="0" required>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">Cadastrar Item</button>
+                                <button type="button" onclick="cancelOtherItemForm()" class="btn-secondary">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section id="inventario" class="section">
+                <div class="section-header">
+                    <div class="database-title-row">
+                        <h1 id="databaseTitle">Inventário</h1>
+                        <div class="search-container search-with-filter">
+                            <input type="text" id="searchInput" placeholder="Buscar equipamento..." onkeyup="searchDatabase()">
+                            <div class="filter-control">
+                                <button type="button" class="filter-button" onclick="toggleFilterMenu('databaseSortMenu', this)" aria-expanded="false" aria-controls="databaseSortMenu" aria-label="Ordenar inventário">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
+                                    <span>Filtro</span>
+                                </button>
+                                <div id="databaseSortMenu" class="filter-menu" role="menu">
+                                    <button type="button" data-sort-option="database:name_asc" onclick="setSortMode('database', 'name_asc')">Ordem alfabética A-Z</button>
+                                    <button type="button" data-sort-option="database:name_desc" onclick="setSortMode('database', 'name_desc')">Ordem alfabética Z-A</button>
+                                    <button type="button" data-sort-option="database:created_desc" onclick="setSortMode('database', 'created_desc')">Inclusão: recentes</button>
+                                    <button type="button" data-sort-option="database:created_asc" onclick="setSortMode('database', 'created_asc')">Inclusão: antigas</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inventory-actions-row">
+                        <div class="database-toggle">
+                            <button type="button" id="equipamentosTabButton" class="btn-secondary active" onclick="setBancoTab('equipamentos')">Equipamentos</button>
+                            <button type="button" id="cabosTabButton" class="btn-secondary" onclick="setBancoTab('cabos')">Cabos</button>
+                            <button type="button" id="outrosTabButton" class="btn-secondary" onclick="setBancoTab('outros')">Outros</button>
+                        </div>
+                        <button type="button" id="relacaoRentalDatesButton" class="btn-secondary inventory-rental-date-button" onclick="openManagedRentalDateModal()" style="display:none;">Alterar Dados</button>
+                    </div>
+                </div>
+
+                <div id="equipamentosDatabaseView" class="database-view active">
+                    <div class="table-container">
+                        <table id="equipmentsTable">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Codigo de Barras</th>
+                                    <th>Status</th>
+                                    <th>Evento</th>
+                                    <th>Acoes</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="cabosDatabaseView" class="database-view">
+                    <div class="table-container">
+                        <table id="cablesTable">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th class="cable-quantity-column">Quantidade Inicial</th>
+                                    <th class="cable-quantity-column">Quantidade Disponivel</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="outrosDatabaseView" class="database-view">
+                    <div class="table-container">
+                        <table id="otherItemsTable">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th class="cable-quantity-column">Quantidade Inicial</th>
+                                    <th class="cable-quantity-column">Quantidade Disponivel</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="eventos" class="section creation-modal-section" style="display: none;">
+                <div class="modal-card create-modal-card event-create-modal-card">
+                    <button type="button" class="modal-close" onclick="closeEventModal()" aria-label="Fechar">X</button>
+                    <div class="section-header">
+                        <h1>Criar Evento</h1>
+                    </div>
+
+                    <form id="eventForm" class="form-grid">
+                        <div class="form-group">
+                            <label for="eventName">Nome do Evento</label>
+                            <input type="text" id="eventName" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventDate">Data</label>
+                            <input type="date" id="eventDate" name="date" required>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Criar Evento</button>
+                            <button type="button" onclick="cancelEventForm()" class="btn-secondary">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <section id="historico" class="section">
+                <div class="section-header">
+                    <h1>Historico</h1>
+                    <div class="search-container search-with-filter">
+                        <input type="text" id="searchHistoryInput" placeholder="Buscar historico..." onkeyup="searchHistoryEvents()">
+                        <div class="filter-control">
+                            <button type="button" class="filter-button" onclick="toggleFilterMenu('historySortMenu', this)" aria-expanded="false" aria-controls="historySortMenu" aria-label="Ordenar histórico">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
+                                <span>Filtro</span>
+                            </button>
+                            <div id="historySortMenu" class="filter-menu" role="menu">
+                                <button type="button" data-sort-option="history:completed_desc" onclick="setSortMode('history', 'completed_desc')">Finalização: recente</button>
+                                <button type="button" data-sort-option="history:completed_asc" onclick="setSortMode('history', 'completed_asc')">Finalização: antiga</button>
+                                <button type="button" data-sort-option="history:name_asc" onclick="setSortMode('history', 'name_asc')">Ordem alfabética A-Z</button>
+                                <button type="button" data-sort-option="history:name_desc" onclick="setSortMode('history', 'name_desc')">Ordem alfabética Z-A</button>
+                                <button type="button" data-sort-option="history:created_desc" onclick="setSortMode('history', 'created_desc')">Inclusão: recentes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="history-block">
+                    <div class="history-title-row">
+                        <h2>Eventos finalizados</h2>
+                        <span id="historyEventsCount" class="history-count">0 eventos</span>
+                    </div>
+                    <div class="events-grid" id="historyEventsGrid"></div>
+                </div>
+
+                <div class="history-block">
+                    <div class="history-title-row">
+                        <h2>Locações finalizadas</h2>
+                        <span id="historyRentalsCount" class="history-count">0 locações</span>
+                    </div>
+                    <div class="events-grid" id="historyRentalsGrid"></div>
+                </div>
+            </section>
+
+            <section id="manutencao" class="section">
+                <div class="section-header">
+                    <div class="maintenance-title-row">
+                        <h1>Controle de Manutencao</h1>
+                        <div class="maintenance-header-search">
+                            <div id="maintenanceEquipamentosSearch" class="maintenance-search-row active">
+                                <input type="text" id="maintenanceBarcode" name="barcode" placeholder="Buscar o codigo..." onkeypress="handleMaintenanceKeyPress(event)">
+                            </div>
+                            <div id="maintenanceCabosSearch" class="maintenance-search-row">
+                                <input type="text" id="maintenanceCableName" name="cableName" placeholder="Digite o nome do cabo e pressione Enter" onkeypress="handleMaintenanceCableKeyPress(event)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="database-toggle">
+                        <button type="button" id="maintenanceEquipamentosTabButton" class="btn-secondary active" onclick="setMaintenanceTab('equipamentos')">Equipamentos</button>
+                        <button type="button" id="maintenanceCabosTabButton" class="btn-secondary" onclick="setMaintenanceTab('cabos')">Cabos</button>
+                    </div>
+                </div>
+
+                <div id="maintenanceEquipamentosView" class="database-view active">
+                    <div class="maintenance-list-card">
+                        <div class="maintenance-list-header">
+                            <h2>Equipamentos em manutenção</h2>
+                            <span id="maintenanceCount" class="maintenance-count">0 itens</span>
+                        </div>
+                        <div id="maintenanceList" class="maintenance-list"></div>
+                    </div>
+                </div>
+
+                <div id="maintenanceCabosView" class="database-view">
+                    <div class="maintenance-list-card">
+                        <div class="maintenance-list-header">
+                            <h2>Cabos em manutençao</h2>
+                            <span id="maintenanceCableCount" class="maintenance-count">0 itens</span>
+                        </div>
+                        <div id="maintenanceCableList" class="maintenance-list"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="notificacoes" class="section">
+                <div class="section-header notifications-header">
+                    <h1>Notificações</h1>
+                    <div class="notifications-header-actions">
+                        <button type="button" id="notificationSelectToggle" class="btn-secondary notification-select-button" onclick="toggleNotificationSelectionMode()">Selecionar</button>
+                        <div class="filter-control notification-filter-control">
+                            <button type="button" class="filter-button notification-filter-button" onclick="toggleFilterMenu('notificationFilterMenu', this)" aria-expanded="false" aria-controls="notificationFilterMenu" aria-label="Filtrar notificações">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
+                                <span>Filtro</span>
+                            </button>
+                            <div id="notificationFilterMenu" class="filter-menu notification-filter-menu" role="menu">
+                                <button type="button" data-notification-filter-option="all" onclick="setNotificationDateFilter('all')">Todas</button>
+                                <button type="button" data-notification-filter-option="overdue" onclick="setNotificationDateFilter('overdue')">Atrasadas</button>
+                                <button type="button" data-notification-filter-option="today" onclick="setNotificationDateFilter('today')">Hoje</button>
+                                <button type="button" data-notification-filter-option="next3" onclick="setNotificationDateFilter('next3')">Próximos 3 dias</button>
+                                <button type="button" data-notification-filter-option="next7" onclick="setNotificationDateFilter('next7')">Próximos 7 dias</button>
+                                <label class="filter-date-option">
+                                    <span>Data específica</span>
+                                    <input type="date" id="notificationCustomDate" onchange="setNotificationDateFilter('custom')">
+                                </label>
+                            </div>
+                        </div>
+                        <input type="hidden" id="notificationDateFilter" value="all">
+                    </div>
+                </div>
+
+                <div id="notificationSelectionBar" class="notification-selection-bar" style="display:none;">
+                    <label class="notification-check-all">
+                        <input type="checkbox" id="notificationSelectAll" onchange="toggleAllNotifications(this.checked)">
+                        <span>Marcar todos</span>
+                    </label>
+                    <button type="button" class="btn-secondary" onclick="clearNotificationSelection()">Limpar seleção</button>
+                    <button type="button" class="btn-danger" onclick="markSelectedNotificationsRead()">Marcar como lidas</button>
+                    <button type="button" class="btn-primary" onclick="deleteSelectedNotifications()">Excluir</button>
+                </div>
+
+                <div id="notificationsList" class="notifications-list"></div>
+            </section>
+
+            <section id="config" class="section">
+                <div class="section-header">
+                    <h1>Configurações</h1>
+                </div>
+
+                <!-- message shown to regular users who have no settings -->
+                <p id="settingsNoAccess" class="users-message" style="display:none;">Nenhuma configuração disponível para o seu perfil no momento.</p>
+                
+                <div class="settings-tabs" id="settingsTabsBar">
+                    <button type="button" id="settingsTabUsers" class="settings-tab active" onclick="showSettingsTab('users')">Usuários</button>
+                    <button type="button" id="settingsTabTheme" class="settings-tab" onclick="showSettingsTab('theme')">Tema</button>
+                    <button type="button" id="settingsTabLogo" class="settings-tab" onclick="showSettingsTab('logo')">Logo</button>
+                    <button type="button" id="settingsTabEmpresas" class="settings-tab" onclick="showSettingsTab('empresas')">Empresas</button>
+                    <button type="button" id="settingsTabNotificacoes" class="settings-tab" onclick="showSettingsTab('notificacoes')">Notificações</button>
+                    <button type="button" id="settingsTabSobre" class="settings-tab" onclick="showSettingsTab('sobre')">Sobre</button>
+                </div>
+
+                <!-- Users Tab -->
+                <div id="settings-users" class="settings-tab-content active">
+                    <div class="section-header">
+                        <h2>Gerenciamento de Usuários</h2>
+                        <button type="button" id="openUserCreateButton" class="btn-primary" onclick="toggleCreateUserForm()">Cadastrar usuário</button>
+                    </div>
+
+                    <div class="users-panel">
+                        <div id="createUserModal" class="modal-overlay" style="display: none;">
+                            <div class="modal-card create-modal-card user-create-modal-card">
+                                <button type="button" class="modal-close" onclick="toggleCreateUserForm(false)" aria-label="Fechar">X</button>
+                                <h2>Cadastrar usuário</h2>
+                                <form id="createUserForm" class="form-grid user-create-form">
+                                    <div class="form-group">
+                                        <label for="newUsername">Usuário</label>
+                                        <input type="text" id="newUsername" name="username" autocomplete="off" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="newUserPassword">Senha</label>
+                                        <input type="password" id="newUserPassword" name="password" autocomplete="new-password" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="newUserRole">Classe</label>
+                                        <select id="newUserRole" name="role">
+                                            <option value="user">Usuário</option>
+                                            <option value="admin">Admin (Empresa)</option>
+                                            <option value="gestor_admin" id="newUserRoleGestor" style="display:none;">Admin (Gestor)</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group" id="newUserCompanyGroup" style="display:none;">
+                                        <label for="newUserCompany">Empresa</label>
+                                        <select id="newUserCompany" name="company_id">
+                                            <option value="">-- Sem empresa (Gestor) --</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn-primary">Salvar usuário</button>
+                                        <button type="button" class="btn-secondary" onclick="toggleCreateUserForm(false)">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div id="userManageModal" class="modal-overlay" style="display: none;">
+                            <div class="modal-card create-modal-card user-manage-modal-card">
+                                <button type="button" class="modal-close" onclick="closeUserManageModal()" aria-label="Fechar">X</button>
+                                <h2 id="userManageTitle">Gerenciar usuário</h2>
+                                <form id="userManageForm" class="form-grid user-create-form" onsubmit="saveManagedUser(event)">
+                                    <div class="form-group">
+                                        <label for="manageUsername">Nome</label>
+                                        <input type="text" id="manageUsername" autocomplete="off" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="manageUserRole">Classe</label>
+                                        <select id="manageUserRole">
+                                            <option value="user">Usuário</option>
+                                            <option value="admin">Admin (Empresa)</option>
+                                            <option value="gestor_admin" id="manageUserRoleGestor" style="display:none;">Admin (Gestor)</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group" id="manageUserCompanyGroup" style="display:none;">
+                                        <label for="manageUserCompany">Empresa</label>
+                                        <select id="manageUserCompany">
+                                            <option value="">-- Sem empresa (Gestor) --</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="manageUserPassword">Nova senha</label>
+                                        <input type="password" id="manageUserPassword" autocomplete="new-password" placeholder="Deixe vazio para manter">
+                                    </div>
+
+                                    <div class="form-actions user-manage-actions">
+                                        <button type="submit" class="btn-primary">Salvar alterações</button>
+                                        <button type="button" class="btn-danger" id="manageUserDeleteButton" onclick="deleteManagedUser()">Excluir usuário</button>
+                                        <button type="button" class="btn-secondary" onclick="closeUserManageModal()">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table id="usersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Classe</th>
+                                        <th id="usersTableCompanyHeader" class="hide-mobile">Empresa</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <p id="usersMessage" class="users-message"></p>
+                    </div>
+                </div>
+
+                <!-- Theme Tab -->
+                <div id="settings-theme" class="settings-tab-content">
+                    <div class="config-panel">
+                        <form id="themeForm" class="form-grid">
+                            <!-- Cores Principais -->
+                            <div class="theme-section-title">
+                                <h3>Cores Principais</h3>
+                                <div class="theme-header-actions">
+                                    <button type="button" class="btn-primary" onclick="saveThemeSettings()">Salvar Tema</button>
+                                    <button type="button" class="btn-secondary" onclick="resetThemeSettings()">Resetar Padrão</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="primaryColor">Cor Principal (Primária)</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="primaryColorSwatch" onclick="openColorPopover('primaryColor')" style="background:#ff3333"></button>
+                                    <input type="text" class="color-hex-display" id="primaryColorHex" value="#ff3333" placeholder="#ff3333">
+                                    <input type="hidden" id="primaryColor" name="primary" value="#ff3333">
+                                    <div class="color-popover" id="primaryColorPopover">
+                                        <input type="color" id="primaryColorPopoverColor" value="#ff3333" oninput="syncPickerToHex('primaryColor')">
+                                        <input type="text" class="color-popover-hex" id="primaryColorPopoverHex" value="#ff3333" oninput="syncPopoverHexToColor('primaryColor')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('primaryColor')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('primaryColor')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="primary2Color">Cor Secundária</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="primary2ColorSwatch" onclick="openColorPopover('primary2Color')" style="background:#cc0000"></button>
+                                    <input type="text" class="color-hex-display" id="primary2ColorHex" value="#cc0000" placeholder="#cc0000">
+                                    <input type="hidden" id="primary2Color" name="primary2" value="#cc0000">
+                                    <div class="color-popover" id="primary2ColorPopover">
+                                        <input type="color" id="primary2ColorPopoverColor" value="#cc0000" oninput="syncPickerToHex('primary2Color')">
+                                        <input type="text" class="color-popover-hex" id="primary2ColorPopoverHex" value="#cc0000" oninput="syncPopoverHexToColor('primary2Color')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('primary2Color')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('primary2Color')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="warningColor">Cor do Ícone de Alerta (Manutenção)</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="warningColorSwatch" onclick="openColorPopover('warningColor')" style="background:#ff0000"></button>
+                                    <input type="text" class="color-hex-display" id="warningColorHex" value="#ff0000" placeholder="#ff0000">
+                                    <input type="hidden" id="warningColor" name="warningColor" value="#ff0000">
+                                    <div class="color-popover" id="warningColorPopover">
+                                        <input type="color" id="warningColorPopoverColor" value="#ff0000" oninput="syncPickerToHex('warningColor')">
+                                        <input type="text" class="color-popover-hex" id="warningColorPopoverHex" value="#ff0000" oninput="syncPopoverHexToColor('warningColor')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('warningColor')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('warningColor')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cores de Fundo -->
+                            <div class="theme-section-title">
+                                <h3>Cores de Fundo</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bgStart">Cor do Menu Lateral (Sidebar)</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="bgStartSwatch" onclick="openColorPopover('bgStart')" style="background:#1a1a1a"></button>
+                                    <input type="text" class="color-hex-display" id="bgStartHex" value="#1a1a1a" placeholder="#1a1a1a">
+                                    <input type="hidden" id="bgStart" name="bgStart" value="#1a1a1a">
+                                    <div class="color-popover" id="bgStartPopover">
+                                        <input type="color" id="bgStartPopoverColor" value="#1a1a1a" oninput="syncPickerToHex('bgStart')">
+                                        <input type="text" class="color-popover-hex" id="bgStartPopoverHex" value="#1a1a1a" oninput="syncPopoverHexToColor('bgStart')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('bgStart')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('bgStart')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bgEnd">Cor de Fundo Geral (Background)</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="bgEndSwatch" onclick="openColorPopover('bgEnd')" style="background:#000000"></button>
+                                    <input type="text" class="color-hex-display" id="bgEndHex" value="#000000" placeholder="#000000">
+                                    <input type="hidden" id="bgEnd" name="bgEnd" value="#000000">
+                                    <div class="color-popover" id="bgEndPopover">
+                                        <input type="color" id="bgEndPopoverColor" value="#000000" oninput="syncPickerToHex('bgEnd')">
+                                        <input type="text" class="color-popover-hex" id="bgEndPopoverHex" value="#000000" oninput="syncPopoverHexToColor('bgEnd')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('bgEnd')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('bgEnd')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cores de Componentes -->
+                            <div class="theme-section-title">
+                                <h3>Cores de Componentes Internos</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="innerComponentBg">Cor de Fundo - Componentes Internos (Tabelas, Formulários)</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="innerComponentBgSwatch" onclick="openColorPopover('innerComponentBg')" style="background:#1a1a1a"></button>
+                                    <input type="text" class="color-hex-display" id="innerComponentBgHex" value="#1a1a1a" placeholder="#1a1a1a">
+                                    <input type="hidden" id="innerComponentBg" name="innerComponentBg" value="#1a1a1a">
+                                    <div class="color-popover" id="innerComponentBgPopover">
+                                        <input type="color" id="innerComponentBgPopoverColor" value="#1a1a1a" oninput="syncPickerToHex('innerComponentBg')">
+                                        <input type="text" class="color-popover-hex" id="innerComponentBgPopoverHex" value="#1a1a1a" oninput="syncPopoverHexToColor('innerComponentBg')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('innerComponentBg')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('innerComponentBg')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cores de Texto -->
+                            <div class="theme-section-title">
+                                <h3>Cores de Texto</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="textColor">Cor do Texto (Menu, Labels, Páginas)</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="textColorSwatch" onclick="openColorPopover('textColor')" style="background:#cccccc"></button>
+                                    <input type="text" class="color-hex-display" id="textColorHex" value="#cccccc" placeholder="#cccccc">
+                                    <input type="hidden" id="textColor" name="textColor" value="#cccccc">
+                                    <div class="color-popover" id="textColorPopover">
+                                        <input type="color" id="textColorPopoverColor" value="#cccccc" oninput="syncPickerToHex('textColor')">
+                                        <input type="text" class="color-popover-hex" id="textColorPopoverHex" value="#cccccc" oninput="syncPopoverHexToColor('textColor')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('textColor')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('textColor')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cores de Botões -->
+                            <div class="theme-section-title">
+                                <h3>Cores de Botões Secundários</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="secondaryBtnBg">Cor de Fundo - Botões Secundários</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="secondaryBtnBgSwatch" onclick="openColorPopover('secondaryBtnBg')" style="background:#444444"></button>
+                                    <input type="text" class="color-hex-display" id="secondaryBtnBgHex" value="#444444" placeholder="#444444">
+                                    <input type="hidden" id="secondaryBtnBg" name="secondaryBtnBg" value="#444444">
+                                    <div class="color-popover" id="secondaryBtnBgPopover">
+                                        <input type="color" id="secondaryBtnBgPopoverColor" value="#444444" oninput="syncPickerToHex('secondaryBtnBg')">
+                                        <input type="text" class="color-popover-hex" id="secondaryBtnBgPopoverHex" value="#444444" oninput="syncPopoverHexToColor('secondaryBtnBg')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('secondaryBtnBg')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('secondaryBtnBg')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="secondaryBtnBorder">Cor da Borda - Botões Secundários</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="secondaryBtnBorderSwatch" onclick="openColorPopover('secondaryBtnBorder')" style="background:#555555"></button>
+                                    <input type="text" class="color-hex-display" id="secondaryBtnBorderHex" value="#555555" placeholder="#555555">
+                                    <input type="hidden" id="secondaryBtnBorder" name="secondaryBtnBorder" value="#555555">
+                                    <div class="color-popover" id="secondaryBtnBorderPopover">
+                                        <input type="color" id="secondaryBtnBorderPopoverColor" value="#555555" oninput="syncPickerToHex('secondaryBtnBorder')">
+                                        <input type="text" class="color-popover-hex" id="secondaryBtnBorderPopoverHex" value="#555555" oninput="syncPopoverHexToColor('secondaryBtnBorder')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('secondaryBtnBorder')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('secondaryBtnBorder')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="secondaryBtnText">Cor do Texto - Botões Secundários</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="secondaryBtnTextSwatch" onclick="openColorPopover('secondaryBtnText')" style="background:#cccccc"></button>
+                                    <input type="text" class="color-hex-display" id="secondaryBtnTextHex" value="#cccccc" placeholder="#cccccc">
+                                    <input type="hidden" id="secondaryBtnText" name="secondaryBtnText" value="#cccccc">
+                                    <div class="color-popover" id="secondaryBtnTextPopover">
+                                        <input type="color" id="secondaryBtnTextPopoverColor" value="#cccccc" oninput="syncPickerToHex('secondaryBtnText')">
+                                        <input type="text" class="color-popover-hex" id="secondaryBtnTextPopoverHex" value="#cccccc" oninput="syncPopoverHexToColor('secondaryBtnText')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('secondaryBtnText')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('secondaryBtnText')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cores de Campos de Entrada -->
+                            <div class="theme-section-title">
+                                <h3>Cores de Campos de Entrada</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputBg">Cor de Fundo - Campos de Entrada</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="inputBgSwatch" onclick="openColorPopover('inputBg')" style="background:#333333"></button>
+                                    <input type="text" class="color-hex-display" id="inputBgHex" value="#333333" placeholder="#333333">
+                                    <input type="hidden" id="inputBg" name="inputBg" value="#333333">
+                                    <div class="color-popover" id="inputBgPopover">
+                                        <input type="color" id="inputBgPopoverColor" value="#333333" oninput="syncPickerToHex('inputBg')">
+                                        <input type="text" class="color-popover-hex" id="inputBgPopoverHex" value="#333333" oninput="syncPopoverHexToColor('inputBg')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('inputBg')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('inputBg')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputBorder">Cor da Borda - Campos de Entrada</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="inputBorderSwatch" onclick="openColorPopover('inputBorder')" style="background:#555555"></button>
+                                    <input type="text" class="color-hex-display" id="inputBorderHex" value="#555555" placeholder="#555555">
+                                    <input type="hidden" id="inputBorder" name="inputBorder" value="#555555">
+                                    <div class="color-popover" id="inputBorderPopover">
+                                        <input type="color" id="inputBorderPopoverColor" value="#555555" oninput="syncPickerToHex('inputBorder')">
+                                        <input type="text" class="color-popover-hex" id="inputBorderPopoverHex" value="#555555" oninput="syncPopoverHexToColor('inputBorder')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('inputBorder')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('inputBorder')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputText">Cor do Texto - Campos de Entrada</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="inputTextSwatch" onclick="openColorPopover('inputText')" style="background:#ffffff"></button>
+                                    <input type="text" class="color-hex-display" id="inputTextHex" value="#ffffff" placeholder="#ffffff">
+                                    <input type="hidden" id="inputText" name="inputText" value="#ffffff">
+                                    <div class="color-popover" id="inputTextPopover">
+                                        <input type="color" id="inputTextPopoverColor" value="#ffffff" oninput="syncPickerToHex('inputText')">
+                                        <input type="text" class="color-popover-hex" id="inputTextPopoverHex" value="#ffffff" oninput="syncPopoverHexToColor('inputText')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('inputText')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('inputText')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cores de Indicadores -->
+                            <div class="theme-section-title">
+                                <h3>Cores de Indicadores</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="badgeAvailableColor">Status: Disponível</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="badgeAvailableColorSwatch" onclick="openColorPopover('badgeAvailableColor')" style="background:#2ecc71"></button>
+                                    <input type="text" class="color-hex-display" id="badgeAvailableColorHex" value="#2ecc71" placeholder="#2ecc71">
+                                    <input type="hidden" id="badgeAvailableColor" name="badgeAvailableColor" value="#2ecc71">
+                                    <div class="color-popover" id="badgeAvailableColorPopover">
+                                        <input type="color" id="badgeAvailableColorPopoverColor" value="#2ecc71" oninput="syncPickerToHex('badgeAvailableColor')">
+                                        <input type="text" class="color-popover-hex" id="badgeAvailableColorPopoverHex" value="#2ecc71" oninput="syncPopoverHexToColor('badgeAvailableColor')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('badgeAvailableColor')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('badgeAvailableColor')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="badgeMaintenanceColor">Status: Em Manutenção</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="badgeMaintenanceColorSwatch" onclick="openColorPopover('badgeMaintenanceColor')" style="background:#f1c40f"></button>
+                                    <input type="text" class="color-hex-display" id="badgeMaintenanceColorHex" value="#f1c40f" placeholder="#f1c40f">
+                                    <input type="hidden" id="badgeMaintenanceColor" name="badgeMaintenanceColor" value="#f1c40f">
+                                    <div class="color-popover" id="badgeMaintenanceColorPopover">
+                                        <input type="color" id="badgeMaintenanceColorPopoverColor" value="#f1c40f" oninput="syncPickerToHex('badgeMaintenanceColor')">
+                                        <input type="text" class="color-popover-hex" id="badgeMaintenanceColorPopoverHex" value="#f1c40f" oninput="syncPopoverHexToColor('badgeMaintenanceColor')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('badgeMaintenanceColor')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('badgeMaintenanceColor')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="badgeRelationColor">Status: Pré Separado / Relação</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="badgeRelationColorSwatch" onclick="openColorPopover('badgeRelationColor')" style="background:#f1c40f"></button>
+                                    <input type="text" class="color-hex-display" id="badgeRelationColorHex" value="#f1c40f" placeholder="#f1c40f">
+                                    <input type="hidden" id="badgeRelationColor" name="badgeRelationColor" value="#f1c40f">
+                                    <div class="color-popover" id="badgeRelationColorPopover">
+                                        <input type="color" id="badgeRelationColorPopoverColor" value="#f1c40f" oninput="syncPickerToHex('badgeRelationColor')">
+                                        <input type="text" class="color-popover-hex" id="badgeRelationColorPopoverHex" value="#f1c40f" oninput="syncPopoverHexToColor('badgeRelationColor')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('badgeRelationColor')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('badgeRelationColor')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="btnReadyColor">Botão "Pronto" (Manutenção)</label>
+                                <div class="color-picker-wrapper">
+                                    <button type="button" class="color-swatch-btn" id="btnReadyColorSwatch" onclick="openColorPopover('btnReadyColor')" style="background:#1ea85c"></button>
+                                    <input type="text" class="color-hex-display" id="btnReadyColorHex" value="#1ea85c" placeholder="#1ea85c">
+                                    <input type="hidden" id="btnReadyColor" name="btnReadyColor" value="#1ea85c">
+                                    <div class="color-popover" id="btnReadyColorPopover">
+                                        <input type="color" id="btnReadyColorPopoverColor" value="#1ea85c" oninput="syncPickerToHex('btnReadyColor')">
+                                        <input type="text" class="color-popover-hex" id="btnReadyColorPopoverHex" value="#1ea85c" oninput="syncPopoverHexToColor('btnReadyColor')">
+                                        <div class="color-popover-actions">
+                                            <button type="button" class="btn-secondary btn-small" onclick="cancelColorPopover('btnReadyColor')">Cancelar</button>
+                                            <button type="button" class="btn-primary btn-small" onclick="confirmColorPopover('btnReadyColor')">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Logo Tab -->
+                <div id="settings-logo" class="settings-tab-content">
+                    <div class="logo-upload-panel">
+                        <div class="current-logo-preview">
+                            <h3>Logo Atual</h3>
+                            <img id="logoPreview" src="assets/images/logo.webp" alt="Logo atual" class="logo-preview-image">
+                        </div>
+                        
+                        <div class="logo-upload-form">
+                            <div class="form-group">
+                                <label for="logoUpload">Carregar Nova Logo</label>
+                                <input type="file" id="logoUpload" accept="image/*" onchange="handleLogoUpload(event)">
+                                <p class="form-help">Formatos aceitos: JPG, PNG, WebP, SVG</p>
+                                <p id="logoUploadMessage" class="form-message"></p>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn-primary" onclick="saveCustomLogo()">Salvar Logo</button>
+                                <button type="button" class="btn-secondary" onclick="resetLogo()">Resetar Logo Padrão</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Favicon Upload Section -->
+                    <div class="logo-upload-panel" style="margin-top: 20px;">
+                        <div class="current-logo-preview">
+                            <h3>Favicon Atual</h3>
+                            <img id="faviconPreview" src="assets/images/favicon.webp" alt="Favicon atual" class="logo-preview-image">
+                        </div>
+                        
+                        <div class="logo-upload-form">
+                            <div class="form-group">
+                                <label for="faviconUpload">Carregar Novo Favicon</label>
+                                <input type="file" id="faviconUpload" accept="image/*" onchange="handleFaviconUpload(event)">
+                                <p class="form-help">Formatos aceitos: JPG, PNG, WebP, SVG</p>
+                                <p id="faviconUploadMessage" class="form-message"></p>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn-primary" onclick="saveCustomFavicon()">Salvar Favicon</button>
+                                <button type="button" class="btn-secondary" onclick="resetFavicon()">Resetar Favicon Padrão</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empresas Tab (gestor_admin only) -->
+                <div id="settings-empresas" class="settings-tab-content">
+                    <div class="section-header">
+                        <h2>Gerenciamento de Empresas</h2>
+                        <button type="button" id="openCompanyCreateButton" class="btn-primary" onclick="toggleCreateCompanyForm()">Cadastrar empresa</button>
+                    </div>
+
+                    <div class="users-panel">
+                        <!-- Create form -->
+                        <div id="createCompanyModal" class="modal-overlay" style="display: none;">
+                            <div class="modal-card create-modal-card company-create-modal-card">
+                                <button type="button" class="modal-close" onclick="toggleCreateCompanyForm(false)" aria-label="Fechar">X</button>
+                                <h2>Cadastrar empresa</h2>
+                                <form id="createCompanyForm" class="form-grid user-create-form" onsubmit="createCompany(event)">
+                                    <div class="theme-section-title"><h3>Identificação</h3></div>
+                            <div class="form-group">
+                                <label for="newCompanyCnpj">CNPJ <span style="color:var(--primary)">*</span></label>
+                                <input type="text" id="newCompanyCnpj" name="cnpj" placeholder="00.000.000/0000-00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyName">Nome Fantasia <span style="color:var(--primary)">*</span></label>
+                                <input type="text" id="newCompanyName" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyLegalName">Razão Social</label>
+                                <input type="text" id="newCompanyLegalName" name="legal_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyTradeName">Nome Fantasia (Alternativo)</label>
+                                <input type="text" id="newCompanyTradeName" name="trade_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyStateReg">Inscrição Estadual</label>
+                                <input type="text" id="newCompanyStateReg" name="state_registration">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyMunicipalReg">Inscrição Municipal</label>
+                                <input type="text" id="newCompanyMunicipalReg" name="municipal_registration">
+                            </div>
+
+                            <div class="theme-section-title"><h3>Endereço</h3></div>
+                            <div class="form-group">
+                                <label for="newCompanyZipCode">CEP</label>
+                                <input type="text" id="newCompanyZipCode" name="zip_code" placeholder="00000-000">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyAddress">Logradouro</label>
+                                <input type="text" id="newCompanyAddress" name="address">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyAddressNumber">Número</label>
+                                <input type="text" id="newCompanyAddressNumber" name="address_number">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyAddressComplement">Complemento</label>
+                                <input type="text" id="newCompanyAddressComplement" name="address_complement">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyNeighborhood">Bairro</label>
+                                <input type="text" id="newCompanyNeighborhood" name="neighborhood">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyCity">Cidade</label>
+                                <input type="text" id="newCompanyCity" name="city">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyState">Estado (UF)</label>
+                                <select id="newCompanyState" name="state">
+                                    <option value="">-- Selecione --</option>
+                                    <option value="AC">AC – Acre</option>
+                                    <option value="AL">AL – Alagoas</option>
+                                    <option value="AP">AP – Amapá</option>
+                                    <option value="AM">AM – Amazonas</option>
+                                    <option value="BA">BA – Bahia</option>
+                                    <option value="CE">CE – Ceará</option>
+                                    <option value="DF">DF – Distrito Federal</option>
+                                    <option value="ES">ES – Espírito Santo</option>
+                                    <option value="GO">GO – Goiás</option>
+                                    <option value="MA">MA – Maranhão</option>
+                                    <option value="MT">MT – Mato Grosso</option>
+                                    <option value="MS">MS – Mato Grosso do Sul</option>
+                                    <option value="MG">MG – Minas Gerais</option>
+                                    <option value="PA">PA – Pará</option>
+                                    <option value="PB">PB – Paraíba</option>
+                                    <option value="PR">PR – Paraná</option>
+                                    <option value="PE">PE – Pernambuco</option>
+                                    <option value="PI">PI – Piauí</option>
+                                    <option value="RJ">RJ – Rio de Janeiro</option>
+                                    <option value="RN">RN – Rio Grande do Norte</option>
+                                    <option value="RS">RS – Rio Grande do Sul</option>
+                                    <option value="RO">RO – Rondônia</option>
+                                    <option value="RR">RR – Roraima</option>
+                                    <option value="SC">SC – Santa Catarina</option>
+                                    <option value="SP" selected>SP – São Paulo</option>
+                                    <option value="SE">SE – Sergipe</option>
+                                    <option value="TO">TO – Tocantins</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyCountry">País</label>
+                                <select id="newCompanyCountry" name="country">
+                                    <option value="Brasil" selected>Brasil</option>
+                                    <option value="Argentina">Argentina</option>
+                                    <option value="Chile">Chile</option>
+                                    <option value="Colômbia">Colômbia</option>
+                                    <option value="Estados Unidos">Estados Unidos</option>
+                                    <option value="México">México</option>
+                                    <option value="Paraguai">Paraguai</option>
+                                    <option value="Peru">Peru</option>
+                                    <option value="Portugal">Portugal</option>
+                                    <option value="Uruguai">Uruguai</option>
+                                    <option value="Venezuela">Venezuela</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+
+                            <div class="theme-section-title"><h3>Contato</h3></div>
+                            <div class="form-group">
+                                <label for="newCompanyPhone">Telefone</label>
+                                <input type="tel" id="newCompanyPhone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyPhone2">Telefone 2</label>
+                                <input type="tel" id="newCompanyPhone2" name="phone2">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyEmail">E-mail Geral</label>
+                                <input type="email" id="newCompanyEmail" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyWebsite">Website</label>
+                                <input type="url" id="newCompanyWebsite" name="website" placeholder="https://...">
+                            </div>
+
+                            <div class="theme-section-title"><h3>Responsáveis</h3></div>
+                            <div class="form-group">
+                                <label for="newCompanyLegalRep">Representante Legal</label>
+                                <input type="text" id="newCompanyLegalRep" name="legal_representative">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyAccountingEmail">E-mail Contabilidade</label>
+                                <input type="email" id="newCompanyAccountingEmail" name="accounting_email">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanySysAdminEmail">E-mail Responsável do Sistema</label>
+                                <input type="email" id="newCompanySysAdminEmail" name="system_admin_email">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyAdminEmail">E-mail Responsável da Empresa</label>
+                                <input type="email" id="newCompanyAdminEmail" name="company_admin_email">
+                            </div>
+
+                            <div class="theme-section-title"><h3>Plano</h3></div>
+                            <div class="form-group">
+                                <label for="newCompanyPlan">Plano de Assinatura</label>
+                                <select id="newCompanyPlan" name="plan">
+                                    <option value="start">Start</option>
+                                    <option value="pro" selected>Pro</option>
+                                    <option value="ultra">Ultra</option>
+                                </select>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">Salvar empresa</button>
+                                <button type="button" class="btn-secondary" onclick="toggleCreateCompanyForm(false)">Cancelar</button>
+                            </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Companies list -->
+                        <div class="table-container">
+                            <table id="companiesTable">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>CNPJ</th>
+                                        <th>Cidade</th>
+                                        <th>Plano</th>
+                                        <th>Tipo</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div id="companyEditPanel" class="modal-overlay" style="display:none;">
+                            <div class="modal-card create-modal-card company-create-modal-card company-edit-panel">
+                            <button type="button" class="modal-close" onclick="closeCompanyEdit()" aria-label="Fechar">X</button>
+                            <form id="companyEditForm" class="form-grid" onsubmit="saveCompanyEdit(event)">
+                                <div class="theme-section-title"><h3>Identificação</h3></div>
+                                <div class="form-group">
+                                    <label>CNPJ</label>
+                                    <input type="text" id="editCompanyCnpj" disabled>
+                                    <p class="form-help">O CNPJ não pode ser alterado.</p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyName">Nome Fantasia <span style="color:var(--primary)">*</span></label>
+                                    <input type="text" id="editCompanyName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyLegalName">Razão Social</label>
+                                    <input type="text" id="editCompanyLegalName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyTradeName">Nome Fantasia (Alternativo)</label>
+                                    <input type="text" id="editCompanyTradeName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyStateReg">Inscrição Estadual</label>
+                                    <input type="text" id="editCompanyStateReg">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyMunicipalReg">Inscrição Municipal</label>
+                                    <input type="text" id="editCompanyMunicipalReg">
+                                </div>
+
+                                <div class="theme-section-title"><h3>Endereço</h3></div>
+                                <div class="form-group">
+                                    <label for="editCompanyZipCode">CEP</label>
+                                    <input type="text" id="editCompanyZipCode" placeholder="00000-000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyAddress">Logradouro</label>
+                                    <input type="text" id="editCompanyAddress">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyAddressNumber">Número</label>
+                                    <input type="text" id="editCompanyAddressNumber">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyAddressComplement">Complemento</label>
+                                    <input type="text" id="editCompanyAddressComplement">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyNeighborhood">Bairro</label>
+                                    <input type="text" id="editCompanyNeighborhood">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyCity">Cidade</label>
+                                    <input type="text" id="editCompanyCity">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyState">Estado (UF)</label>
+                                    <select id="editCompanyState">
+                                        <option value="">-- Selecione --</option>
+                                        <option value="AC">AC – Acre</option>
+                                        <option value="AL">AL – Alagoas</option>
+                                        <option value="AP">AP – Amapá</option>
+                                        <option value="AM">AM – Amazonas</option>
+                                        <option value="BA">BA – Bahia</option>
+                                        <option value="CE">CE – Ceará</option>
+                                        <option value="DF">DF – Distrito Federal</option>
+                                        <option value="ES">ES – Espírito Santo</option>
+                                        <option value="GO">GO – Goiás</option>
+                                        <option value="MA">MA – Maranhão</option>
+                                        <option value="MT">MT – Mato Grosso</option>
+                                        <option value="MS">MS – Mato Grosso do Sul</option>
+                                        <option value="MG">MG – Minas Gerais</option>
+                                        <option value="PA">PA – Pará</option>
+                                        <option value="PB">PB – Paraíba</option>
+                                        <option value="PR">PR – Paraná</option>
+                                        <option value="PE">PE – Pernambuco</option>
+                                        <option value="PI">PI – Piauí</option>
+                                        <option value="RJ">RJ – Rio de Janeiro</option>
+                                        <option value="RN">RN – Rio Grande do Norte</option>
+                                        <option value="RS">RS – Rio Grande do Sul</option>
+                                        <option value="RO">RO – Rondônia</option>
+                                        <option value="RR">RR – Roraima</option>
+                                        <option value="SC">SC – Santa Catarina</option>
+                                        <option value="SP">SP – São Paulo</option>
+                                        <option value="SE">SE – Sergipe</option>
+                                        <option value="TO">TO – Tocantins</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyCountry">País</label>
+                                    <select id="editCompanyCountry">
+                                        <option value="Brasil">Brasil</option>
+                                        <option value="Argentina">Argentina</option>
+                                        <option value="Chile">Chile</option>
+                                        <option value="Colômbia">Colômbia</option>
+                                        <option value="Estados Unidos">Estados Unidos</option>
+                                        <option value="México">México</option>
+                                        <option value="Paraguai">Paraguai</option>
+                                        <option value="Peru">Peru</option>
+                                        <option value="Portugal">Portugal</option>
+                                        <option value="Uruguai">Uruguai</option>
+                                        <option value="Venezuela">Venezuela</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
+                                </div>
+
+                                <div class="theme-section-title"><h3>Contato</h3></div>
+                                <div class="form-group">
+                                    <label for="editCompanyPhone">Telefone</label>
+                                    <input type="tel" id="editCompanyPhone">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyPhone2">Telefone 2</label>
+                                    <input type="tel" id="editCompanyPhone2">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyEmail">E-mail Geral</label>
+                                    <input type="email" id="editCompanyEmail">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyWebsite">Website</label>
+                                    <input type="url" id="editCompanyWebsite" placeholder="https://...">
+                                </div>
+
+                                <div class="theme-section-title"><h3>Responsáveis</h3></div>
+                                <div class="form-group">
+                                    <label for="editCompanyLegalRep">Representante Legal</label>
+                                    <input type="text" id="editCompanyLegalRep">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyAccountingEmail">E-mail Contabilidade</label>
+                                    <input type="email" id="editCompanyAccountingEmail">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanySysAdminEmail">E-mail Responsável do Sistema</label>
+                                    <input type="email" id="editCompanySysAdminEmail">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCompanyAdminEmail">E-mail Responsável da Empresa</label>
+                                    <input type="email" id="editCompanyAdminEmail">
+                                </div>
+
+                                <div class="theme-section-title" id="editCompanyPlanSection"><h3>Plano</h3></div>
+                                <div class="form-group" id="editCompanyPlanGroup">
+                                    <label for="editCompanyPlan">Plano de Assinatura</label>
+                                    <select id="editCompanyPlan">
+                                        <option value="start">Start</option>
+                                        <option value="pro">Pro</option>
+                                        <option value="ultra">Ultra</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-primary">Salvar alterações</button>
+                                    <button type="button" class="btn-secondary" onclick="closeCompanyEdit()">Cancelar</button>
+                                </div>
+                            </form>
+                            <p id="companyEditMessage" class="users-message"></p>
+                            </div>
+                        </div>
+
+                        <p id="companiesMessage" class="users-message"></p>
+                    </div>
+                </div>
+
+                <div id="settings-notificacoes" class="settings-tab-content">
+                    <div class="config-panel">
+                        <form id="notificationSettingsForm" class="form-grid notification-settings-form" onsubmit="saveNotificationSettings(event)">
+                            <div class="theme-section-title">
+                                <h3>Notificações</h3>
+                                <div class="theme-header-actions">
+                                    <button type="submit" class="btn-primary">Salvar notificações</button>
+                                </div>
+                            </div>
+
+                            <label class="form-check">
+                                <input type="checkbox" id="notificationEnabled">
+                                <span>Ativar avisos de locação</span>
+                            </label>
+
+                            <label class="form-check">
+                                <input type="checkbox" id="notificationIncludeOverdue">
+                                <span>Manter aviso enquanto a locação estiver atrasada</span>
+                            </label>
+
+                            <label class="form-check">
+                                <input type="checkbox" id="notificationAllowUserDismiss">
+                                <span>Permitir que usuários apaguem notificações para todos</span>
+                            </label>
+
+                            <div class="form-group">
+                                <label for="notificationDaysBefore">Quando avisar</label>
+                                <input type="text" id="notificationDaysBefore" placeholder="Ex: 7, 3, 0">
+                                <p class="form-help">Use dias antes da devolução, separados por vírgula. Zero significa no dia.</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="notificationMaxNotices">Quantidade máxima de avisos na página</label>
+                                <input type="number" id="notificationMaxNotices" min="1" max="50" value="20">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="notificationRepeatMode">Repetição</label>
+                                <select id="notificationRepeatMode">
+                                    <option value="daily">Mostrar novamente a cada dia</option>
+                                    <option value="once">Mostrar só uma vez depois de lida</option>
+                                </select>
+                            </div>
+
+                            <p id="notificationSettingsMessage" class="users-message"></p>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="settings-sobre" class="settings-tab-content">
+                    <div class="config-panel about-panel">
+                        <h2>Sobre o sistema</h2>
+                        <p>O EquipTrack ajuda empresas de eventos a controlar inventário, locações, manutenção, histórico e notificações de devolução em uma rotina simples de operação.</p>
+                        <div class="about-contact">
+                            <h3>Contato</h3>
+                            <a href="https://github.com/arthurperico" target="_blank" rel="noopener">github.com/arthurperico</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="locacao" class="section">
+                <div class="section-header">
+                    <h1>Locação</h1>
+                    <div class="search-container search-with-filter">
+                        <input type="text" id="searchRentalInput" placeholder="Buscar locação..." onkeyup="searchRentalEvents()">
+                        <div class="filter-control">
+                            <button type="button" class="filter-button" onclick="toggleFilterMenu('rentalSortMenu', this)" aria-expanded="false" aria-controls="rentalSortMenu" aria-label="Ordenar locações">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
+                                <span>Filtro</span>
+                            </button>
+                            <div id="rentalSortMenu" class="filter-menu" role="menu">
+                                <button type="button" data-sort-option="rentals:return_asc" onclick="setSortMode('rentals', 'return_asc')">Devolução: mais próxima</button>
+                                <button type="button" data-sort-option="rentals:return_desc" onclick="setSortMode('rentals', 'return_desc')">Devolução: mais distante</button>
+                                <button type="button" data-sort-option="rentals:name_asc" onclick="setSortMode('rentals', 'name_asc')">Ordem alfabética A-Z</button>
+                                <button type="button" data-sort-option="rentals:name_desc" onclick="setSortMode('rentals', 'name_desc')">Ordem alfabética Z-A</button>
+                                <button type="button" data-sort-option="rentals:created_desc" onclick="setSortMode('rentals', 'created_desc')">Inclusão: recentes</button>
+                                <button type="button" data-sort-option="rentals:created_asc" onclick="setSortMode('rentals', 'created_asc')">Inclusão: antigas</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="events-grid" id="rentalEventsGrid"></div>
+            </section>
+        </main>
+
+        <aside id="adBanner" class="ad-banner" aria-label="Publicidade"></aside>
+        <button type="button" id="floatingBtnHome" class="floating-create-button" onclick="openEventModal()" style="display:none">+ Criar evento</button>
+        <button type="button" id="floatingBtnInventario" class="floating-create-button" onclick="openCadastroFromInventario()" style="display:none">+ Cadastrar</button>
+        <button type="button" id="floatingBtnLocacao" class="floating-create-button" onclick="openRentalModal()" style="display:none">+ Criar Evento</button>
+        <div id="sidebarBackdrop" class="sidebar-backdrop" onclick="closeMobileSidebar()"></div>
+    </div>
+
+    <div id="maintenanceModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <button type="button" class="modal-close" onclick="closeMaintenanceModal()" aria-label="Fechar">×</button>
+            <h2 id="maintenanceModalTitle">Registrar problema</h2>
+            <p id="maintenanceModalSubtitle" class="modal-subtitle"></p>
+            <div class="form-group">
+                <label for="maintenanceModalInput" id="maintenanceModalLabel">Descricao</label>
+                <textarea id="maintenanceModalInput" rows="4" placeholder="Descreva o problema..."></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="button" onclick="submitMaintenanceModal()" class="btn-primary" id="maintenanceModalAction">Salvar</button>
+                <button type="button" onclick="closeMaintenanceModal()" class="btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="rentalModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <button type="button" class="modal-close" onclick="closeRentalModal()" aria-label="Fechar">X</button>
+            <h2 id="rentalModalTitle">Criar evento de locação</h2>
+            <p id="rentalModalSubtitle" class="modal-subtitle">Informe as datas de retirada e devolucao.</p>
+            <form id="rentalForm" class="rental-form">
+                <div class="form-group">
+                    <label for="rentalEventName">Nome do Evento</label>
+                    <input type="text" id="rentalEventName" name="name" required>
+                </div>
+
+                <div class="rental-date-row">
+                    <div class="form-group">
+                        <label for="rentalWithdrawalDate">Data de Retirada</label>
+                        <input type="date" id="rentalWithdrawalDate" name="withdrawalDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rentalReturnDate">Data de Devolucao</label>
+                        <input type="date" id="rentalReturnDate" name="returnDate" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="rentalModalSubmit">Criar Evento</button>
+                    <button type="button" onclick="closeRentalModal()" class="btn-secondary">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <button type="button" id="appEmergencyReset" class="local-data-reset-button app-emergency-reset" style="display:none;" onclick="resetLocalBrowserData()">Resetar dados</button>
+    <script>
+        (function () {
+            window.resetLocalBrowserData = window.resetLocalBrowserData || function () {
+                if (!confirm('Apagar os dados locais deste navegador para esta pagina?')) return;
+                try { localStorage.clear(); sessionStorage.clear(); } catch (_) {}
+                window.location.href = 'login/';
+            };
+            setTimeout(function () {
+                if (document.body && document.body.style.visibility === 'hidden') {
+                    var btn = document.getElementById('appEmergencyReset');
+                    if (btn) btn.style.display = 'inline-flex';
+                }
+            }, 3000);
+            window.addEventListener('error', function () {
+                var btn = document.getElementById('appEmergencyReset');
+                if (btn) btn.style.display = 'inline-flex';
+            });
+        })();
+    </script>
+    <script src="js/storage.js?v=29b2b7d"></script>
+    <script src="js/app.js?v=2705261"></script>
+    <script src="js/chat-widget.js?v=29b2b7d"></script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+/* Theme variables and overrides for dynamic color editing */
+:root{
+    --primary: #ff3333;
+    --primary-2: #cc0000;
+    --primary-3: #990000;
+    --panel-bg: #2a2a2a;
+    --bg-start: #1a1a1a;
+    --bg-end: #000000;
+    --text-muted: #aaa;
+    --text-color: #ccc;
+    --secondary-btn-bg: #444;
+    --secondary-btn-border: #555;
+    --secondary-btn-text: #ccc;
+    --component-bg: transparent;
+    --inner-component-bg: #1a1a1a;
+    --input-bg: #333;
+    --input-border: #555;
+    --input-text: #fff;
+}
+
+html, body, .app-container, .sidebar, .menu, .list-container, .equipment-list, .event-container, .container, .maintenance-list-card {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 8px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-2);
+}
+
+/* Apply primary color to all red elements */
+.btn-primary,
+.floating-create-button,
+.auth-mode .mode.active{
+    background: linear-gradient(45deg, var(--primary), var(--primary-2)) !important;
+    border-color: var(--primary) !important;
+}
+
+.btn-primary:hover,
+.floating-create-button:hover,
+.auth-mode .mode.active:hover{
+    background: linear-gradient(45deg, var(--primary-2), var(--primary-3)) !important;
+}
+
+.btn-primary.active {
+    background: linear-gradient(45deg, var(--primary-2), var(--primary-3)) !important;
+}
+
+.btn-secondary,
+.btn-danger,
+.search-button {
+    background: var(--secondary-btn-bg) !important;
+    border: 1px solid var(--secondary-btn-border) !important;
+    color: var(--secondary-btn-text) !important;
+}
+
+.btn-secondary:hover,
+.btn-danger:hover,
+.search-button:hover {
+    background: color-mix(in srgb, var(--secondary-btn-bg) 80%, var(--primary) 20%) !important;
+    color: white !important;
+    border-color: var(--secondary-btn-border) !important;
+}
+
+.btn-secondary.active {
+    background: linear-gradient(45deg, var(--primary), var(--primary-2)) !important;
+    border-color: transparent !important;
+    color: white !important;
+}
+
+/* Borders, text colors and highlights */
+.section-header h1,
+.modal-card h2,
+.settings-tab.active,
+.current-logo-preview h3,
+.preview-box h2,
+th{
+    color: var(--primary) !important;
+}
+
+.settings-tab.active,
+.menu-item:hover,
+.menu-item.active{
+    border-color: var(--primary) !important;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+.form-group input:focus,
+.form-group select:focus,
+textarea:focus,
+.user-password-input:focus{
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 15px color-mix(in srgb, var(--primary) 30%, transparent) !important;
+}
+
+.preview-card,
+.category-row td{
+    border-left-color: var(--primary) !important;
+}
+
+.rental-return-alert{
+    background: color-mix(in srgb, var(--primary) 12%, transparent) !important;
+    border-color: color-mix(in srgb, var(--primary) 40%, transparent) !important;
+}
+
+.menu-item:hover,
+.menu-item.active,
+.settings-tab:hover{
+    background: color-mix(in srgb, var(--primary) 10%, transparent) !important;
+}
+
+.login-box::before{
+    background: linear-gradient(45deg, var(--primary), #000000) !important;
+}
+
+/* Panels and inputs */
+.login-box, .app-container, .database-view, .maintenance-list-card { background: var(--panel-bg) !important; }
+.sidebar { background: var(--bg-start) !important; }
+.main-content { background: var(--bg-end) !important; }
+body{ background: var(--bg-end) !important; }
+
+/* Footer link appearance (looks like plain text) */
+.login-footer a, .footer-link { color: inherit; text-decoration: none; cursor: pointer; }
+
+/* Text colors */
+.menu-item { color: var(--text-color) !important; }
+label, .form-help, .modal-subtitle, .form-message { color: var(--text-color) !important; }
+.section-header p, .database-tabs button, .category-tabs button { color: var(--text-color) !important; }
+
+/* Secondary buttons and gray/black elements */
+.btn-secondary,
+.database-tabs button:not(.active),
+.category-tabs button:not(.active),
+.maintenance-tabs button:not(.active) {
+    background: var(--secondary-btn-bg) !important;
+    border-color: var(--secondary-btn-border) !important;
+    color: var(--secondary-btn-text) !important;
+}
+
+.btn-secondary:hover,
+.database-tabs button:not(.active):hover,
+.category-tabs button:not(.active):hover,
+.maintenance-tabs button:not(.active):hover {
+    background: color-mix(in srgb, var(--secondary-btn-bg) 80%, white) !important;
+    border-color: color-mix(in srgb, var(--secondary-btn-border) 80%, white) !important;
+}
+
+/* Component backgrounds */
+.equipment-card,
+.maintenance-card,
+.database-view-card,
+.config-panel,
+.logo-upload-panel {
+    background: transparent !important;
+}
+
+.modal-card {
+    background: var(--inner-component-bg, #202020) !important;
+}
+
+.modal-card .form-grid,
+.modal-card .database-view {
+    background: transparent !important;
+}
+
+.modal-card .form-grid {
+    border-color: transparent !important;
+}
+
+/* Inner component backgrounds */
+.database-view,
+.table-container,
+.form-grid,
+.maintenance-form,
+.maintenance-list-card {
+    background: var(--inner-component-bg) !important;
+}
+
+.database-view {
+    background: transparent !important;
+}
+
+/* Input fields and search boxes */
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="number"],
+input[type="email"],
+textarea,
+select,
+.search-container input,
+.form-group input,
+.form-group select,
+.form-group textarea,
+.user-password-input {
+    background: var(--input-bg) !important;
+    border-color: var(--input-border) !important;
+    color: var(--input-text) !important;
+}

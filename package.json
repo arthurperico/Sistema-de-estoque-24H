@@ -7,6 +7,7 @@
     "dev": "node server.js",
     "dev:worker": "wrangler dev",
     "deploy": "wrangler deploy",
+    "sync:docs": "node -e \"const fs=require('fs'); fs.rmSync('docs',{recursive:true,force:true}); fs.cpSync('public','docs',{recursive:true}); console.log('docs/ sincronizado com public/');\"",
     "cf:typegen": "wrangler types",
     "export:d1": "node scripts/export-sqlite-to-d1.js",
     "backup:sqlite": "node scripts/create-sqlite-backup.js",

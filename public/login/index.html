@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <!-- SEO: Título transacional de alta intenção comercial -->
+    <title>24h Locações | Sistema de Estoque para Empresas de Eventos — Entre Agora</title>
+    <meta name="description" content="Acesse o sistema 24h Locações e controle equipamentos de som, luz, vídeo e mobiliário para eventos. Previna overbooking, rastreie avarias e gerencie locações em tempo real.">
+    <meta name="keywords" content="sistema de estoque para eventos, controle de locação de equipamentos, gestão de inventário para eventos, software de estoque som luz vídeo, prevenção de overbooking em eventos, rastreamento de avarias equipamentos">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://estoque.24hlocacoes.com/login/">
+
+    <!-- Open Graph / Compartilhamento social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://estoque.24hlocacoes.com/login/">
+    <meta property="og:title" content="24h Locações | Sistema de Estoque para Empresas de Eventos">
+    <meta property="og:description" content="Controle total do estoque de equipamentos de som, luz, vídeo e mobiliário. Previna overbooking, rastreie avarias e gerencie locações em tempo real.">
+    <meta property="og:image" content="https://estoque.24hlocacoes.com/assets/images/logo.webp">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="24h Locações">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="24h Locações | Sistema de Estoque para Empresas de Eventos">
+    <meta name="twitter:description" content="Controle total de estoque para empresas de eventos. Previna overbooking e gerencie locações em tempo real.">
+    <meta name="twitter:image" content="https://estoque.24hlocacoes.com/assets/images/logo.webp">
+
+    <!-- Dados Estruturados JSON-LD: SoftwareApplication (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "24h Locações — Sistema de Estoque para Eventos",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://estoque.24hlocacoes.com/",
+      "description": "Sistema completo de gestão de estoque para empresas de eventos. Controle equipamentos de som, luz, vídeo e mobiliário, previna overbooking de materiais em eventos simultâneos, rastreie avarias, gerencie devoluções e acompanhe movimentações de locação.",
+      "featureList": [
+        "Controle de estoque de equipamentos de áudio, vídeo e iluminação para eventos",
+        "Prevenção de overbooking de equipamentos em eventos simultâneos",
+        "Rastreamento de avarias e histórico de manutenção de equipamentos",
+        "Gestão de devolução e logística de materiais locados",
+        "Controle de cabos, conectores e itens auxiliares de buffet",
+        "Relatório histórico de movimentações e locações por evento"
+      ],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Empresas de locação de equipamentos para eventos"
+      },
+      "inLanguage": "pt-BR",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      }
+    }
+    </script>
+
+    <link rel="icon" type="image/webp" href="../assets/images/favicon.webp">
+    <link rel="stylesheet" href="../css/theme.css?v=__BUILD_VERSION__">
+    <link rel="stylesheet" href="../css/login.css?v=__BUILD_VERSION__">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <img src="../assets/images/logo.webp" alt="24h Locações — Sistema de Gestão de Estoque para Eventos" class="logo-image">
+                <p>Gestão de Equipamentos para Empresas de Eventos</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="auth-mode">
+                    <button type="button" id="btn-login-mode" class="mode active">Login</button>
+                    <button type="button" id="btn-guest-mode" class="mode">Convidado</button>
+                </div>
+
+                <div id="credentials">
+                    <div class="form-group">
+                        <input type="text" id="username" name="username" placeholder="Usuario" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" placeholder="Senha" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="btn-submit">Entrar</button>
+                <div id="errorMessage" class="error-message"></div>
+            </form>
+            <p class="login-footer">© <span id="current-year">2026</span> <a id="perico-link" href="https://github.com/arthurperico" target="_blank" rel="noopener">Arthur Perico</a></p>
+        </div>
+    </div>
+
+    <button type="button" id="localDataResetButton" class="local-data-reset-button">Resetar dados</button>
+
+    <script src="../js/login.js?v=__BUILD_VERSION__"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        document.getElementById('perico-link').addEventListener('click', function(e){ /* keep style unchanged */ });
+    </script>
+</body>
+</html>

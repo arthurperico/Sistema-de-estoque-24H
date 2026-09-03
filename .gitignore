@@ -15,3 +15,12 @@ backups/
 .env
 .dev.vars
 wrangler-preview*.log
+PkLavc.github.io/
+_temp_original/
+
+# Debug/test artifacts (curl outputs, temp files)
+cookie.txt
+*_resp.json
+tmp_login.html
+status.json
+guest_out.json

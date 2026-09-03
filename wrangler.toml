@@ -17,3 +17,6 @@ binding = "DB"
 database_name = "sistema-estoque-24h"
 database_id = "6b412f11-d7ca-4ae0-a485-7f1c6e063c9d"
 migrations_dir = "./migrations"
+
+[ai]
+binding = "AI"

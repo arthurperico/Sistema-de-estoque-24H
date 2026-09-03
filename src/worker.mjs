@@ -1,14 +1,203 @@
 import bcrypt from 'bcryptjs';
 
+// ── Skylet RAG Knowledge Base ───────────────────────────────────────────────
+const EQUIPTRACK_KNOWLEDGE_BASE = `
+Você é a Skylet, assistente virtual do sistema de gestão de estoque para empresas de eventos.
+Responda sempre em português brasileiro, de forma clara, objetiva e prática.
+Nunca mencione nenhum nome de sistema ou produto. Quando precisar se identificar, diga apenas que é a Skylet.
+Foque em ajudar o usuário a entender e usar o sistema. Não invente funcionalidades que não existem.
+
+SISTEMA — VISÃO GERAL
+- URL de produção: https://estoque.24hlocacoes.com/
+- Finalidade: controle de estoque de equipamentos de som, luz, vídeo, cabos, mobiliário e outros itens para empresas de locação/eventos.
+- Plataforma: web, responsiva, hospedada na Cloudflare (Worker + D1 SQLite).
+- Idioma da interface: português brasileiro.
+
+SEÇÕES DA INTERFACE (menu lateral):
+1. Eventos — lista e gestão de eventos ativos (festas, shows, feiras etc.)
+2. Locação — lista e gestão de locações (evento com datas de retirada e devolução)
+3. Manutenção — registra e resolve manutenções de equipamentos e cabos
+4. Banco de Dados — tabelas de equipamentos, cabos e outros itens cadastrados
+5. Cadastrar Equipamento — formulário para adicionar novos itens ao estoque
+6. Histórico — eventos e locações já finalizados (concluídos)
+7. Configurações (ícone de engrenagem) — gerenciar usuários, empresas e tema visual
+
+TIPOS DE EVENTO:
+- Evento (event_type = 'event'): evento pontual com data; equipamentos saem e voltam no mesmo evento.
+- Locação (event_type = 'rental'): tem data de retirada (withdrawalDate) e data de devolução (returnDate); usada para aluguéis onde o cliente leva o item.
+
+FLUXO DE SAÍDA E ENTRADA (movimentação):
+- Saída (saida): equipamento ou cabo sai do estoque para um evento. Status muda para "Indisponivel".
+- Entrada (entrada): equipamento ou cabo retorna ao estoque. Status volta para "Disponivel".
+- Equipamentos usam código de barras para identificação; um equipamento por registro.
+- Cabos e Outros Itens usam quantidade (podem sair múltiplas unidades de uma vez).
+- Um equipamento só pode sair se estiver "Disponivel" (não em manutenção, não em evento).
+- Para registrar saída de equipamento via leitor de código de barras, basta escanear na tela do evento.
+
+EQUIPAMENTOS:
+- Campos: nome, código de barras (único), categoria, status (Disponivel / Indisponivel / Em manutencao).
+- Status gerenciado automaticamente pelo sistema ao registrar saídas/entradas/manutenções.
+- Categorias são livres (ex: Som, Luz, Vídeo, Mobiliário).
+- Para excluir um equipamento é necessária a senha de exclusão (configurada nas configurações).
+- O histórico de movimentações fica registrado por evento.
+
+CABOS:
+- Campos: nome, quantidade total, quantidade disponível, categoria.
+- Quantidade disponível é atualizada automaticamente a cada saída/entrada.
+- Pode entrar em manutenção (registra descrição; resolvida pelo botão "Resolver").
+- Para editar quantidade ou excluir, requer senha de exclusão.
+
+OUTROS ITENS (other_items):
+- Funcionam igual aos cabos: têm quantidade total e disponível.
+- Usados para itens de buffet, EPIs, mobiliário ou qualquer item contado em quantidade.
+- Não possuem manutenção; apenas saída/entrada por evento.
+
+MANUTENÇÃO:
+- Equipamentos: ao registrar manutenção, o status muda para "Em manutencao" e o item fica indisponível. Ao resolver, volta para "Disponivel".
+- Cabos: a manutenção é informativa (registra descrição); a quantidade disponível não muda automaticamente por manutenção de cabo.
+- Histórico de manutenção visível na seção Manutenção, com filtro por equipamentos e cabos.
+
+ALERTAS DE DEVOLUÇÃO:
+- O sistema exibe um alerta na tela de Eventos quando locações têm data de devolução igual ou anterior à data atual.
+- Objetivo: prevenir que o usuário esqueça de cobrar a devolução de equipamentos locados.
+
+HISTÓRICO (concluído):
+- Eventos e locações finalizados aparecem na seção Histórico.
+- Um evento é "concluído" quando todos os equipamentos com saída registrada têm entrada registrada de volta.
+- Locações concluídas também ficam no histórico.
+- O histórico mostra o resumo de cabos, equipamentos e outros itens movimentados.
+
+SISTEMA DE USUÁRIOS E PERMISSÕES:
+Roles (funções):
+  - user: acesso básico; pode registrar saídas/entradas, criar eventos, ver estoque. Não acessa configurações de usuários/empresas.
+  - admin: tudo do user + gerenciar usuários e configurações da própria empresa.
+  - gestor_admin: acesso total; gerencia todas as empresas e todos os usuários do sistema; não está vinculado a uma empresa específica.
+
+MULTI-EMPRESA (isolamento por company_id):
+- O sistema suporta múltiplas empresas isoladas.
+- Usuários common (user/admin) veem apenas dados da própria empresa.
+- gestor_admin vê todos os dados de todas as empresas.
+- Cada empresa tem seu próprio estoque, eventos, usuários.
+
+PLANOS DE EMPRESA:
+- start: plano básico.
+- pro: plano intermediário (padrão ao criar empresa).
+- ultra: plano completo.
+
+CONFIGURAÇÕES (acessível pelo ícone de engrenagem):
+- Gerenciar usuários: criar, editar senha, excluir.
+- Gerenciar empresas (gestor_admin): criar, editar, excluir empresas; definir plano.
+- Tema visual: personalizar cores primárias e elementos visuais da interface.
+- Senha de exclusão: senha necessária para deletar equipamentos, cabos, eventos e locações.
+- Logo personalizada: possível trocar o logo exibido no menu.
+
+SENHA DE EXCLUSÃO (delete password):
+- Configurada nas configurações pelo administrador.
+- Obrigatória ao excluir: equipamentos, cabos, outros itens, locações, e ao ocultar itens do histórico de saída.
+
+PREVENÇÃO DE OVERBOOKING:
+- O sistema impede que o mesmo equipamento seja marcado como "saída" em dois eventos simultâneos.
+- Para cabos e outros itens, o sistema verifica se há quantidade disponível antes de permitir a saída.
+
+COMO USAR — FLUXO TÍPICO:
+1. Cadastre equipamentos em "Cadastrar Equipamento" (nome, código de barras, categoria).
+2. Crie um evento em "Eventos" (nome + data) ou uma locação em "Locação" (nome + datas).
+3. Abra o evento → registre saída dos equipamentos que vão para o evento.
+4. Quando os equipamentos voltarem, registre a entrada.
+5. O evento vai para "Histórico" quando todos os itens retornarem.
+
+COMO USAR — LOCAÇÃO:
+1. Crie locação em "Locação" com nome, data de retirada e data de devolução.
+2. Registre saída dos itens na data de retirada.
+3. Na data de devolução, registre entrada dos itens. O alerta aparece na tela para lembrar.
+4. Locação vai para Histórico após todos os itens retornarem.
+
+COMO CADASTRAR CABO:
+- Vá em "Cadastrar Equipamento" → aba "Cabos".
+- Preencha nome, quantidade inicial e categoria.
+
+COMO CADASTRAR OUTRO ITEM:
+- Vá em "Cadastrar Equipamento" → aba "Outros".
+- Preencha nome e quantidade inicial.
+
+COMO EDITAR QUANTIDADE DE CABO OU OUTRO ITEM:
+- Vá em "Banco de Dados" → aba "Cabos" ou "Outros".
+- Clique em editar, insira nova quantidade, confirme.
+
+OCULTAR ITEM DO RESUMO DE SAÍDA:
+- No histórico de saída de um evento, é possível ocultar itens específicos (requer senha de exclusão).
+- Útil para corrigir registros de saída equivocados sem apagar o evento inteiro.
+
+INFORMAÇÕES TÉCNICAS:
+- Backend: Cloudflare Worker (Node.js compat)
+- Banco de dados: Cloudflare D1 (SQLite)
+- Autenticação: sessão via cookie (sessao24h), duração 24 horas
+- Proteção contra brute-force: lockout progressivo no login (3 tentativas → 3 min, crescendo até 1 ano)
+- Frontend: HTML/CSS/JS puro, sem frameworks
+`.trim();
+
+async function buildChatDbContext(env, session) {
+    const cid = session.company_id ? Number(session.company_id) : null;
+    const p = cid !== null ? [cid] : [];
+    const f = cid !== null ? ' AND company_id = ?' : '';
+    try {
+        const [equip, equipAvail, cables, otherItems, events, rentals, users, company] = await Promise.all([
+            queryFirst(env, `SELECT COUNT(*) AS n FROM equipments WHERE 1=1${f}`, p),
+            queryFirst(env, `SELECT COUNT(*) AS n FROM equipments WHERE current_status = 'Disponivel'${f}`, p),
+            queryFirst(env, `SELECT COUNT(*) AS n FROM cables WHERE 1=1${f}`, p),
+            queryFirst(env, `SELECT COUNT(*) AS n FROM other_items WHERE 1=1${f}`, p),
+            queryFirst(env, `SELECT COUNT(*) AS n FROM events WHERE COALESCE(event_type,'event') = 'event'${f}`, p),
+            queryFirst(env, `SELECT COUNT(*) AS n FROM events WHERE event_type = 'rental'${f}`, p),
+            queryFirst(env, `SELECT COUNT(*) AS n FROM users WHERE ${cid !== null ? 'company_id = ?' : '1=1'}`, p),
+            cid ? queryFirst(env, 'SELECT name, plan FROM companies WHERE id = ?', [cid]) : Promise.resolve(null),
+        ]);
+        let ctx = '\n\nDADOS ATUAIS DA SUA CONTA (use para responder perguntas sobre o estoque):'
+        if (company) ctx += `\n- Empresa: ${company.name} (Plano: ${company.plan})`;
+        ctx += `\n- Equipamentos: ${equip?.n ?? 0} cadastrados, ${equipAvail?.n ?? 0} disponíveis`;
+        ctx += `\n- Tipos de cabo: ${cables?.n ?? 0}`;
+        ctx += `\n- Outros itens: ${otherItems?.n ?? 0}`;
+        ctx += `\n- Eventos ativos: ${events?.n ?? 0} eventos, ${rentals?.n ?? 0} locações`;
+        ctx += `\n- Usuários cadastrados: ${users?.n ?? 0}`;
+        return ctx;
+    } catch (_) {
+        return '';
+    }
+}
+
 const SESSION_COOKIE_NAME = 'sessao24h';
 const SESSION_DURATION_SECONDS = 60 * 60 * 24;
-const TEST_USERNAME = 'teste';
-const PROTECTED_PAGES = new Set([
-    '/dashboard.html',
-    '/event.html',
-    '/entrada.html',
-    '/saida.html'
-]);
+const LOGIN_PAGES = new Set(['/login/', '/login/index.html']);
+const DEFAULT_NOTIFICATION_SETTINGS = {
+    enabled: true,
+    daysBefore: [7, 5, 3, 1, 0],
+    includeOverdue: true,
+    maxNotices: 20,
+    repeatMode: 'daily',
+    allowUserDismiss: true
+};
+
+// Lockout durations in seconds for each tier (groups of 3 failures)
+const LOCKOUT_TIERS = [
+    180,      // tier 0 — 3 failures  → 3 minutes
+    300,      // tier 1 — 6 failures  → 5 minutes
+    600,      // tier 2 — 9 failures  → 10 minutes
+    3600,     // tier 3 — 12 failures → 60 minutes
+    86400,    // tier 4 — 15 failures → 1 day
+    604800,   // tier 5 — 18 failures → 1 week
+    2592000,  // tier 6 — 21 failures → 1 month (30 days)
+    7776000,  // tier 7 — 24 failures → 3 months (90 days)
+];
+const YEAR_SECONDS = 365 * 24 * 3600; // tier 8+ → 1 year per extra tier
+
+// Returns the lockout duration in seconds for the given cumulative failure count.
+// Every multiple of 3 failures advances to the next tier.
+function getLockoutSeconds(failedCount) {
+    if (failedCount <= 0) return 0;
+    const tier = Math.floor(failedCount / 3) - 1;
+    if (tier < 0) return 0;
+    if (tier < LOCKOUT_TIERS.length) return LOCKOUT_TIERS[tier];
+    return (tier - LOCKOUT_TIERS.length + 1) * YEAR_SECONDS;
+}
 
 export default {
     async fetch(request, env) {
@@ -31,12 +220,9 @@ async function handlePageRequest(request, env) {
     const url = new URL(request.url);
     const session = await getSessionFromRequest(request, env);
 
-    if ((url.pathname === '/' || url.pathname === '/index.html' || url.pathname === '/login.html') && session) {
-        return Response.redirect(new URL('/dashboard.html', url.origin), 302);
-    }
-
-    if (PROTECTED_PAGES.has(url.pathname) && !session) {
-        return Response.redirect(new URL('/login.html', url.origin), 302);
+    // Redirect authenticated users away from the login page
+    if (LOGIN_PAGES.has(url.pathname) && session) {
+        return Response.redirect(new URL('/', url.origin), 302);
     }
 
     return env.ASSETS.fetch(request);
@@ -56,12 +242,21 @@ async function handleApiRequest(request, env) {
 
     if (pathname === '/api/auth/status' && request.method === 'GET') {
         const session = await getSessionFromRequest(request, env);
+        const effectiveRole = getEffectiveRole(session);
+        let companyPlan = null;
+        if (session?.company_id) {
+            const co = await queryFirst(env, 'SELECT plan FROM companies WHERE id = ?', [session.company_id]);
+            companyPlan = co?.plan ?? null;
+        }
         return json({
             authenticated: !!session,
-            isTestUser: session?.username === TEST_USERNAME,
             userId: session?.user_id || null,
             username: session?.username || null,
-            isAdmin: session?.role === 'admin'
+            role: effectiveRole,
+            isAdmin: effectiveRole === 'admin' || effectiveRole === 'gestor_admin',
+            isGestorAdmin: effectiveRole === 'gestor_admin',
+            companyId: session?.company_id || null,
+            companyPlan
         });
     }
 
@@ -70,20 +265,45 @@ async function handleApiRequest(request, env) {
         return json({ error: 'Nao autorizado' }, 401);
     }
 
+    // null for gestor_admin (sees all companies); Number for company-scoped users
+    const cid = session.company_id ? Number(session.company_id) : null;
+
     if (pathname === '/api/users' && request.method === 'GET') {
         if (!isAdminSession(session)) {
             return json({ error: 'Acesso restrito a administradores' }, 403);
         }
 
-        const users = await queryAll(
-            env,
-            `SELECT id, username, COALESCE(role, 'user') AS role
-             FROM users
-             ORDER BY lower(username) ASC`
-        );
+        let users;
+        if (isGestorAdminSession(session)) {
+            users = await queryAll(
+                env,
+                `SELECT users.id, users.username,
+                        CASE
+                            WHEN COALESCE(users.role, 'user') = 'admin' AND users.company_id IS NULL THEN 'gestor_admin'
+                            ELSE COALESCE(users.role, 'user')
+                        END AS role,
+                        users.company_id, companies.name AS company_name
+                 FROM users
+                 LEFT JOIN companies ON companies.id = users.company_id
+                 ORDER BY lower(users.username) ASC`
+            );
+        } else {
+            // company admin: only users of their own company
+            users = await queryAll(
+                env,
+                `SELECT users.id, users.username, COALESCE(users.role, 'user') AS role,
+                        users.company_id, companies.name AS company_name
+                 FROM users
+                 LEFT JOIN companies ON companies.id = users.company_id
+                 WHERE users.company_id = ?
+                 ORDER BY lower(users.username) ASC`,
+                [session.company_id]
+            );
+        }
         return json({
             users,
-            canChangePasswords: isAdminSession(session)
+            canChangePasswords: isAdminSession(session),
+            isGestorAdmin: isGestorAdminSession(session)
         });
     }
 
@@ -95,7 +315,28 @@ async function handleApiRequest(request, env) {
         const body = await readJson(request);
         const username = String(body.username || '').trim();
         const password = String(body.password || '');
-        const role = String(body.role || 'user').trim() === 'admin' ? 'admin' : 'user';
+        const bodyRole = String(body.role || 'user').trim();
+        const bodyCompanyId = body.company_id ? Number(body.company_id) : null;
+
+        // Validate role assignment
+        let role;
+        if (isGestorAdminSession(session)) {
+            // gestor can assign any role
+            const validRoles = ['user', 'admin', 'gestor_admin'];
+            role = validRoles.includes(bodyRole) ? bodyRole : 'user';
+        } else {
+            // company admin can only assign 'user' or 'admin' within their company
+            role = bodyRole === 'admin' ? 'admin' : 'user';
+        }
+
+        // Determine company_id
+        let companyId;
+        if (isGestorAdminSession(session)) {
+            companyId = bodyCompanyId || null;
+        } else {
+            // company admin always creates users in their own company
+            companyId = session.company_id || null;
+        }
 
         if (!username) return json({ error: 'Usuario e obrigatorio' }, 400);
         if (password.trim().length < 4) {
@@ -110,10 +351,83 @@ async function handleApiRequest(request, env) {
         const passwordHash = bcrypt.hashSync(password, 10);
         const result = await execute(
             env,
-            'INSERT INTO users (username, password, role) VALUES (?, ?, ?)',
-            [username, passwordHash, role]
+            'INSERT INTO users (username, password, role, company_id) VALUES (?, ?, ?, ?)',
+            [username, passwordHash, role, companyId]
         );
-        return json({ id: result.meta.last_row_id, username, role, success: true });
+        return json({ id: result.meta.last_row_id, username, role, company_id: companyId, success: true });
+    }
+
+    const userEditMatch = pathname.match(/^\/api\/users\/(\d+)$/);
+    if (userEditMatch && request.method === 'PATCH') {
+        if (!isAdminSession(session)) {
+            return json({ error: 'Acesso restrito a administradores' }, 403);
+        }
+
+        const userId = Number(userEditMatch[1]);
+        const body = await readJson(request);
+        const username = String(body.username || '').trim();
+        const requestedRole = String(body.role || 'user').trim();
+        const requestedCompanyId = body.company_id ? Number(body.company_id) : null;
+
+        if (!userId) return json({ error: 'Usuario invalido' }, 400);
+        if (!username) return json({ error: 'Nome do usuario e obrigatorio' }, 400);
+
+        const user = await queryFirst(env, 'SELECT id, username, COALESCE(role, "user") AS role, company_id FROM users WHERE id = ?', [userId]);
+        if (!user) return json({ error: 'Usuario nao encontrado' }, 404);
+
+        let role;
+        let companyId;
+        if (isGestorAdminSession(session)) {
+            const validRoles = ['user', 'admin', 'gestor_admin'];
+            role = validRoles.includes(requestedRole) ? requestedRole : 'user';
+            companyId = role === 'gestor_admin' ? null : requestedCompanyId;
+        } else {
+            if (Number(user.company_id) !== Number(session.company_id)) {
+                return json({ error: 'Sem permissao para alterar este usuario' }, 403);
+            }
+            role = requestedRole === 'admin' ? 'admin' : 'user';
+            companyId = session.company_id || null;
+        }
+
+        if (role !== 'gestor_admin' && !companyId) {
+            return json({ error: 'Selecione uma empresa para usuarios de empresa' }, 400);
+        }
+
+        const isSelf = Number(user.id) === Number(session.user_id);
+        const roleChanged = getEffectiveRole(user) !== role;
+        const companyChanged = Number(user.company_id || 0) !== Number(companyId || 0);
+        if (isSelf && (roleChanged || companyChanged)) {
+            return json({ error: 'Voce nao pode alterar sua propria classe ou empresa' }, 400);
+        }
+
+        const existingUser = await queryFirst(env, 'SELECT id FROM users WHERE lower(username) = lower(?) AND id <> ?', [username, userId]);
+        if (existingUser) {
+            return json({ error: 'Ja existe um usuario com esse nome' }, 409);
+        }
+
+        const wasGestor = getEffectiveRole(user) === 'gestor_admin';
+        const willGestor = role === 'gestor_admin' || (role === 'admin' && !companyId);
+        if (wasGestor && !willGestor) {
+            const gestorCount = await queryFirst(
+                env,
+                'SELECT COUNT(*) AS total FROM users WHERE (role = "gestor_admin" OR (role = "admin" AND company_id IS NULL))'
+            );
+            if (Number(gestorCount?.total) <= 1) {
+                return json({ error: 'Nao e possivel alterar o ultimo administrador gestor' }, 400);
+            }
+        }
+
+        await execute(
+            env,
+            'UPDATE users SET username = ?, role = ?, company_id = ? WHERE id = ?',
+            [username, role, companyId, userId]
+        );
+
+        if (!isSelf && (roleChanged || companyChanged)) {
+            await execute(env, 'DELETE FROM sessions WHERE user_id = ?', [userId]);
+        }
+
+        return json({ id: userId, username, role, company_id: companyId, success: true });
     }
 
     const userPasswordMatch = pathname.match(/^\/api\/users\/(\d+)\/password$/);
@@ -148,16 +462,26 @@ async function handleApiRequest(request, env) {
         const userId = Number(userMatch[1]);
         if (!userId) return json({ error: 'Usuario invalido' }, 400);
 
-        const user = await queryFirst(env, 'SELECT id, username, COALESCE(role, "user") AS role FROM users WHERE id = ?', [userId]);
+        const user = await queryFirst(env, 'SELECT id, username, COALESCE(role, "user") AS role, company_id FROM users WHERE id = ?', [userId]);
         if (!user) return json({ error: 'Usuario nao encontrado' }, 404);
         if (Number(user.id) === Number(session.user_id)) {
             return json({ error: 'Voce nao pode excluir seu proprio usuario' }, 400);
         }
 
-        if (user.role === 'admin') {
-            const adminCount = await queryFirst(env, 'SELECT COUNT(*) AS total FROM users WHERE role = "admin"');
-            if (Number(adminCount?.total) <= 1) {
-                return json({ error: 'Nao e possivel excluir o ultimo administrador' }, 400);
+        // Company admin can only delete users of their own company
+        if (!isGestorAdminSession(session)) {
+            if (Number(user.company_id) !== Number(session.company_id)) {
+                return json({ error: 'Sem permissao para excluir este usuario' }, 403);
+            }
+        }
+
+        if (getEffectiveRole(user) === 'gestor_admin' || (user.role === 'admin' && !user.company_id)) {
+            const gestorCount = await queryFirst(
+                env,
+                'SELECT COUNT(*) AS total FROM users WHERE (role = "gestor_admin" OR (role = "admin" AND company_id IS NULL))'
+            );
+            if (Number(gestorCount?.total) <= 1) {
+                return json({ error: 'Nao e possivel excluir o ultimo administrador gestor' }, 400);
             }
         }
 
@@ -166,8 +490,285 @@ async function handleApiRequest(request, env) {
         return json({ success: true });
     }
 
+    // ── Companies ────────────────────────────────────────────────────────────
+
+    if (pathname === '/api/companies' && request.method === 'GET') {
+        if (!isAdminSession(session)) {
+            return json({ error: 'Acesso restrito a administradores' }, 403);
+        }
+
+        let companies;
+        if (isGestorAdminSession(session)) {
+            companies = await queryAll(env, 'SELECT * FROM companies ORDER BY is_owner DESC, lower(name) ASC');
+        } else {
+            // company admin: only their own company
+            companies = await queryAll(
+                env,
+                'SELECT * FROM companies WHERE id = ?',
+                [session.company_id]
+            );
+        }
+        return json(companies);
+    }
+
+    if (pathname === '/api/companies' && request.method === 'POST') {
+        if (!isGestorAdminSession(session)) {
+            return json({ error: 'Apenas a empresa gestora pode criar empresas' }, 403);
+        }
+
+        const body = await readJson(request);
+        const cnpj = sanitizeCnpj(String(body.cnpj || ''));
+        const name = String(body.name || '').trim();
+
+        if (!name) return json({ error: 'Nome e obrigatorio' }, 400);
+        if (!cnpj || !validateCnpj(cnpj)) {
+            return json({ error: 'CNPJ invalido' }, 400);
+        }
+
+        const existing = await queryFirst(env, 'SELECT id FROM companies WHERE cnpj = ?', [cnpj]);
+        if (existing) return json({ error: 'Ja existe uma empresa com esse CNPJ' }, 409);
+
+        const validPlans = ['start', 'pro', 'ultra'];
+        const plan = validPlans.includes(body.plan) ? body.plan : 'pro';
+
+        const s = v => String(v || '').trim() || null;
+        try {
+            const result = await execute(
+                env,
+                `INSERT INTO companies
+                 (cnpj, name, trade_name, legal_name, state_registration, municipal_registration,
+                  phone, phone2, email, website, legal_representative,
+                  accounting_email, system_admin_email, company_admin_email,
+                  zip_code, address, address_number, address_complement,
+                  neighborhood, city, state, country,
+                  is_owner, plan)
+                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+                [
+                    cnpj, name, s(body.trade_name), s(body.legal_name),
+                    s(body.state_registration), s(body.municipal_registration),
+                    s(body.phone), s(body.phone2), s(body.email), s(body.website),
+                    s(body.legal_representative),
+                    s(body.accounting_email), s(body.system_admin_email), s(body.company_admin_email),
+                    s(body.zip_code), s(body.address), s(body.address_number), s(body.address_complement),
+                    s(body.neighborhood), s(body.city), s(body.state), s(body.country) || 'Brasil',
+                    body.is_owner ? 1 : 0, plan
+                ]
+            );
+            return json({ id: result.meta.last_row_id, success: true });
+        } catch (error) {
+            return handleDatabaseError(error, 'Ja existe uma empresa com esse CNPJ');
+        }
+    }
+
+    const companyMatch = pathname.match(/^\/api\/companies\/(\d+)$/);
+
+    if (companyMatch && request.method === 'GET') {
+        if (!isAdminSession(session)) {
+            return json({ error: 'Acesso restrito a administradores' }, 403);
+        }
+
+        const companyId = Number(companyMatch[1]);
+        if (!isGestorAdminSession(session) && Number(session.company_id) !== companyId) {
+            return json({ error: 'Sem permissao para ver esta empresa' }, 403);
+        }
+
+        const company = await queryFirst(env, 'SELECT * FROM companies WHERE id = ?', [companyId]);
+        if (!company) return json({ error: 'Empresa nao encontrada' }, 404);
+        return json(company);
+    }
+
+    if (companyMatch && request.method === 'PATCH') {
+        if (!isAdminSession(session)) {
+            return json({ error: 'Acesso restrito a administradores' }, 403);
+        }
+
+        const companyId = Number(companyMatch[1]);
+        if (!isGestorAdminSession(session) && Number(session.company_id) !== companyId) {
+            return json({ error: 'Sem permissao para editar esta empresa' }, 403);
+        }
+
+        const company = await queryFirst(env, 'SELECT * FROM companies WHERE id = ?', [companyId]);
+        if (!company) return json({ error: 'Empresa nao encontrada' }, 404);
+
+        const body = await readJson(request);
+        const name = String(body.name || company.name || '').trim();
+        if (!name) return json({ error: 'Nome e obrigatorio' }, 400);
+
+        const validPlans = ['start', 'pro', 'ultra'];
+        const plan = validPlans.includes(body.plan) ? body.plan : company.plan;
+
+        // CNPJ is immutable — skip any change if provided
+        const s = v => String(v || '').trim() || null;
+        await execute(
+            env,
+            `UPDATE companies
+             SET name = ?, trade_name = ?, legal_name = ?, state_registration = ?,
+                 municipal_registration = ?, phone = ?, phone2 = ?, email = ?, website = ?,
+                 legal_representative = ?, accounting_email = ?,
+                 system_admin_email = ?, company_admin_email = ?,
+                 zip_code = ?, address = ?, address_number = ?, address_complement = ?,
+                 neighborhood = ?, city = ?, state = ?, country = ?, plan = ?
+             WHERE id = ?`,
+            [
+                name, s(body.trade_name), s(body.legal_name), s(body.state_registration),
+                s(body.municipal_registration), s(body.phone), s(body.phone2),
+                s(body.email), s(body.website), s(body.legal_representative),
+                s(body.accounting_email), s(body.system_admin_email), s(body.company_admin_email),
+                s(body.zip_code), s(body.address), s(body.address_number), s(body.address_complement),
+                s(body.neighborhood), s(body.city), s(body.state), s(body.country) || 'Brasil',
+                plan,
+                companyId
+            ]
+        );
+        return json({ success: true });
+    }
+
+    if (companyMatch && request.method === 'DELETE') {
+        if (!isGestorAdminSession(session)) {
+            return json({ error: 'Apenas a empresa gestora pode excluir empresas' }, 403);
+        }
+
+        const companyId = Number(companyMatch[1]);
+        const company = await queryFirst(env, 'SELECT * FROM companies WHERE id = ?', [companyId]);
+        if (!company) return json({ error: 'Empresa nao encontrada' }, 404);
+        if (company.is_owner) {
+            return json({ error: 'Nao e possivel excluir a empresa gestora' }, 400);
+        }
+
+        // Unlink users from this company before deleting
+        await execute(env, 'UPDATE users SET company_id = NULL WHERE company_id = ?', [companyId]);
+        await execute(env, 'DELETE FROM companies WHERE id = ?', [companyId]);
+        return json({ success: true });
+    }
+
+    // ── End Companies ────────────────────────────────────────────────────────
+
+    if (pathname === '/api/notification-settings' && request.method === 'GET') {
+        await ensureNotificationTables(env);
+        const settings = await getNotificationSettingsForCompany(env, getNotificationCompanyId(session));
+        return json({ settings });
+    }
+
+    if (pathname === '/api/notification-settings' && request.method === 'PUT') {
+        if (!isAdminSession(session)) {
+            return json({ error: 'Acesso restrito a administradores' }, 403);
+        }
+
+        await ensureNotificationTables(env);
+        const body = await readJson(request);
+        const settings = sanitizeNotificationSettings(body);
+        await execute(
+            env,
+            `INSERT INTO notification_settings (company_id, settings_json, updated_by_username, updated_at)
+             VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+             ON CONFLICT(company_id) DO UPDATE SET
+                settings_json = excluded.settings_json,
+                updated_by_username = excluded.updated_by_username,
+                updated_at = CURRENT_TIMESTAMP`,
+            [getNotificationCompanyId(session), JSON.stringify(settings), session.username || null]
+        );
+        return json({ settings, success: true });
+    }
+
+    if (pathname === '/api/notification-dismissals' && request.method === 'GET') {
+        await ensureNotificationTables(env);
+        const rows = await queryAll(
+            env,
+            'SELECT notification_id FROM notification_dismissals WHERE company_id = ? ORDER BY dismissed_at DESC',
+            [getNotificationCompanyId(session)]
+        );
+        return json({ ids: rows.map((row) => row.notification_id) });
+    }
+
+    if (pathname === '/api/notification-dismissals' && request.method === 'POST') {
+        await ensureNotificationTables(env);
+        const settings = await getNotificationSettingsForCompany(env, getNotificationCompanyId(session));
+        if (!isAdminSession(session) && settings.allowUserDismiss === false) {
+            return json({ error: 'O administrador bloqueou a remocao de notificacoes' }, 403);
+        }
+
+        const body = await readJson(request);
+        const ids = Array.isArray(body.ids) ? body.ids.map((id) => String(id).trim()).filter(Boolean) : [];
+        for (const id of [...new Set(ids)].slice(0, 100)) {
+            await execute(
+                env,
+                `INSERT OR IGNORE INTO notification_dismissals
+                 (company_id, notification_id, dismissed_by_username, dismissed_at)
+                 VALUES (?, ?, ?, CURRENT_TIMESTAMP)`,
+                [getNotificationCompanyId(session), id, session.username || null]
+            );
+        }
+        return json({ success: true });
+    }
+
+    // ── Company appearance (theme / logo / favicon) ───────────────────────────
+    if (pathname === '/api/appearance' && request.method === 'GET') {
+        const url = new URL(request.url);
+        let companyId = cid;
+        if (companyId === null) {
+            // gestor_admin may query any company's appearance via ?company_id=X
+            const qcid = url.searchParams.get('company_id');
+            companyId = qcid ? Number(qcid) : null;
+        }
+        if (!companyId) return json({ appearance: null });
+        await ensureAppearanceTable(env);
+        const row = await queryFirst(
+            env,
+            'SELECT theme_json, logo_data, favicon_data FROM company_appearance WHERE company_id = ?',
+            [companyId]
+        );
+        return json({ appearance: row || null });
+    }
+
+    if (pathname === '/api/appearance' && request.method === 'PUT') {
+        if (!isAdminSession(session)) {
+            return json({ error: 'Acesso restrito a administradores' }, 403);
+        }
+        const body = await readJson(request);
+        // admins use their own company_id; gestor_admin must pass company_id in body
+        const companyId = cid !== null ? cid : (body.company_id ? Number(body.company_id) : null);
+        if (!companyId) return json({ error: 'Empresa nao identificada' }, 400);
+
+        // Determine which fields to update (key present = update, absent = leave unchanged)
+        const MAX_B64 = 1_400_000; // ~1.4 MB base64 ≈ ~1 MB raw — safe for D1 row limit
+        const allowedFields = { theme: 'theme_json', logo: 'logo_data', favicon: 'favicon_data' };
+        const setClauses = [];
+        const values = [];
+        for (const [key, col] of Object.entries(allowedFields)) {
+            if (!(key in body)) continue;
+            if (key === 'theme') {
+                const raw = body.theme ? JSON.stringify(body.theme) : null;
+                setClauses.push(`${col} = ?`);
+                values.push(raw);
+            } else {
+                const val = body[key];
+                if (val !== null && typeof val === 'string' && val.length > MAX_B64) {
+                    return json({ error: `${key} excede o tamanho maximo permitido` }, 413);
+                }
+                setClauses.push(`${col} = ?`);
+                values.push(typeof val === 'string' ? val : null);
+            }
+        }
+
+        await ensureAppearanceTable(env);
+        // Ensure row exists first, then update only the supplied fields
+        await execute(
+            env,
+            'INSERT OR IGNORE INTO company_appearance (company_id, updated_by, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP)',
+            [companyId, session.username || null]
+        );
+        if (setClauses.length > 0) {
+            await execute(
+                env,
+                `UPDATE company_appearance SET ${setClauses.join(', ')}, updated_by = ?, updated_at = CURRENT_TIMESTAMP WHERE company_id = ?`,
+                [...values, session.username || null, companyId]
+            );
+        }
+        return json({ success: true });
+    }
+
     if (pathname === '/api/events' && request.method === 'GET') {
-        const rows = await getEventsByCompletion(env, 'event', false);
+        const rows = await getEventsByCompletion(env, 'event', false, cid);
         return json(rows);
     }
 
@@ -175,7 +776,6 @@ async function handleApiRequest(request, env) {
         const body = await readJson(request);
         const name = String(body.name || '').trim();
         const date = String(body.date || '').trim();
-        const session = await getSessionFromRequest(request, env);
 
         if (!name || !date) {
             return json({ error: 'Nome e data sao obrigatorios' }, 400);
@@ -183,21 +783,21 @@ async function handleApiRequest(request, env) {
 
         const result = await execute(
             env,
-            "INSERT INTO events (name, date, created_by_username, event_type) VALUES (?, ?, ?, 'event')",
-            [name, date, session?.username || null]
+            "INSERT INTO events (name, date, created_by_username, event_type, company_id) VALUES (?, ?, ?, 'event', ?)",
+            [name, date, session.username || null, cid]
         );
         return json({ id: result.meta.last_row_id, success: true });
     }
 
     if (pathname === '/api/rental-events' && request.method === 'GET') {
-        const rows = await getEventsByCompletion(env, 'rental', false);
+        const rows = await getEventsByCompletion(env, 'rental', false, cid);
         return json(rows);
     }
 
     if (pathname === '/api/history-events' && request.method === 'GET') {
         const [events, rentals] = await Promise.all([
-            getEventsByCompletion(env, 'event', true),
-            getEventsByCompletion(env, 'rental', true)
+            getEventsByCompletion(env, 'event', true, cid),
+            getEventsByCompletion(env, 'rental', true, cid)
         ]);
         return json({ events, rentals });
     }
@@ -208,7 +808,7 @@ async function handleApiRequest(request, env) {
             return json({ error: 'Data invalida' }, 400);
         }
 
-        const alerts = await getRentalReturnAlerts(env, today);
+        const alerts = await getRentalReturnAlerts(env, today, cid);
         return json(alerts);
     }
 
@@ -217,7 +817,6 @@ async function handleApiRequest(request, env) {
         const name = String(body.name || '').trim();
         const withdrawalDate = String(body.withdrawalDate || '').trim();
         const returnDate = String(body.returnDate || '').trim();
-        const session = await getSessionFromRequest(request, env);
 
         if (!name || !withdrawalDate || !returnDate) {
             return json({ error: 'Nome, data de retirada e data de devolucao sao obrigatorios' }, 400);
@@ -229,22 +828,53 @@ async function handleApiRequest(request, env) {
 
         const result = await execute(
             env,
-            `INSERT INTO events (name, date, created_by_username, event_type, withdrawal_date, return_date)
-             VALUES (?, ?, ?, 'rental', ?, ?)`,
-            [name, withdrawalDate, session?.username || null, withdrawalDate, returnDate]
+            `INSERT INTO events (name, date, created_by_username, event_type, withdrawal_date, return_date, company_id)
+             VALUES (?, ?, ?, 'rental', ?, ?, ?)`,
+            [name, withdrawalDate, session.username || null, withdrawalDate, returnDate, cid]
         );
         return json({ id: result.meta.last_row_id, success: true });
     }
 
     const rentalEventMatch = pathname.match(/^\/api\/rental-events\/(\d+)$/);
     if (rentalEventMatch && request.method === 'GET') {
+        const cidWhere = cid !== null ? 'AND company_id = ?' : '';
         const event = await queryFirst(
             env,
-            "SELECT * FROM events WHERE id = ? AND COALESCE(event_type, 'event') = 'rental'",
-            [Number(rentalEventMatch[1])]
+            `SELECT * FROM events WHERE id = ? AND COALESCE(event_type, 'event') = 'rental' ${cidWhere}`,
+            cid !== null ? [Number(rentalEventMatch[1]), cid] : [Number(rentalEventMatch[1])]
         );
         if (!event) return json({ error: 'Locação nao encontrada' }, 404);
         return json(event);
+    }
+
+    if (rentalEventMatch && request.method === 'PATCH') {
+        const body = await readJson(request);
+        const withdrawalDate = String(body.withdrawalDate || '').trim();
+        const returnDate = String(body.returnDate || '').trim();
+
+        if (!withdrawalDate || !returnDate) {
+            return json({ error: 'Data de retirada e data de devolucao sao obrigatorias' }, 400);
+        }
+
+        if (returnDate < withdrawalDate) {
+            return json({ error: 'A data de devolucao nao pode ser anterior a data de retirada' }, 400);
+        }
+
+        const eventId = Number(rentalEventMatch[1]);
+        const rentalCidWhere = cid !== null ? 'AND company_id = ?' : '';
+        const event = await queryFirst(
+            env,
+            `SELECT id FROM events WHERE id = ? AND COALESCE(event_type, 'event') = 'rental' ${rentalCidWhere}`,
+            cid !== null ? [eventId, cid] : [eventId]
+        );
+        if (!event) return json({ error: 'Locacao nao encontrada' }, 404);
+
+        await execute(
+            env,
+            'UPDATE events SET date = ?, withdrawal_date = ?, return_date = ? WHERE id = ?',
+            [withdrawalDate, withdrawalDate, returnDate, eventId]
+        );
+        return json({ success: true });
     }
 
     if (rentalEventMatch && request.method === 'DELETE') {
@@ -256,10 +886,11 @@ async function handleApiRequest(request, env) {
         }
 
         const eventId = Number(rentalEventMatch[1]);
+        const rentalCidWhere = cid !== null ? 'AND company_id = ?' : '';
         const event = await queryFirst(
             env,
-            "SELECT id FROM events WHERE id = ? AND COALESCE(event_type, 'event') = 'rental'",
-            [eventId]
+            `SELECT id FROM events WHERE id = ? AND COALESCE(event_type, 'event') = 'rental' ${rentalCidWhere}`,
+            cid !== null ? [eventId, cid] : [eventId]
         );
         if (!event) return json({ error: 'Locação nao encontrada' }, 404);
 
@@ -269,7 +900,12 @@ async function handleApiRequest(request, env) {
 
     const eventMatch = pathname.match(/^\/api\/events\/(\d+)$/);
     if (eventMatch && request.method === 'GET') {
-        const event = await queryFirst(env, 'SELECT * FROM events WHERE id = ?', [Number(eventMatch[1])]);
+        const cidWhere = cid !== null ? 'AND company_id = ?' : '';
+        const event = await queryFirst(
+            env,
+            `SELECT * FROM events WHERE id = ? ${cidWhere}`,
+            cid !== null ? [Number(eventMatch[1]), cid] : [Number(eventMatch[1])]
+        );
         if (!event) return json({ error: 'Evento nao encontrado' }, 404);
         return json(event);
     }
@@ -415,12 +1051,20 @@ async function handleApiRequest(request, env) {
 
     if (eventMatch && request.method === 'DELETE') {
         const eventId = Number(eventMatch[1]);
+        const eventCidWhere = cid !== null ? 'AND company_id = ?' : '';
+        const eventExists = await queryFirst(
+            env,
+            `SELECT id FROM events WHERE id = ? ${eventCidWhere}`,
+            cid !== null ? [eventId, cid] : [eventId]
+        );
+        if (!eventExists) return json({ error: 'Evento nao encontrado' }, 404);
         await deleteEventRecords(env, eventId);
         return json({ success: true });
     }
 
     if (pathname === '/api/equipments' && request.method === 'GET') {
         const search = String(url.searchParams.get('search') || '').trim();
+        const cidWhere = cid !== null ? 'AND equipments.company_id = ?' : '';
         const rows = await queryAll(
             env,
             `SELECT
@@ -457,9 +1101,12 @@ async function handleApiRequest(request, env) {
                     LIMIT 1
                 ) AS maintenance_description
              FROM equipments
-             WHERE name LIKE ? OR barcode LIKE ? OR category LIKE ?
+             WHERE (name LIKE ? OR barcode LIKE ? OR category LIKE ?)
+               ${cidWhere}
              ORDER BY category ASC, name ASC`,
-            [`%${search}%`, `%${search}%`, `%${search}%`]
+            cid !== null
+                ? [`%${search}%`, `%${search}%`, `%${search}%`, cid]
+                : [`%${search}%`, `%${search}%`, `%${search}%`]
         );
         return json(rows);
     }
@@ -477,8 +1124,8 @@ async function handleApiRequest(request, env) {
         try {
             const result = await execute(
                 env,
-                'INSERT INTO equipments (name, barcode, current_status, category) VALUES (?, ?, ?, ?)',
-                [name, barcode, 'Disponivel', category]
+                'INSERT INTO equipments (name, barcode, current_status, category, company_id) VALUES (?, ?, ?, ?, ?)',
+                [name, barcode, 'Disponivel', category, cid]
             );
             return json({ id: result.meta.last_row_id, success: true });
         } catch (error) {
@@ -498,6 +1145,9 @@ async function handleApiRequest(request, env) {
 
         const equipment = await queryFirst(env, 'SELECT * FROM equipments WHERE id = ?', [equipmentId]);
         if (!equipment) return json({ message: 'Equipamento nao encontrado' }, 404);
+        if (cid !== null && Number(equipment.company_id) !== cid) {
+            return json({ error: 'Acesso negado' }, 403);
+        }
 
         await execute(env, 'UPDATE equipments SET current_status = ? WHERE id = ?', [status, equipmentId]);
         return json({ success: true });
@@ -505,6 +1155,7 @@ async function handleApiRequest(request, env) {
 
     if (pathname === '/api/cables' && request.method === 'GET') {
         const search = String(url.searchParams.get('search') || '').trim();
+        const cidWhere = cid !== null ? 'AND cables.company_id = ?' : '';
         const rows = await queryAll(
             env,
             `SELECT
@@ -518,9 +1169,12 @@ async function handleApiRequest(request, env) {
                     LIMIT 1
                 ) AS maintenance_description
              FROM cables
-             WHERE name LIKE ? OR category LIKE ?
+             WHERE (name LIKE ? OR category LIKE ?)
+               ${cidWhere}
              ORDER BY category ASC, name ASC`,
-            [`%${search}%`, `%${search}%`]
+            cid !== null
+                ? [`%${search}%`, `%${search}%`, cid]
+                : [`%${search}%`, `%${search}%`]
         );
         return json(rows);
     }
@@ -539,9 +1193,9 @@ async function handleApiRequest(request, env) {
         try {
             const result = await execute(
                 env,
-                `INSERT INTO cables (name, quantity, available_quantity, category, updated_at)
-                 VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)`,
-                [name, quantity, quantity, category]
+                `INSERT INTO cables (name, quantity, available_quantity, category, company_id, updated_at)
+                 VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
+                [name, quantity, quantity, category, cid]
             );
             return json({ id: result.meta.last_row_id, success: true });
         } catch (error) {
@@ -562,6 +1216,9 @@ async function handleApiRequest(request, env) {
 
         const cable = await queryFirst(env, 'SELECT * FROM cables WHERE id = ?', [cableId]);
         if (!cable) return json({ message: 'Cabo nao encontrado' }, 404);
+        if (cid !== null && Number(cable.company_id) !== cid) {
+            return json({ error: 'Acesso negado' }, 403);
+        }
 
         await execute(
             env,
@@ -584,6 +1241,9 @@ async function handleApiRequest(request, env) {
 
         const cable = await queryFirst(env, 'SELECT * FROM cables WHERE id = ?', [cableId]);
         if (!cable) return json({ message: 'Cabo nao encontrado' }, 404);
+        if (cid !== null && Number(cable.company_id) !== cid) {
+            return json({ error: 'Acesso negado' }, 403);
+        }
 
         await execute(env, 'DELETE FROM cable_event_movements WHERE cable_id = ?', [cableId]);
         await execute(env, 'DELETE FROM cable_maintenances WHERE cable_id = ?', [cableId]);
@@ -593,13 +1253,15 @@ async function handleApiRequest(request, env) {
 
     if (pathname === '/api/other-items' && request.method === 'GET') {
         const search = String(url.searchParams.get('search') || '').trim();
+        const cidWhere = cid !== null ? 'AND company_id = ?' : '';
         const rows = await queryAll(
             env,
             `SELECT *
              FROM other_items
-             WHERE name LIKE ?
+             WHERE (name LIKE ?)
+               ${cidWhere}
              ORDER BY name ASC`,
-            [`%${search}%`]
+            cid !== null ? [`%${search}%`, cid] : [`%${search}%`]
         );
         return json(rows);
     }
@@ -617,9 +1279,9 @@ async function handleApiRequest(request, env) {
         try {
             const result = await execute(
                 env,
-                `INSERT INTO other_items (name, quantity, available_quantity, updated_at)
-                 VALUES (?, ?, ?, CURRENT_TIMESTAMP)`,
-                [name, quantity, quantity]
+                `INSERT INTO other_items (name, quantity, available_quantity, company_id, updated_at)
+                 VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)`,
+                [name, quantity, quantity, cid]
             );
             return json({ id: result.meta.last_row_id, success: true });
         } catch (error) {
@@ -640,6 +1302,9 @@ async function handleApiRequest(request, env) {
 
         const item = await queryFirst(env, 'SELECT * FROM other_items WHERE id = ?', [itemId]);
         if (!item) return json({ message: 'Item nao encontrado' }, 404);
+        if (cid !== null && Number(item.company_id) !== cid) {
+            return json({ error: 'Acesso negado' }, 403);
+        }
 
         await execute(
             env,
@@ -662,6 +1327,9 @@ async function handleApiRequest(request, env) {
 
         const item = await queryFirst(env, 'SELECT * FROM other_items WHERE id = ?', [itemId]);
         if (!item) return json({ message: 'Item nao encontrado' }, 404);
+        if (cid !== null && Number(item.company_id) !== cid) {
+            return json({ error: 'Acesso negado' }, 403);
+        }
 
         await execute(env, 'DELETE FROM other_item_event_movements WHERE item_id = ?', [itemId]);
         await execute(env, 'DELETE FROM other_items WHERE id = ?', [itemId]);
@@ -679,6 +1347,9 @@ async function handleApiRequest(request, env) {
 
         const equipment = await queryFirst(env, 'SELECT * FROM equipments WHERE id = ?', [equipmentId]);
         if (!equipment) return json({ message: 'Equipamento nao encontrado' }, 404);
+        if (cid !== null && Number(equipment.company_id) !== cid) {
+            return json({ error: 'Acesso negado' }, 403);
+        }
 
         await execute(env, 'DELETE FROM equipment_events WHERE equipment_id = ?', [equipmentId]);
         await execute(env, 'DELETE FROM maintenances WHERE equipment_id = ?', [equipmentId]);
@@ -693,8 +1364,7 @@ async function handleApiRequest(request, env) {
         const equipmentId = Number(body.equipmentId);
         const barcode = String(body.barcode || '').trim();
         const eventId = Number(body.eventId);
-        const session = await getSessionFromRequest(request, env);
-        const performedByUsername = session?.username || null;
+        const performedByUsername = session.username || null;
 
         if ((!equipmentId && !barcode) || !eventId) {
             return json({ message: 'equipmentId ou codigo de barras e eventId sao obrigatorios' }, 400);
@@ -708,6 +1378,12 @@ async function handleApiRequest(request, env) {
 
         if (!equipment) return json({ message: 'Equipamento nao encontrado' }, 404);
         if (!event) return json({ message: 'Evento nao encontrado' }, 404);
+        if (cid !== null && Number(equipment.company_id) !== cid) {
+            return json({ message: 'Equipamento nao pertence a sua empresa' }, 403);
+        }
+        if (cid !== null && Number(event.company_id) !== cid) {
+            return json({ message: 'Evento nao pertence a sua empresa' }, 403);
+        }
 
         if (type === 'saida') {
             if (!isAvailableStatus(equipment.current_status)) {
@@ -763,6 +1439,12 @@ async function handleApiRequest(request, env) {
 
         if (!cable) return json({ message: 'Cabo nao encontrado' }, 404);
         if (!event) return json({ message: 'Evento nao encontrado' }, 404);
+        if (cid !== null && Number(cable.company_id) !== cid) {
+            return json({ message: 'Cabo nao pertence a sua empresa' }, 403);
+        }
+        if (cid !== null && Number(event.company_id) !== cid) {
+            return json({ message: 'Evento nao pertence a sua empresa' }, 403);
+        }
 
         if (type === 'saida') {
             if (Number(cable.available_quantity) < quantity) {
@@ -824,6 +1506,12 @@ async function handleApiRequest(request, env) {
 
         if (!item) return json({ message: 'Item nao encontrado' }, 404);
         if (!event) return json({ message: 'Evento nao encontrado' }, 404);
+        if (cid !== null && Number(item.company_id) !== cid) {
+            return json({ message: 'Item nao pertence a sua empresa' }, 403);
+        }
+        if (cid !== null && Number(event.company_id) !== cid) {
+            return json({ message: 'Evento nao pertence a sua empresa' }, 403);
+        }
 
         if (type === 'saida') {
             if (Number(item.available_quantity) < quantity) {
@@ -879,6 +1567,9 @@ async function handleApiRequest(request, env) {
 
         const equipment = await queryFirst(env, 'SELECT * FROM equipments WHERE id = ?', [equipmentId]);
         if (!equipment) return json({ message: 'Equipamento nao encontrado' }, 404);
+        if (cid !== null && Number(equipment.company_id) !== cid) {
+            return json({ error: 'Acesso negado' }, 403);
+        }
 
         await execute(
             env,
@@ -900,6 +1591,9 @@ async function handleApiRequest(request, env) {
 
         const cable = await queryFirst(env, 'SELECT * FROM cables WHERE id = ?', [cableId]);
         if (!cable) return json({ message: 'Cabo nao encontrado' }, 404);
+        if (cid !== null && Number(cable.company_id) !== cid) {
+            return json({ error: 'Acesso negado' }, 403);
+        }
 
         await execute(
             env,
@@ -916,6 +1610,9 @@ async function handleApiRequest(request, env) {
 
         const equipment = await queryFirst(env, 'SELECT * FROM equipments WHERE id = ?', [equipmentId]);
         if (!equipment) return json({ message: 'Equipamento nao encontrado' }, 404);
+        if (cid !== null && Number(equipment.company_id) !== cid) {
+            return json({ error: 'Acesso negado' }, 403);
+        }
 
         await execute(
             env,
@@ -936,6 +1633,9 @@ async function handleApiRequest(request, env) {
 
         const cable = await queryFirst(env, 'SELECT * FROM cables WHERE id = ?', [cableId]);
         if (!cable) return json({ message: 'Cabo nao encontrado' }, 404);
+        if (cid !== null && Number(cable.company_id) !== cid) {
+            return json({ error: 'Acesso negado' }, 403);
+        }
 
         await execute(
             env,
@@ -947,6 +1647,46 @@ async function handleApiRequest(request, env) {
         );
         return json({ success: true });
     }
+
+    // ── AI Chat ──────────────────────────────────────────────────────────────
+
+    if (pathname === '/api/chat' && request.method === 'POST') {
+        if (!env.AI) {
+            return json({ error: 'Assistente IA nao disponivel neste ambiente' }, 503);
+        }
+
+        const body = await readJson(request);
+        const message = String(body.message || '').trim().slice(0, 1200);
+        const rawHistory = Array.isArray(body.history) ? body.history : [];
+
+        if (!message) return json({ error: 'Mensagem obrigatoria' }, 400);
+
+        // Keep last 20 messages and sanitise roles/content
+        const history = rawHistory.slice(-20).map(h => ({
+            role: h.role === 'user' ? 'user' : 'assistant',
+            content: String(h.content || '').slice(0, 600),
+        }));
+
+        const messages = [
+            { role: 'system', content: EQUIPTRACK_KNOWLEDGE_BASE + (await buildChatDbContext(env, session)) },
+            ...history,
+            { role: 'user', content: message },
+        ];
+
+        try {
+            const result = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
+                messages,
+                max_tokens: 800,
+            });
+            const reply = (result?.response || '').trim() || 'Nao consegui processar sua pergunta no momento.';
+            return json({ reply });
+        } catch (err) {
+            console.error('AI chat error:', err);
+            return json({ error: 'Erro ao processar resposta da IA' }, 502);
+        }
+    }
+
+    // ── End AI Chat ───────────────────────────────────────────────────────────
 
     return json({ error: 'Rota nao encontrada' }, 404);
 }
@@ -960,24 +1700,66 @@ async function login(request, env) {
         return json({ error: 'Usuario e senha sao obrigatorios' }, 400);
     }
 
+    // Ensure the login_attempts table exists (created by migration 0016)
+    await env.DB.exec(
+        `CREATE TABLE IF NOT EXISTS login_attempts (
+            username TEXT PRIMARY KEY,
+            failed_count INTEGER NOT NULL DEFAULT 0,
+            locked_until TEXT,
+            last_failed_at TEXT
+        )`
+    );
+
+    const nowSec = Math.floor(Date.now() / 1000);
+
+    // Check for active lockout before verifying credentials
+    const attempt = await queryFirst(
+        env,
+        'SELECT failed_count, locked_until FROM login_attempts WHERE username = ?',
+        [username]
+    );
+
+    if (attempt && attempt.locked_until) {
+        const lockedUntilSec = Math.floor(new Date(attempt.locked_until).getTime() / 1000);
+        if (nowSec < lockedUntilSec) {
+            const remainingSeconds = lockedUntilSec - nowSec;
+            return json({ error: 'Incorreto', remainingSeconds }, 429);
+        }
+    }
+
     const user = await queryFirst(env, 'SELECT * FROM users WHERE username = ?', [username]);
     if (!user || !bcrypt.compareSync(password, user.password)) {
-        return json({ error: 'Incorreto' }, 401);
+        const currentFailed = (attempt?.failed_count || 0) + 1;
+        const lockoutSeconds = getLockoutSeconds(currentFailed);
+        const lockedUntil = lockoutSeconds > 0
+            ? toSqliteDate(new Date((nowSec + lockoutSeconds) * 1000))
+            : null;
+
+        await execute(
+            env,
+            `INSERT INTO login_attempts (username, failed_count, locked_until, last_failed_at)
+             VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+             ON CONFLICT(username) DO UPDATE SET
+                 failed_count   = excluded.failed_count,
+                 locked_until   = excluded.locked_until,
+                 last_failed_at = excluded.last_failed_at`,
+            [username, currentFailed, lockedUntil]
+        );
+
+        return json(
+            { error: 'Incorreto', remainingSeconds: lockoutSeconds > 0 ? lockoutSeconds : null },
+            401
+        );
     }
+
+    // Credentials correct — clear any lockout record
+    await execute(env, 'DELETE FROM login_attempts WHERE username = ?', [username]);
 
     await cleanupExpiredSessions(env);
     await cleanupCurrentSessionBeforeLogin(request, env);
 
-    if (user.username === TEST_USERNAME) {
-        await clearAllTestUserSessions(env);
-    }
-
     const sessionId = crypto.randomUUID();
     const expiresAt = toSqliteDate(new Date(Date.now() + SESSION_DURATION_SECONDS * 1000));
-
-    if (user.username === TEST_USERNAME) {
-        await createTestSnapshot(env, sessionId);
-    }
 
     await execute(
         env,
@@ -986,7 +1768,7 @@ async function login(request, env) {
     );
 
     return json(
-        { success: true, isTestUser: user.username === TEST_USERNAME },
+        { success: true },
         200,
         { 'Set-Cookie': await buildSessionCookie(sessionId, request, env) }
     );
@@ -998,22 +1780,12 @@ async function cleanupCurrentSessionBeforeLogin(request, env) {
         return;
     }
 
-    if (currentSession.username === TEST_USERNAME) {
-        await restoreTestSnapshot(env, currentSession.id);
-        await clearTestSnapshot(env, currentSession.id);
-    }
-
     await execute(env, 'DELETE FROM sessions WHERE id = ?', [currentSession.id]);
 }
 
 async function logout(request, env) {
     const session = await getSessionFromRequest(request, env);
     if (session) {
-        if (session.username === TEST_USERNAME) {
-            await restoreTestSnapshot(env, session.id);
-            await clearTestSnapshot(env, session.id);
-        }
-
         await execute(env, 'DELETE FROM sessions WHERE id = ?', [session.id]);
     }
 
@@ -1042,7 +1814,9 @@ async function getSessionFromRequest(request, env) {
 
     const session = await queryFirst(
         env,
-        `SELECT sessions.id, sessions.user_id, sessions.expires_at, users.username, COALESCE(users.role, 'user') AS role
+        `SELECT sessions.id, sessions.user_id, sessions.expires_at, users.username,
+                COALESCE(users.role, 'user') AS role,
+                users.company_id
          FROM sessions
          INNER JOIN users ON users.id = sessions.user_id
          WHERE sessions.id = ?
@@ -1058,196 +1832,24 @@ async function getSessionFromRequest(request, env) {
 }
 
 function isAdminSession(session) {
-    return session?.role === 'admin';
+    const role = getEffectiveRole(session);
+    return role === 'admin' || role === 'gestor_admin';
+}
+
+function isGestorAdminSession(session) {
+    return getEffectiveRole(session) === 'gestor_admin';
+}
+
+// Backward-compat: existing admin users with no company_id are treated as gestor_admin
+function getEffectiveRole(session) {
+    if (!session) return null;
+    const role = session.role || 'user';
+    if (role === 'admin' && !session.company_id) return 'gestor_admin';
+    return role;
 }
 
 async function cleanupExpiredSessions(env) {
-    const expiredTestSessions = await queryAll(
-        env,
-        `SELECT sessions.id
-         FROM sessions
-         INNER JOIN users ON users.id = sessions.user_id
-         WHERE sessions.expires_at <= ?
-           AND users.username = ?
-         ORDER BY sessions.expires_at ASC`,
-        [toSqliteDate(new Date()), TEST_USERNAME]
-    );
-
-    for (const session of expiredTestSessions) {
-        await clearTestSnapshot(env, session.id);
-    }
-
     await execute(env, 'DELETE FROM sessions WHERE expires_at <= ?', [toSqliteDate(new Date())]);
-}
-
-async function clearAllTestUserSessions(env) {
-    const testSessions = await queryAll(
-        env,
-        `SELECT sessions.id
-         FROM sessions
-         INNER JOIN users ON users.id = sessions.user_id
-         WHERE users.username = ?
-         ORDER BY sessions.expires_at ASC`,
-        [TEST_USERNAME]
-    );
-
-    if (testSessions.length === 0) {
-        return;
-    }
-
-    for (const session of testSessions) {
-        await clearTestSnapshot(env, session.id);
-    }
-
-    await execute(
-        env,
-        `DELETE FROM sessions
-         WHERE id IN (${testSessions.map(() => '?').join(', ')})`,
-        testSessions.map((session) => session.id)
-    );
-}
-
-async function createTestSnapshot(env, snapshotId) {
-    await clearTestSnapshot(env, snapshotId);
-
-    await execute(
-        env,
-        `INSERT INTO test_snapshot_equipments (snapshot_id, id, name, barcode, current_status, category)
-         SELECT ?, id, name, barcode, current_status, category
-         FROM equipments`,
-        [snapshotId]
-    );
-
-    await execute(
-        env,
-        `INSERT INTO test_snapshot_events (snapshot_id, id, name, date, created_by_username, event_type, withdrawal_date, return_date)
-         SELECT ?, id, name, date, created_by_username, COALESCE(event_type, 'event'), withdrawal_date, return_date
-         FROM events`,
-        [snapshotId]
-    );
-
-    await execute(
-        env,
-        `INSERT INTO test_snapshot_equipment_events (snapshot_id, id, equipment_id, event_id, action_type, performed_by_username, created_at)
-         SELECT ?, id, equipment_id, event_id, action_type, performed_by_username, created_at
-         FROM equipment_events`,
-        [snapshotId]
-    );
-
-    await execute(
-        env,
-        `INSERT INTO test_snapshot_cable_event_movements (snapshot_id, id, cable_id, event_id, action_type, quantity, created_at)
-         SELECT ?, id, cable_id, event_id, action_type, quantity, created_at
-         FROM cable_event_movements`,
-        [snapshotId]
-    );
-
-    await execute(
-        env,
-        `INSERT INTO test_snapshot_maintenances (snapshot_id, id, equipment_id, description, resolved_at, created_at)
-         SELECT ?, id, equipment_id, description, resolved_at, created_at
-         FROM maintenances`,
-        [snapshotId]
-    );
-
-    await execute(
-        env,
-        `INSERT INTO test_snapshot_cables (snapshot_id, id, name, quantity, available_quantity, category, created_at, updated_at)
-         SELECT ?, id, name, quantity, available_quantity, category, created_at, updated_at
-         FROM cables`,
-        [snapshotId]
-    );
-
-    await execute(
-        env,
-        `INSERT INTO test_snapshot_cable_maintenances (snapshot_id, id, cable_id, description, resolved_at, created_at)
-         SELECT ?, id, cable_id, description, resolved_at, created_at
-         FROM cable_maintenances`,
-        [snapshotId]
-    );
-}
-
-async function restoreTestSnapshot(env, snapshotId) {
-    await execute(env, 'DELETE FROM equipment_events');
-    await execute(env, 'DELETE FROM cable_event_movements');
-    await execute(env, 'DELETE FROM maintenances');
-    await execute(env, 'DELETE FROM events');
-    await execute(env, 'DELETE FROM equipments');
-    await execute(env, 'DELETE FROM cable_maintenances');
-    await execute(env, 'DELETE FROM cables');
-
-    await execute(
-        env,
-        `INSERT INTO equipments (id, name, barcode, current_status, category)
-         SELECT id, name, barcode, current_status, category
-         FROM test_snapshot_equipments
-         WHERE snapshot_id = ?`,
-        [snapshotId]
-    );
-
-    await execute(
-        env,
-        `INSERT INTO events (id, name, date, created_by_username, event_type, withdrawal_date, return_date)
-         SELECT id, name, date, created_by_username, COALESCE(event_type, 'event'), withdrawal_date, return_date
-         FROM test_snapshot_events
-         WHERE snapshot_id = ?`,
-        [snapshotId]
-    );
-
-    await execute(
-        env,
-        `INSERT INTO equipment_events (id, equipment_id, event_id, action_type, performed_by_username, created_at)
-         SELECT id, equipment_id, event_id, action_type, performed_by_username, created_at
-         FROM test_snapshot_equipment_events
-         WHERE snapshot_id = ?`,
-        [snapshotId]
-    );
-
-    await execute(
-        env,
-        `INSERT INTO cable_event_movements (id, cable_id, event_id, action_type, quantity, created_at)
-         SELECT id, cable_id, event_id, action_type, quantity, created_at
-         FROM test_snapshot_cable_event_movements
-         WHERE snapshot_id = ?`,
-        [snapshotId]
-    );
-
-    await execute(
-        env,
-        `INSERT INTO maintenances (id, equipment_id, description, resolved_at, created_at)
-         SELECT id, equipment_id, description, resolved_at, created_at
-         FROM test_snapshot_maintenances
-         WHERE snapshot_id = ?`,
-        [snapshotId]
-    );
-
-    await execute(
-        env,
-        `INSERT INTO cables (id, name, quantity, available_quantity, category, created_at, updated_at)
-         SELECT id, name, quantity, available_quantity, category, created_at, updated_at
-         FROM test_snapshot_cables
-         WHERE snapshot_id = ?`,
-        [snapshotId]
-    );
-
-    await execute(
-        env,
-        `INSERT INTO cable_maintenances (id, cable_id, description, resolved_at, created_at)
-         SELECT id, cable_id, description, resolved_at, created_at
-         FROM test_snapshot_cable_maintenances
-         WHERE snapshot_id = ?`,
-        [snapshotId]
-    );
-}
-
-async function clearTestSnapshot(env, snapshotId) {
-    await execute(env, 'DELETE FROM test_snapshot_equipment_events WHERE snapshot_id = ?', [snapshotId]);
-    await execute(env, 'DELETE FROM test_snapshot_cable_event_movements WHERE snapshot_id = ?', [snapshotId]);
-    await execute(env, 'DELETE FROM test_snapshot_maintenances WHERE snapshot_id = ?', [snapshotId]);
-    await execute(env, 'DELETE FROM test_snapshot_events WHERE snapshot_id = ?', [snapshotId]);
-    await execute(env, 'DELETE FROM test_snapshot_equipments WHERE snapshot_id = ?', [snapshotId]);
-    await execute(env, 'DELETE FROM test_snapshot_cable_maintenances WHERE snapshot_id = ?', [snapshotId]);
-    await execute(env, 'DELETE FROM test_snapshot_cables WHERE snapshot_id = ?', [snapshotId]);
 }
 
 async function buildSessionCookie(sessionId, request, env) {
@@ -1300,13 +1902,15 @@ async function verifyDeletePassword(password, env) {
     return bcrypt.compare(password, passwordHash);
 }
 
-async function getEventsByCompletion(env, eventType, completed) {
+async function getEventsByCompletion(env, eventType, completed, companyId = null) {
     const orderBy = eventType === 'rental'
         ? 'ORDER BY COALESCE(e.return_date, e.date) DESC, e.id DESC'
         : 'ORDER BY e.date DESC, e.id DESC';
     const completionFilter = completed
         ? 'COALESCE(movements.movement_count, 0) > 0 AND COALESCE(pending.pending_quantity, 0) = 0'
         : '(COALESCE(movements.movement_count, 0) = 0 OR COALESCE(pending.pending_quantity, 0) > 0)';
+    const companyWhere = companyId !== null ? 'AND e.company_id = ?' : '';
+    const params = companyId !== null ? [eventType, companyId] : [eventType];
 
     return queryAll(
         env,
@@ -1350,12 +1954,14 @@ async function getEventsByCompletion(env, eventType, completed) {
          ) pending ON pending.event_id = e.id
          WHERE COALESCE(e.event_type, 'event') = ?
            AND ${completionFilter}
+           ${companyWhere}
          ${orderBy}`,
-        [eventType]
+        params
     );
 }
 
-async function getRentalReturnAlerts(env, today) {
+async function getRentalReturnAlerts(env, today, companyId = null) {
+    const companyWhere = companyId !== null ? 'AND company_id = ?' : '';
     const rentalEvents = await queryAll(
         env,
         `SELECT *
@@ -1363,8 +1969,9 @@ async function getRentalReturnAlerts(env, today) {
          WHERE COALESCE(event_type, 'event') = 'rental'
            AND return_date IS NOT NULL
            AND return_date <= ?
+           ${companyWhere}
          ORDER BY return_date ASC, id ASC`,
-        [today]
+        companyId !== null ? [today, companyId] : [today]
     );
 
     const alerts = [];
@@ -1508,6 +2115,78 @@ async function ensureSaidaHiddenItemsTable(env) {
     );
 }
 
+async function ensureNotificationTables(env) {
+    await execute(
+        env,
+        `CREATE TABLE IF NOT EXISTS notification_settings (
+            company_id INTEGER PRIMARY KEY,
+            settings_json TEXT NOT NULL,
+            updated_by_username TEXT,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )`
+    );
+    await execute(
+        env,
+        `CREATE TABLE IF NOT EXISTS notification_dismissals (
+            company_id INTEGER NOT NULL,
+            notification_id TEXT NOT NULL,
+            dismissed_by_username TEXT,
+            dismissed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (company_id, notification_id)
+        )`
+    );
+}
+
+function getNotificationCompanyId(session) {
+    return session?.company_id ? Number(session.company_id) : 0;
+}
+
+async function ensureAppearanceTable(env) {
+    await execute(
+        env,
+        `CREATE TABLE IF NOT EXISTS company_appearance (
+            company_id   INTEGER PRIMARY KEY REFERENCES companies(id) ON DELETE CASCADE,
+            theme_json   TEXT,
+            logo_data    TEXT,
+            favicon_data TEXT,
+            updated_by   TEXT,
+            updated_at   DATETIME DEFAULT CURRENT_TIMESTAMP
+        )`
+    );
+}
+
+function sanitizeNotificationDays(value) {
+    const raw = Array.isArray(value) ? value : String(value || '').split(',');
+    const days = raw
+        .map((item) => Number(String(item).trim()))
+        .filter((day) => Number.isInteger(day) && day >= 0 && day <= 365);
+    return [...new Set(days)].sort((a, b) => b - a);
+}
+
+function sanitizeNotificationSettings(value = {}) {
+    const daysBefore = sanitizeNotificationDays(value.daysBefore);
+    return {
+        ...DEFAULT_NOTIFICATION_SETTINGS,
+        enabled: value.enabled !== false,
+        includeOverdue: value.includeOverdue !== false,
+        allowUserDismiss: value.allowUserDismiss !== false,
+        daysBefore: daysBefore.length ? daysBefore : DEFAULT_NOTIFICATION_SETTINGS.daysBefore,
+        maxNotices: Math.max(1, Math.min(50, Number(value.maxNotices) || DEFAULT_NOTIFICATION_SETTINGS.maxNotices)),
+        repeatMode: value.repeatMode === 'once' ? 'once' : 'daily'
+    };
+}
+
+async function getNotificationSettingsForCompany(env, companyId) {
+    const row = await queryFirst(env, 'SELECT settings_json FROM notification_settings WHERE company_id = ?', [companyId]);
+    if (!row?.settings_json) return { ...DEFAULT_NOTIFICATION_SETTINGS };
+
+    try {
+        return sanitizeNotificationSettings(JSON.parse(row.settings_json));
+    } catch (_) {
+        return { ...DEFAULT_NOTIFICATION_SETTINGS };
+    }
+}
+
 async function queryAll(env, sql, params = []) {
     const result = await env.DB.prepare(sql).bind(...params).run();
     return result.results || [];
@@ -1585,4 +2264,27 @@ function handleDatabaseError(error, duplicateMessage) {
 
     console.error('Database error:', error);
     return json({ error: message || 'Erro no banco de dados' }, 500);
+}
+
+function sanitizeCnpj(value) {
+    return String(value || '').replace(/\D/g, '');
+}
+
+function validateCnpj(cnpj) {
+    cnpj = sanitizeCnpj(cnpj);
+    if (cnpj.length !== 14) return false;
+    if (/^(\d)\1+$/.test(cnpj)) return false;
+
+    const calcDigit = (cnpj, weights) => {
+        let sum = 0;
+        for (let i = 0; i < weights.length; i++) sum += Number(cnpj[i]) * weights[i];
+        const rem = sum % 11;
+        return rem < 2 ? 0 : 11 - rem;
+    };
+
+    const w1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    const w2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    if (calcDigit(cnpj, w1) !== Number(cnpj[12])) return false;
+    if (calcDigit(cnpj, w2) !== Number(cnpj[13])) return false;
+    return true;
 }

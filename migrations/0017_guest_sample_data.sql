@@ -1,0 +1,3 @@
+﻿-- Guest/demo data is handled entirely in the frontend via localStorage.
+-- No sample data is inserted into the database.
+-- This migration is intentionally empty.

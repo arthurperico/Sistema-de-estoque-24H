@@ -9,7 +9,8 @@ const crypto = require('crypto');
 
 const app = express();
 const PORT = 3000;
-const DATABASE_PATH = path.join(__dirname, 'database.db');
+const DATABASE_FILENAME = process.env.NODE_ENV === 'production' ? 'database.db' : 'database.local.db';
+const DATABASE_PATH = path.join(__dirname, DATABASE_FILENAME);
 const TEST_SESSION_DIR = path.join(__dirname, 'data', 'test-sessions');
 const SQLITE_BACKUP_DIR = path.join(__dirname, 'backups', 'sqlite');
 const TEST_USERNAME = 'teste';
@@ -17,6 +18,14 @@ const SEEDED_USERS = [];
 const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
 const DELETE_PASSWORD_HASH = process.env.DELETE_PASSWORD_HASH || '';
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+const DEFAULT_NOTIFICATION_SETTINGS = {
+    enabled: true,
+    daysBefore: [7, 5, 3, 1, 0],
+    includeOverdue: true,
+    maxNotices: 20,
+    repeatMode: 'daily',
+    allowUserDismiss: true
+};
 
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
@@ -169,6 +178,21 @@ function initializeDatabase() {
                 role TEXT NOT NULL DEFAULT 'user'
             )`);
 
+            db.run(`CREATE TABLE IF NOT EXISTS notification_settings (
+                company_id INTEGER PRIMARY KEY,
+                settings_json TEXT NOT NULL,
+                updated_by_username TEXT,
+                updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+            )`);
+
+            db.run(`CREATE TABLE IF NOT EXISTS notification_dismissals (
+                company_id INTEGER NOT NULL,
+                notification_id TEXT NOT NULL,
+                dismissed_by_username TEXT,
+                dismissed_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (company_id, notification_id)
+            )`);
+
             db.run("ALTER TABLE equipments ADD COLUMN current_status TEXT DEFAULT 'Disponivel'", () => {});
             db.run("ALTER TABLE equipments ADD COLUMN category TEXT DEFAULT 'Outros'", () => {});
             db.run("ALTER TABLE events ADD COLUMN created_by_username TEXT", () => {});
@@ -181,6 +205,7 @@ function initializeDatabase() {
             db.run("ALTER TABLE cables ADD COLUMN available_quantity INTEGER DEFAULT 0", () => {});
             db.run("ALTER TABLE cables ADD COLUMN updated_at TEXT DEFAULT CURRENT_TIMESTAMP", () => {});
             db.run("ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'user'", () => {});
+            db.run("ALTER TABLE users ADD COLUMN company_id INTEGER", () => {});
             db.run("UPDATE users SET role = 'user' WHERE role IS NULL OR role = ''", () => {});
             db.run("UPDATE cables SET available_quantity = quantity WHERE available_quantity IS NULL OR available_quantity = 0", () => {});
             db.run("CREATE INDEX IF NOT EXISTS idx_other_items_name ON other_items(name)", () => {});
@@ -468,7 +493,7 @@ async function bootstrapDatabase() {
         await initializeDatabase();
         await clearPendingTestSnapshots();
         await createSqliteBackup('startup');
-        console.log('Banco de dados conectado.');
+        console.log(`Banco de dados conectado em ${DATABASE_PATH}`);
     } catch (err) {
         console.error('Erro no banco:', err.message);
         process.exit(1);
@@ -546,12 +571,20 @@ async function cleanupTestSession(req) {
 }
 
 function requireAuth(req, res, next) {
-    if (req.session && req.session.userId) return next();
+    if (req.session && (req.session.userId || req.session.localAuth)) return next();
     res.status(401).json({ error: 'Nao autorizado' });
 }
 
 async function requireAdmin(req, res, next) {
     try {
+        if (req.session?.localAuth) {
+            // Local guest/test session: grant admin permissions at runtime
+            req.currentUser = { id: null, username: req.session.username || 'Convidado', role: 'admin' };
+            // Set userId in session for compatibility with flows that check req.session.userId
+            req.session.userId = req.session.userId || 0;
+            return next();
+        }
+
         if (!req.session?.userId) {
             return res.status(401).json({ error: 'Nao autorizado' });
         }
@@ -576,6 +609,41 @@ function isAvailableStatus(status) {
         || normalized === 'pre separado'
         || normalized === 'relacao'
         || normalized === 'relação';
+}
+
+function getNotificationCompanyId(req) {
+    return req.session?.companyId || req.session?.company_id || 0;
+}
+
+function sanitizeNotificationDays(value) {
+    const raw = Array.isArray(value) ? value : String(value || '').split(',');
+    const days = raw
+        .map((item) => Number(String(item).trim()))
+        .filter((day) => Number.isInteger(day) && day >= 0 && day <= 365);
+    return [...new Set(days)].sort((a, b) => b - a);
+}
+
+function sanitizeNotificationSettings(value = {}) {
+    const daysBefore = sanitizeNotificationDays(value.daysBefore);
+    return {
+        ...DEFAULT_NOTIFICATION_SETTINGS,
+        enabled: value.enabled !== false,
+        includeOverdue: value.includeOverdue !== false,
+        allowUserDismiss: value.allowUserDismiss !== false,
+        daysBefore: daysBefore.length ? daysBefore : DEFAULT_NOTIFICATION_SETTINGS.daysBefore,
+        maxNotices: Math.max(1, Math.min(50, Number(value.maxNotices) || DEFAULT_NOTIFICATION_SETTINGS.maxNotices)),
+        repeatMode: value.repeatMode === 'once' ? 'once' : 'daily'
+    };
+}
+
+async function getNotificationSettingsForCompany(companyId) {
+    const row = await dbGet('SELECT settings_json FROM notification_settings WHERE company_id = ?', [companyId]);
+    if (!row?.settings_json) return { ...DEFAULT_NOTIFICATION_SETTINGS };
+    try {
+        return sanitizeNotificationSettings(JSON.parse(row.settings_json));
+    } catch (_) {
+        return { ...DEFAULT_NOTIFICATION_SETTINGS };
+    }
 }
 
 app.post('/api/login', async (req, res) => {
@@ -610,9 +678,38 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
+// Login simplificado para "Convidado" — cria sessão local sem usar DB
+app.post('/api/login/guest', async (req, res) => {
+    try {
+        await cleanupTestSession(req);
+        await regenerateSession(req);
+        req.session.userId = 'local-guest';
+        req.session.username = 'Convidado';
+        // Por compatibilidade com requireAdmin anterior que aceitava localAuth,
+        // mantemos o mesmo sinalizador para conceder permissões temporarias.
+        req.session.role = 'admin';
+        req.session.localAuth = true;
+        req.session.isGuest = true;
+        req.session.save(() => res.json({ success: true }));
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 app.get('/api/auth/status', async (req, res) => {
-    if (!req.session?.userId) {
+    if (!req.session?.userId && !req.session?.localAuth) {
         return res.json({ authenticated: false, isTestUser: false, username: null, isAdmin: false });
+    }
+
+    if (req.session?.localAuth) {
+        return res.json({
+            authenticated: true,
+            isTestUser: false,
+            userId: req.session.userId,
+            username: req.session.username || 'Convidado',
+            isAdmin: true,
+            isGuest: req.session.isGuest || false
+        });
     }
 
     try {
@@ -638,7 +735,12 @@ app.get('/api/auth/status', async (req, res) => {
 app.get('/api/users', requireAdmin, async (req, res) => {
     try {
         const users = await dbAll(
-            `SELECT id, username, COALESCE(role, 'user') AS role
+            `SELECT id, username,
+                    CASE
+                        WHEN COALESCE(role, 'user') = 'admin' AND company_id IS NULL THEN 'gestor_admin'
+                        ELSE COALESCE(role, 'user')
+                    END AS role,
+                    company_id
              FROM users
              ORDER BY lower(username) ASC`
         );
@@ -655,7 +757,9 @@ app.post('/api/users', requireAdmin, async (req, res) => {
     try {
         const username = String(req.body?.username || '').trim();
         const password = String(req.body?.password || '');
-        const role = String(req.body?.role || 'user').trim() === 'admin' ? 'admin' : 'user';
+        const requestedRole = String(req.body?.role || 'user').trim();
+        const role = ['user', 'admin', 'gestor_admin'].includes(requestedRole) ? requestedRole : 'user';
+        const companyId = req.body?.company_id ? Number(req.body.company_id) : null;
 
         if (!username) return res.status(400).json({ error: 'Usuario e obrigatorio' });
         if (password.trim().length < 4) {
@@ -669,10 +773,54 @@ app.post('/api/users', requireAdmin, async (req, res) => {
 
         const passwordHash = bcrypt.hashSync(password, 10);
         const result = await dbRun(
-            'INSERT INTO users (username, password, role) VALUES (?, ?, ?)',
-            [username, passwordHash, role]
+            'INSERT INTO users (username, password, role, company_id) VALUES (?, ?, ?, ?)',
+            [username, passwordHash, role, companyId]
         );
-        res.json({ id: result.lastID, username, role, success: true });
+        res.json({ id: result.lastID, username, role, company_id: companyId, success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.patch('/api/users/:id', requireAdmin, async (req, res) => {
+    try {
+        const userId = Number(req.params.id);
+        const username = String(req.body?.username || '').trim();
+        const requestedRole = String(req.body?.role || 'user').trim();
+        const role = ['user', 'admin', 'gestor_admin'].includes(requestedRole) ? requestedRole : 'user';
+        const companyId = req.body?.company_id ? Number(req.body.company_id) : null;
+
+        if (!userId) return res.status(400).json({ error: 'Usuario invalido' });
+        if (!username) return res.status(400).json({ error: 'Nome do usuario e obrigatorio' });
+
+        const user = await dbGet('SELECT id, username, COALESCE(role, "user") AS role, company_id FROM users WHERE id = ?', [userId]);
+        if (!user) return res.status(404).json({ error: 'Usuario nao encontrado' });
+
+        const existingUser = await dbGet('SELECT id FROM users WHERE lower(username) = lower(?) AND id <> ?', [username, userId]);
+        if (existingUser) {
+            return res.status(409).json({ error: 'Ja existe um usuario com esse nome' });
+        }
+
+        const wasAdmin = user.role === 'admin' || user.role === 'gestor_admin';
+        const willAdmin = role === 'admin' || role === 'gestor_admin';
+        if (wasAdmin && !willAdmin) {
+            const adminCount = await dbGet('SELECT COUNT(*) AS total FROM users WHERE role IN ("admin", "gestor_admin")');
+            if (Number(adminCount?.total) <= 1) {
+                return res.status(400).json({ error: 'Nao e possivel alterar o ultimo administrador' });
+            }
+        }
+
+        await dbRun(
+            'UPDATE users SET username = ?, role = ?, company_id = ? WHERE id = ?',
+            [username, role, companyId, userId]
+        );
+
+        const effectiveOldRole = user.role === 'admin' && !user.company_id ? 'gestor_admin' : user.role;
+        if (Number(userId) !== Number(req.currentUser.id) && (effectiveOldRole !== role || Number(user.company_id || 0) !== Number(companyId || 0))) {
+            await dbRun('DELETE FROM sessions WHERE user_id = ?', [userId]).catch(() => {});
+        }
+
+        res.json({ id: userId, username, role, company_id: companyId, success: true });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -743,6 +891,72 @@ app.post('/api/logout', async (req, res) => {
         res.json({ success: true });
     } catch (err) {
         console.error('Erro ao finalizar sessao:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.get('/api/notification-settings', requireAuth, async (req, res) => {
+    try {
+        const settings = await getNotificationSettingsForCompany(getNotificationCompanyId(req));
+        res.json({ settings });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.put('/api/notification-settings', requireAdmin, async (req, res) => {
+    try {
+        const settings = sanitizeNotificationSettings(req.body || {});
+        await dbRun(
+            `INSERT INTO notification_settings (company_id, settings_json, updated_by_username, updated_at)
+             VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+             ON CONFLICT(company_id) DO UPDATE SET
+                settings_json = excluded.settings_json,
+                updated_by_username = excluded.updated_by_username,
+                updated_at = CURRENT_TIMESTAMP`,
+            [getNotificationCompanyId(req), JSON.stringify(settings), req.session?.username || null]
+        );
+        res.json({ settings, success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.get('/api/notification-dismissals', requireAuth, async (req, res) => {
+    try {
+        const rows = await dbAll(
+            'SELECT notification_id FROM notification_dismissals WHERE company_id = ? ORDER BY dismissed_at DESC',
+            [getNotificationCompanyId(req)]
+        );
+        res.json({ ids: rows.map((row) => row.notification_id) });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.post('/api/notification-dismissals', requireAuth, async (req, res) => {
+    try {
+        const settings = await getNotificationSettingsForCompany(getNotificationCompanyId(req));
+        const isAdmin = req.session?.role === 'admin' || req.session?.localAuth;
+        if (!isAdmin && settings.allowUserDismiss === false) {
+            return res.status(403).json({ error: 'O administrador bloqueou a remocao de notificacoes' });
+        }
+
+        const ids = Array.isArray(req.body?.ids)
+            ? req.body.ids.map((id) => String(id).trim()).filter(Boolean)
+            : [];
+
+        for (const id of [...new Set(ids)].slice(0, 100)) {
+            await dbRun(
+                `INSERT OR IGNORE INTO notification_dismissals
+                 (company_id, notification_id, dismissed_by_username, dismissed_at)
+                 VALUES (?, ?, ?, CURRENT_TIMESTAMP)`,
+                [getNotificationCompanyId(req), id, req.session?.username || null]
+            );
+        }
+
+        res.json({ success: true });
+    } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
@@ -928,6 +1142,37 @@ app.get('/api/rental-events/:id', requireAuth, (req, res) => {
             res.json(row);
         }
     );
+});
+
+app.patch('/api/rental-events/:id', requireAuth, async (req, res) => {
+    try {
+        const eventId = Number(req.params.id);
+        const withdrawalDate = String(req.body?.withdrawalDate || '').trim();
+        const returnDate = String(req.body?.returnDate || '').trim();
+
+        if (!withdrawalDate || !returnDate) {
+            return res.status(400).json({ error: 'Data de retirada e data de devolucao sao obrigatorias' });
+        }
+
+        if (returnDate < withdrawalDate) {
+            return res.status(400).json({ error: 'A data de devolucao nao pode ser anterior a data de retirada' });
+        }
+
+        const event = await dbGet(
+            "SELECT id FROM events WHERE id = ? AND COALESCE(event_type, 'event') = 'rental'",
+            [eventId]
+        );
+        if (!event) return res.status(404).json({ error: 'Locacao nao encontrada' });
+
+        await dbRun(
+            'UPDATE events SET date = ?, withdrawal_date = ?, return_date = ? WHERE id = ?',
+            [withdrawalDate, withdrawalDate, returnDate, eventId]
+        );
+
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 app.delete('/api/rental-events/:id', requireAuth, async (req, res) => {
@@ -1601,6 +1846,76 @@ app.get('/dashboard.html', (req, res) => {
     }
 
     res.redirect('/');
+});
+
+// ── AI Chat (Skylet) ─────────────────────────────────────────────────────────
+app.post('/api/chat', requireAuth, async (req, res) => {
+    const CF_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
+    const CF_AI_TOKEN   = process.env.CLOUDFLARE_AI_TOKEN;
+
+    if (!CF_ACCOUNT_ID || !CF_AI_TOKEN) {
+        return res.status(503).json({
+            error: 'IA disponível apenas em produção. Configure CLOUDFLARE_ACCOUNT_ID e CLOUDFLARE_AI_TOKEN para ativar localmente.'
+        });
+    }
+
+    const message = String(req.body.message || '').trim().slice(0, 1200);
+    const rawHistory = Array.isArray(req.body.history) ? req.body.history : [];
+    if (!message) return res.status(400).json({ error: 'Mensagem obrigatória' });
+
+    const history = rawHistory.slice(-20).map(h => ({
+        role: h.role === 'user' ? 'user' : 'assistant',
+        content: String(h.content || '').slice(0, 600),
+    }));
+
+    let dbContext = '';
+    try {
+        const [equip, equipAvail, cables, events, rentals, users] = await Promise.all([
+            dbGet('SELECT COUNT(*) AS n FROM equipments'),
+            dbGet("SELECT COUNT(*) AS n FROM equipments WHERE current_status = 'Disponivel'"),
+            dbGet('SELECT COUNT(*) AS n FROM cables'),
+            dbGet("SELECT COUNT(*) AS n FROM events WHERE COALESCE(event_type,'event') = 'event'"),
+            dbGet("SELECT COUNT(*) AS n FROM events WHERE event_type = 'rental'"),
+            dbGet('SELECT COUNT(*) AS n FROM users'),
+        ]);
+        dbContext = '\n\nDADOS ATUAIS DA SUA CONTA:' +
+            `\n- Equipamentos: ${equip?.n ?? 0} cadastrados, ${equipAvail?.n ?? 0} disponíveis` +
+            `\n- Tipos de cabo: ${cables?.n ?? 0}` +
+            `\n- Eventos ativos: ${events?.n ?? 0} eventos, ${rentals?.n ?? 0} locações` +
+            `\n- Usuários cadastrados: ${users?.n ?? 0}`;
+    } catch (_) {}
+
+    const systemPrompt = 'Você é a Skylet, assistente virtual de um sistema de gestão de estoque para empresas de eventos. Responda sempre em português brasileiro, de forma clara e prática. Nunca mencione o nome de nenhum sistema ou produto. Quando se identificar, diga apenas que é a Skylet. Quando for útil direcionar o usuário a uma seção, inclua no final da resposta exatamente um marcador [NAVEGAR:sectionId|Texto do botão]. Seções válidas: home, eventos, locacao, manutencao, banco-de-dados, cadastro, historico, config.' + dbContext;
+
+    const messages = [
+        { role: 'system', content: systemPrompt },
+        ...history,
+        { role: 'user', content: message },
+    ];
+
+    try {
+        const cfRes = await fetch(
+            `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/ai/run/@cf/meta/llama-3.1-8b-instruct`,
+            {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${CF_AI_TOKEN}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ messages, max_tokens: 800 }),
+            }
+        );
+        if (!cfRes.ok) {
+            console.error('Cloudflare AI error:', await cfRes.text());
+            return res.status(502).json({ error: 'Erro ao processar resposta da IA' });
+        }
+        const cfData = await cfRes.json();
+        const reply = (cfData?.result?.response || '').trim() || 'Não consegui processar sua pergunta no momento.';
+        return res.json({ reply });
+    } catch (err) {
+        console.error('AI chat error:', err);
+        return res.status(502).json({ error: 'Erro ao processar resposta da IA' });
+    }
 });
 
 app.listen(PORT, '0.0.0.0', () => console.log(`Servidor: http://localhost:${PORT}`));

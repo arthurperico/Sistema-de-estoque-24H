@@ -1,0 +1,35 @@
+name: Sync public → docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/**'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync public to docs
+        run: |
+          rm -rf docs
+          cp -r public docs
+
+      - name: Inject build version for cache busting
+        run: |
+          VERSION=$(git rev-parse --short HEAD)
+          find docs -name "*.html" -exec sed -i "s/__BUILD_VERSION__/$VERSION/g" {} \;
+          echo "Injected version: $VERSION"
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          git diff --staged --quiet || (git commit -m "chore: sync docs from public [skip ci]" && git push)
