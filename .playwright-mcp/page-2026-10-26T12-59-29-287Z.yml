@@ -1,0 +1,8 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - img "24h Locações" [ref=e5]
+    - paragraph [ref=e6]: Sistema de Controle de Estoque
+  - generic [ref=e7]:
+    - textbox "Usuário" [ref=e9]
+    - textbox "Senha" [ref=e11]
+    - button "Entrar" [ref=e12] [cursor=pointer]

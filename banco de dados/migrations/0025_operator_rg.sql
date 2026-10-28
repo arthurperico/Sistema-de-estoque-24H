@@ -1,0 +1,5 @@
+ALTER TABLE operators
+ADD COLUMN rg TEXT NOT NULL DEFAULT '';
+
+ALTER TABLE test_snapshot_operators
+ADD COLUMN rg TEXT NOT NULL DEFAULT '';

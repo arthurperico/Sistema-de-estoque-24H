@@ -1,0 +1,39 @@
+- generic [ref=f7e2]:
+  - generic [ref=f7e3]:
+    - generic [ref=f7e4]:
+      - heading "Nome do Evento" [level=1] [ref=f7e5]
+      - paragraph [ref=f7e6]: "Data: --"
+    - img "AGS" [ref=f7e7]
+    - generic [ref=f7e8]:
+      - button "+ Relação" [ref=f7e9] [cursor=pointer]
+      - button "Saída" [ref=f7e10] [cursor=pointer]
+      - button "Entrada" [ref=f7e11] [cursor=pointer]
+      - button "Conferência" [ref=f7e12] [cursor=pointer]
+      - button "Transferir" [ref=f7e13] [cursor=pointer]
+      - button "Voltar" [ref=f7e14] [cursor=pointer]
+  - generic [ref=f7e15]:
+    - generic [ref=f7e16]:
+      - heading "Controle de Saída" [level=2] [ref=f7e17]
+      - paragraph [ref=f7e18]: Digite o código de barras ou use o botão Relação para selecionar no banco
+      - button "Desativar áudio de saída" [pressed] [ref=f7e19] [cursor=pointer]:
+        - generic [aria-hidden] [ref=f7e20]: 🔊
+    - generic [ref=f7e22]:
+      - heading "Espaços" [level=3] [ref=f7e23]
+      - button "Adicionar espaço" [ref=f7e24] [cursor=pointer]
+    - generic [ref=f7e26]:
+      - button "Equipamentos" [ref=f7e27] [cursor=pointer]
+      - button "Cabos" [ref=f7e28] [cursor=pointer]
+      - button "Outros" [ref=f7e29] [cursor=pointer]
+    - generic [ref=f7e30]:
+      - generic [ref=f7e31]:
+        - textbox "Código de barras..." [ref=f7e32]
+        - button "Registrar Saída" [ref=f7e33] [cursor=pointer]
+      - generic [ref=f7e36]:
+        - generic [ref=f7e37]:
+          - heading "Equipamentos em Saída" [level=3] [ref=f7e38]
+          - generic [ref=f7e39]:
+            - button "Gerar PDF 24H" [ref=f7e40] [cursor=pointer]
+            - button "Gerar PDF AGS" [ref=f7e41] [cursor=pointer]
+        - generic [ref=f7e42]:
+          - textbox "Pesquisar por nome ou código..." [ref=f7e43]
+          - button "Pesquisar" [ref=f7e44] [cursor=pointer]

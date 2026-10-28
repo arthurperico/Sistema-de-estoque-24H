@@ -1,0 +1,8 @@
+- generic [ref=f2e3]:
+  - generic [ref=f2e4]:
+    - img "AGS" [ref=f2e5]
+    - paragraph [ref=f2e6]: Sistema de Controle de Estoque
+  - generic [ref=f2e7]:
+    - textbox "Usuário" [ref=f2e9]
+    - textbox "Senha" [ref=f2e11]
+    - button "Entrar" [ref=f2e12] [cursor=pointer]

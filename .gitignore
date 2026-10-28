@@ -7,7 +7,13 @@ data/*.sql
 data/products.json
 database.db
 database.head.db
+banco de dados/*.db
+banco de dados/*.sqlite
+banco de dados/*.sqlite3
+banco de dados/*.sql
 *.db
+*.db-wal
+*.db-shm
 *.sqlite
 *.sqlite3
 /*.sql

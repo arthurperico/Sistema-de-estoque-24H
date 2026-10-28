@@ -1,0 +1,6 @@
+
+> controle-estoque-equipamentos@1.0.0 start
+> node server.js
+
+Banco de dados conectado.
+Servidor: http://localhost:3000

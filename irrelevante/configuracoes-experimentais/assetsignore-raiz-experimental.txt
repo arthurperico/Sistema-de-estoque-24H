@@ -1,0 +1,11 @@
+*
+!css/
+!css/**
+!html/
+!html/**
+!javascript/
+!javascript/**
+javascript/servidor/
+javascript/servidor/**
+!fotos/
+!fotos/**

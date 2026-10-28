@@ -1,0 +1,2 @@
+SESSION_SECRET nao definido. Um segredo temporario foi gerado para esta execucao.
+DELETE_PASSWORD_HASH nao definido. Exclusoes protegidas por senha ficarao indisponiveis.

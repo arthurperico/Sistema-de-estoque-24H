@@ -1,0 +1,4 @@
+[       0ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://api.whatsapp.com/send/?phone=553132255020&text&type=phone_number&app_absent=0:0
+[     441ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.whatsapp.com/data/manifest.json:0
+[     447ms] [ERROR] Manifest fetch from https://api.whatsapp.com/data/manifest.json failed, code 404 @ https://api.whatsapp.com/send/?phone=553132255020&text&type=phone_number&app_absent=0:0
+[    1692ms] [INFO] Launched external handler for 'whatsapp://send/?phone=553132255020&text&type=phone_number&app_absent=0'. @ https://api.whatsapp.com/send/?phone=553132255020&text&type=phone_number&app_absent=0:0

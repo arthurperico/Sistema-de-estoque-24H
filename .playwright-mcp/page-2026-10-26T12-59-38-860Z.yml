@@ -1,0 +1,353 @@
+- generic [ref=f1e2]:
+  - complementary [ref=f1e3]:
+    - generic [ref=f1e4]:
+      - generic [ref=f1e5]:
+        - img "24h Locações"
+      - paragraph [ref=f1e6]: Sistema de Controle
+    - navigation "Navegação principal" [ref=f1e8]:
+      - region [ref=f1e9]:
+        - paragraph [ref=f1e10]: Operação
+        - list [ref=f1e11]:
+          - listitem [ref=f1e12]:
+            - link "Eventos" [ref=f1e13] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f1e16]:
+            - link "Rastreador de equipamentos" [ref=f1e17] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f1e20]:
+            - link "Locação" [ref=f1e21] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f1e24]:
+            - link "Manutenção" [ref=f1e25] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f1e28]:
+            - link "Banco de Dados" [ref=f1e29] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f1e32]:
+            - link "Cadastrar Equipamento" [ref=f1e33] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f1e36]:
+            - link "Histórico" [ref=f1e37] [cursor=pointer]:
+              - /url: "#"
+      - region [ref=f1e40]:
+        - paragraph [ref=f1e41]: Comercial
+        - list
+    - button "Sair" [ref=f1e42]
+  - button "Ocultar menu" [expanded] [ref=f1e45]: ‹
+  - main [ref=f1e46]:
+    - generic [ref=f1e47]:
+      - generic [ref=f1e48]:
+        - heading "Eventos Cadastrados" [level=1] [ref=f1e49]
+        - textbox "Buscar evento..." [ref=f1e51]
+      - button "Criar evento" [ref=f1e52]
+    - generic [ref=f1e53]:
+      - generic [ref=f1e55]:
+        - heading "Rastreador de equipamentos" [level=1] [ref=f1e56]
+        - paragraph [ref=f1e57]: Consulte todos os eventos em que um equipamento teve saída, inclusive os finalizados e aqueles em andamento.
+      - generic [ref=f1e58]:
+        - text: Patrimônio ou nome do equipamento
+        - generic [ref=f1e59]:
+          - searchbox "Patrimônio ou nome do equipamento" [ref=f1e60]
+          - button "Buscar" [ref=f1e61]
+      - paragraph [ref=f1e62]: Digite um patrimônio ou nome para iniciar a busca.
+      - generic [ref=f1e63]:
+        - heading "Eventos encontrados" [level=2] [ref=f1e64]
+        - text: 0 eventos
+    - generic [ref=f1e65]:
+      - generic [ref=f1e66]:
+        - heading "Orçamentos" [level=1] [ref=f1e67]
+        - textbox "Buscar orçamento..." [ref=f1e69]
+      - button "Criar orçamento" [ref=f1e70]
+    - generic [ref=f1e71]:
+      - generic [ref=f1e72]:
+        - generic [ref=f1e73]:
+          - heading "Starlink" [level=1] [ref=f1e74]
+          - paragraph [ref=f1e75]: Painel de operação das Starlinks do estoque de orçamentos.
+        - generic [ref=f1e76]:
+          - generic [ref=f1e77]:
+            - text: Buscar Starlink pelo número
+            - searchbox "Buscar Starlink pelo número" [ref=f1e78]
+          - generic "Modelo de Starlink" [ref=f1e79]:
+            - button "Starlink V2" [ref=f1e80]
+            - button "Starlink Mini" [ref=f1e81]
+      - paragraph
+      - paragraph [ref=f1e83]: Carregando Starlinks...
+    - generic [ref=f1e84]:
+      - heading "Calendário de orçamentos" [level=1] [ref=f1e86]
+      - generic [ref=f1e87]:
+        - generic [ref=f1e88]:
+          - button "Anterior" [ref=f1e89]
+          - heading "Mês" [level=2] [ref=f1e90]
+          - button "Próximo" [ref=f1e91]
+        - generic [ref=f1e92]: Dom Seg Ter Qua Qui Sex Sab
+    - generic [ref=f1e94]:
+      - heading "Gerenciar orçamentos" [level=1] [ref=f1e95]
+      - textbox "Buscar orçamento aprovado..." [ref=f1e97]
+    - generic [ref=f1e98]:
+      - heading "Criar Orçamento" [level=1] [ref=f1e100]
+      - generic [ref=f1e101]:
+        - heading "Informações Gerais" [level=2] [ref=f1e103]
+        - generic [ref=f1e104]:
+          - text: Cidade da proposta
+          - textbox "Cidade da proposta" [ref=f1e105]: Belo Horizonte
+        - generic [ref=f1e106]:
+          - text: Data da proposta
+          - textbox "Data da proposta" [ref=f1e107]:
+            - /placeholder: DD/MM/AAAA
+          - text: "Digite somente os números: dia, mês e ano."
+        - generic [ref=f1e108]:
+          - text: Nome do Cliente
+          - textbox "Nome do Cliente" [ref=f1e109]
+        - generic [ref=f1e110]:
+          - text: Nome do Evento
+          - textbox "Nome do Evento" [ref=f1e111]
+        - generic [ref=f1e112]:
+          - text: Local do Evento
+          - textbox "Local do Evento" [ref=f1e113]
+        - generic [ref=f1e114]:
+          - text: Data de Montagem
+          - textbox "Data de Montagem" [ref=f1e115]:
+            - /placeholder: DD/MM/AAAA até DD/MM/AAAA
+          - text: "Exemplo: 22092026 23092026 vira 22/09/2026 até 23/09/2026."
+        - generic [ref=f1e116]:
+          - text: Data do Evento
+          - textbox "Data do Evento" [ref=f1e117]:
+            - /placeholder: DD/MM/AAAA até DD/MM/AAAA
+          - text: A segunda data pode ser igual à primeira.
+        - generic [ref=f1e118]:
+          - text: Data de Desmontagem
+          - textbox "Data de Desmontagem" [ref=f1e119]:
+            - /placeholder: DD/MM/AAAA até DD/MM/AAAA
+          - text: A desmontagem deve ficar depois do evento ou no mesmo dia.
+        - heading "Descrição dos Equipamentos" [level=2] [ref=f1e121]
+        - button "+ Adicionar equipamento avulso" [ref=f1e123]
+        - generic [ref=f1e124]:
+          - generic [ref=f1e125]:
+            - text: Buscar equipamento, serviço ou tópico
+            - textbox "Buscar equipamento, serviço ou tópico" [ref=f1e126]:
+              - /placeholder: Digite o nome do equipamento, serviço ou tópico...
+          - generic [ref=f1e127]:
+            - text: Diárias/Uni.
+            - spinbutton "Diárias/Uni." [ref=f1e128]: "1"
+        - table [ref=f1e130]:
+          - rowgroup [ref=f1e131]:
+            - row [ref=f1e132]:
+              - columnheader "Equipamentos e Serviços" [ref=f1e133]
+              - columnheader "Quantidade" [ref=f1e134]
+              - columnheader "Diárias/Uni." [ref=f1e135]
+              - columnheader "Preço unitário" [ref=f1e136]
+              - columnheader "Total interno" [ref=f1e137]
+              - columnheader [ref=f1e138]
+          - rowgroup
+        - generic [ref=f1e140]:
+          - text: Técnicos e Logística
+          - textbox "Técnicos e Logística" [ref=f1e141]: R$ 0,00
+          - text: Digite o valor total de técnicos e logística, sem relação com os técnicos cadastrados.
+        - generic [ref=f1e142]:
+          - generic [ref=f1e143]:
+            - text: Soma interna
+            - strong [ref=f1e144]: R$ 0,00
+          - generic [ref=f1e145]:
+            - text: Valor Total
+            - textbox "Valor Total" [ref=f1e146]: R$ 0,00
+        - generic [ref=f1e147]:
+          - generic [ref=f1e148]:
+            - checkbox "Deseja que apareça o valor de cada equipamento no orçamento, incluindo os itens avulsos?" [ref=f1e149]
+            - text: Deseja que apareça o valor de cada equipamento no orçamento, incluindo os itens avulsos?
+          - generic [ref=f1e150]:
+            - checkbox "Deseja mostrar o valor de Técnicos e Logística no orçamento?" [ref=f1e151]
+            - text: Deseja mostrar o valor de Técnicos e Logística no orçamento?
+        - generic [ref=f1e152]:
+          - text: Obs.
+          - textbox "Obs." [ref=f1e153]: "Obs.: A validade desta proposta está sujeita à verificação de disponibilidade de equipamentos e pessoal especializado após sua aprovação. Proposta válida por 7 dias."
+        - heading "Condições de Pagamento" [level=2] [ref=f1e155]
+        - generic [ref=f1e156]:
+          - text: Forma de Pagamento
+          - textbox "Forma de Pagamento" [ref=f1e157]: Depósito em Conta Corrente
+        - generic [ref=f1e158]:
+          - text: Prazo
+          - textbox "Prazo" [ref=f1e159]:
+            - /placeholder: "Ex.: 30 dias, à vista ou entrada + saldo"
+            - text: 30 dias
+          - text: Informe o prazo da forma que preferir.
+        - generic [ref=f1e160]:
+          - button "Gerar PDF" [ref=f1e161]
+          - button "Cancelar" [ref=f1e162]
+    - generic [ref=f1e163]:
+      - generic [ref=f1e165]:
+        - heading "Cadastro de Equipamento" [level=1] [ref=f1e166]
+        - generic [ref=f1e167]:
+          - button "Equipamentos" [ref=f1e168]
+          - button "Cabos" [ref=f1e169]
+          - button "Outros" [ref=f1e170]
+      - generic [ref=f1e172]:
+        - generic [ref=f1e173]:
+          - text: Nome do Equipamento
+          - textbox "Nome do Equipamento" [ref=f1e174]
+        - generic [ref=f1e175]:
+          - text: Código de Barras
+          - textbox "Código de Barras" [ref=f1e176]
+        - generic [ref=f1e177]:
+          - text: Categorias
+          - combobox "Categorias" [ref=f1e178]
+        - generic [ref=f1e179]:
+          - text: Numero de Serie
+          - textbox "Numero de Serie" [ref=f1e180]:
+            - /placeholder: "-"
+        - generic [ref=f1e181]:
+          - text: Observacao
+          - textbox "Observacao" [ref=f1e182]:
+            - /placeholder: "-"
+        - button "Cadastrar Equipamento" [ref=f1e184]
+      - generic [ref=f1e186]:
+        - generic [ref=f1e187]:
+          - text: Nome do Cabo
+          - textbox "Nome do Cabo" [ref=f1e188]:
+            - /placeholder: "Ex: Cabo HDMI 10m"
+        - generic [ref=f1e189]:
+          - text: Quantidade
+          - spinbutton "Quantidade" [ref=f1e190]
+        - generic [ref=f1e191]:
+          - text: Categoria
+          - combobox "Categoria" [ref=f1e192]
+        - generic [ref=f1e193]:
+          - button "Cadastrar Cabo" [ref=f1e194]
+          - button "Cancelar" [ref=f1e195]
+      - generic [ref=f1e197]:
+        - generic [ref=f1e198]:
+          - text: Nome do Item
+          - textbox "Nome do Item" [ref=f1e199]:
+            - /placeholder: "Ex: Capacete"
+        - generic [ref=f1e200]:
+          - text: Quantidade Inicial
+          - spinbutton "Quantidade Inicial" [ref=f1e201]
+        - generic [ref=f1e202]:
+          - button "Cadastrar Item" [ref=f1e203]
+          - button "Cancelar" [ref=f1e204]
+    - generic [ref=f1e205]:
+      - generic [ref=f1e206]:
+        - generic [ref=f1e207]:
+          - heading "Banco de Dados de Equipamentos" [level=1] [ref=f1e208]
+          - generic [ref=f1e209]:
+            - button "Equipamentos" [ref=f1e210]
+            - button "Cabos" [ref=f1e211]
+            - button "Outros" [ref=f1e212]
+        - generic [ref=f1e213]:
+          - textbox "Buscar equipamento..." [ref=f1e214]
+          - button "Buscar" [ref=f1e215]
+      - table [ref=f1e218]:
+        - rowgroup [ref=f1e219]:
+          - row [ref=f1e220]:
+            - columnheader "Nome do Equipamento" [ref=f1e221]
+            - columnheader "Observação" [ref=f1e222]
+            - columnheader "Número de Série" [ref=f1e223]
+            - columnheader "Patrimônio" [ref=f1e224]
+            - columnheader "Status" [ref=f1e225]
+            - columnheader "Evento" [ref=f1e226]
+            - columnheader "Ações" [ref=f1e227]
+        - rowgroup
+      - table [ref=f1e230]:
+        - rowgroup [ref=f1e231]:
+          - row [ref=f1e232]:
+            - columnheader "Nome" [ref=f1e233]
+            - columnheader "Quantidade Inicial" [ref=f1e234]
+            - columnheader "Quantidade Disponível" [ref=f1e235]
+            - columnheader [ref=f1e236]
+        - rowgroup
+      - table [ref=f1e239]:
+        - rowgroup [ref=f1e240]:
+          - row [ref=f1e241]:
+            - columnheader "Nome" [ref=f1e242]
+            - columnheader "Quantidade Inicial" [ref=f1e243]
+            - columnheader "Quantidade Atual" [ref=f1e244]
+            - columnheader [ref=f1e245]
+        - rowgroup
+    - generic [ref=f1e246]:
+      - generic [ref=f1e247]:
+        - heading "Banco de Dados de Orçamentos" [level=1] [ref=f1e249]
+        - generic [ref=f1e250]:
+          - textbox "Buscar equipamento..." [ref=f1e251]
+          - button "Buscar" [ref=f1e252]
+      - generic [ref=f1e253]: Excluir oculta o equipamento somente nas telas de orçamento deste navegador, sem alterar o banco de dados.
+      - table [ref=f1e255]:
+        - rowgroup [ref=f1e256]:
+          - row [ref=f1e257]:
+            - columnheader "Equipamento" [ref=f1e258]
+            - columnheader "Quantidade" [ref=f1e259]
+            - columnheader "Preço" [ref=f1e260]
+        - rowgroup
+    - generic [ref=f1e261]:
+      - heading "Criar Evento" [level=1] [ref=f1e263]
+      - generic [ref=f1e264]:
+        - generic [ref=f1e265]:
+          - text: Nome do Evento
+          - textbox "Nome do Evento" [ref=f1e266]
+        - generic [ref=f1e267]:
+          - text: Data Inicial
+          - textbox "Data Inicial" [ref=f1e268]
+        - generic [ref=f1e269]:
+          - text: Data Final
+          - textbox "Data Final" [ref=f1e270]
+        - generic [ref=f1e271]:
+          - button "Criar Evento" [ref=f1e272]
+          - button "Cancelar" [ref=f1e273]
+    - generic [ref=f1e274]:
+      - generic [ref=f1e275]:
+        - heading "Histórico" [level=1] [ref=f1e276]
+        - textbox "Buscar histórico..." [ref=f1e278]
+      - generic [ref=f1e280]:
+        - heading "Eventos finalizados" [level=2] [ref=f1e281]
+        - text: 0 eventos
+      - generic [ref=f1e283]:
+        - heading "Locações finalizadas" [level=2] [ref=f1e284]
+        - text: 0 locações
+    - generic [ref=f1e285]:
+      - generic [ref=f1e286]:
+        - heading "Gerenciamento de Logins" [level=1] [ref=f1e287]
+        - button "Cadastrar usuário" [ref=f1e288]
+      - generic [ref=f1e289]:
+        - table [ref=f1e291]:
+          - rowgroup [ref=f1e292]:
+            - row [ref=f1e293]:
+              - columnheader "Usuário" [ref=f1e294]
+              - columnheader "Classe" [ref=f1e295]
+              - columnheader "Nova senha" [ref=f1e296]
+              - columnheader [ref=f1e297]
+          - rowgroup
+        - paragraph
+    - generic [ref=f1e299]:
+      - heading "Técnicos" [level=1] [ref=f1e300]
+      - generic [ref=f1e301]:
+        - textbox "Buscar técnico..." [ref=f1e302]
+        - button "Cadastrar técnico" [ref=f1e303]
+    - generic [ref=f1e304]:
+      - generic [ref=f1e306]:
+        - heading "Controle de Manutenção" [level=1] [ref=f1e307]
+        - generic [ref=f1e308]:
+          - button "Equipamentos" [ref=f1e309]
+          - button "Cabos" [ref=f1e310]
+      - generic [ref=f1e311]:
+        - generic [ref=f1e313]:
+          - text: Código de Barras
+          - generic [ref=f1e314]:
+            - textbox "Código de Barras" [ref=f1e315]:
+              - /placeholder: Digite o código e pressione Enter
+            - button "Buscar Equipamento" [ref=f1e316]
+        - generic [ref=f1e318]:
+          - heading "Equipamentos em manutenção" [level=2] [ref=f1e319]
+          - text: 0 itens
+      - generic [ref=f1e320]:
+        - generic [ref=f1e322]:
+          - text: Nome do Cabo
+          - generic [ref=f1e323]:
+            - textbox "Nome do Cabo" [ref=f1e324]:
+              - /placeholder: Digite o nome do cabo e pressione Enter
+            - button "Buscar Cabo" [ref=f1e325]
+        - generic [ref=f1e327]:
+          - heading "Cabos em manutenção" [level=2] [ref=f1e328]
+          - text: 0 itens
+    - generic [ref=f1e329]:
+      - generic [ref=f1e330]:
+        - heading "Locação" [level=1] [ref=f1e331]
+        - textbox "Buscar locação..." [ref=f1e333]
+      - button "+ Criar Evento" [ref=f1e334]

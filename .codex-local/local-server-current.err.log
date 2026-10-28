@@ -1,0 +1,2 @@
+SESSION_SECRET não definido. Usando segredo local fixo para desenvolvimento.
+Erro ao cadastrar: SQLITE_CONSTRAINT: UNIQUE constraint failed: equipments.barcode

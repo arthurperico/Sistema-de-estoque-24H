@@ -1,0 +1,7 @@
+
+  javascript\quote-pdf-client.js  456.0kb
+
+Done in 38ms
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1m{"message":"quote request failed","method":"GET","path":"/api/orcamentos/equipamentos-banco","error":"D1_ERROR: no such column: equipments.unit_price at offset 311: SQLITE_ERROR"}[0m
+
+

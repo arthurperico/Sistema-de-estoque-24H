@@ -1,0 +1,215 @@
+- generic [ref=f4e2]:
+  - complementary [ref=f4e3]:
+    - generic [ref=f4e4]:
+      - img "24H Locações" [ref=f4e6]
+      - paragraph [ref=f4e7]: Sistema de Controle
+    - navigation "Navegação principal" [ref=f4e8]:
+      - region [ref=f4e9]:
+        - paragraph [ref=f4e10]: Operação
+        - list [ref=f4e11]:
+          - listitem [ref=f4e12]:
+            - link "Eventos" [ref=f4e13] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f4e16]:
+            - link "Rastreador de equipamentos" [ref=f4e17] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f4e20]:
+            - link "Locação" [ref=f4e21] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f4e24]:
+            - link "Manutenção" [ref=f4e25] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f4e28]:
+            - link "Banco de Dados" [ref=f4e29] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f4e32]:
+            - link "Cadastrar Equipamento" [ref=f4e33] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f4e36]:
+            - link "Histórico" [ref=f4e37] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f4e40]:
+            - link "Starlink" [ref=f4e41] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f4e44]:
+            - link "Logins" [ref=f4e45] [cursor=pointer]:
+              - /url: "#"
+      - region [ref=f4e48]:
+        - paragraph [ref=f4e49]: Comercial
+        - list [ref=f4e50]:
+          - listitem [ref=f4e51]:
+            - link "Banco de Orçamentos" [ref=f4e52] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f4e55]:
+            - link "Orçamentos" [ref=f4e56] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f4e59]:
+            - link "Calendário de orçamentos" [ref=f4e60] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f4e63]:
+            - link "Gerenciar orçamentos" [ref=f4e64] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f4e67]:
+            - link "Técnicos" [ref=f4e68] [cursor=pointer]:
+              - /url: "#"
+    - button "Sair" [ref=f4e71] [cursor=pointer]
+  - button "Ocultar menu" [expanded] [ref=f4e74] [cursor=pointer]:
+    - generic [aria-hidden] [ref=f4e75]: â€¹
+    - text: MENU
+  - main [ref=f4e76]:
+    - generic [ref=f4e77]:
+      - generic [ref=f4e78]:
+        - heading "Eventos Cadastrados" [level=1] [ref=f4e79]
+        - textbox "Buscar evento..." [ref=f4e81]
+      - generic [ref=f4e82]:
+        - generic [ref=f4e83]:
+          - generic [ref=f4e84]:
+            - heading "Somtec" [level=3] [ref=f4e85]
+            - generic [ref=f4e86]:
+              - generic [ref=f4e87]: Em andamento
+              - generic [ref=f4e88]: 17/08/2026 atÃ© 22/08/2026
+          - generic [ref=f4e89]:
+            - paragraph [ref=f4e90]:
+              - strong [ref=f4e91]: "OrÃ§amento:"
+              - text: Somtec
+            - paragraph [ref=f4e92]:
+              - strong [ref=f4e93]: "Cliente:"
+              - text: Evandro Somtec
+          - generic [ref=f4e94]:
+            - button "Gerenciar" [ref=f4e95] [cursor=pointer]
+            - button "PDF" [ref=f4e96] [cursor=pointer]
+        - generic [ref=f4e97]:
+          - generic [ref=f4e98]:
+            - heading "Locação" [level=3] [ref=f4e99]
+            - generic [ref=f4e100]:
+              - generic [ref=f4e101]: Agendado
+              - generic [ref=f4e102]: 02/10/2026 atÃ© 03/10/2026
+          - generic [ref=f4e103]:
+            - paragraph [ref=f4e104]:
+              - strong [ref=f4e105]: "OrÃ§amento:"
+              - text: Locação
+            - paragraph [ref=f4e106]:
+              - strong [ref=f4e107]: "Cliente:"
+              - text: Marcelo
+          - generic [ref=f4e108]:
+            - button "Gerenciar" [ref=f4e109] [cursor=pointer]
+            - button "PDF" [ref=f4e110] [cursor=pointer]
+        - generic [ref=f4e111]:
+          - generic [ref=f4e112]:
+            - heading "sessões de contação de história em culminância de um projeto de educação financeira" [level=3] [ref=f4e113]
+            - generic [ref=f4e114]:
+              - generic [ref=f4e115]: Agendado
+              - generic [ref=f4e116]: 05/10/2026 atÃ© 08/10/2026
+          - generic [ref=f4e117]:
+            - paragraph [ref=f4e118]:
+              - strong [ref=f4e119]: "OrÃ§amento:"
+              - text: sessões de contação de história em culminância de um projeto de educação financeira
+            - paragraph [ref=f4e120]:
+              - strong [ref=f4e121]: "Cliente:"
+              - text: Panda
+          - generic [ref=f4e122]:
+            - button "Gerenciar" [ref=f4e123] [cursor=pointer]
+            - button "PDF" [ref=f4e124] [cursor=pointer]
+        - generic [ref=f4e125]:
+          - generic [ref=f4e126]:
+            - heading "Vista - Restaurante Olga Nur" [level=3] [ref=f4e127]
+            - generic [ref=f4e128]:
+              - generic [ref=f4e129]: Agendado
+              - generic [ref=f4e130]: 06/10/2026
+          - generic [ref=f4e131]:
+            - paragraph [ref=f4e132]:
+              - strong [ref=f4e133]: "OrÃ§amento:"
+              - text: Vista - Restaurante Olga Nur
+            - paragraph [ref=f4e134]:
+              - strong [ref=f4e135]: "Cliente:"
+              - text: Vista
+          - generic [ref=f4e136]:
+            - button "Gerenciar" [ref=f4e137] [cursor=pointer]
+            - button "PDF" [ref=f4e138] [cursor=pointer]
+        - generic [ref=f4e139]:
+          - generic [ref=f4e140]:
+            - heading "Dia mundial da segurança Anglo American" [level=3] [ref=f4e141]
+            - generic [ref=f4e142]:
+              - generic [ref=f4e143]: Em andamento
+              - generic [ref=f4e144]: 27/10/2026 atÃ© 28/10/2026
+          - generic [ref=f4e145]:
+            - paragraph [ref=f4e146]:
+              - strong [ref=f4e147]: "OrÃ§amento:"
+              - text: Dia mundial da segurança Anglo American
+            - paragraph [ref=f4e148]:
+              - strong [ref=f4e149]: "Cliente:"
+              - text: Leila
+          - generic [ref=f4e150]:
+            - button "Gerenciar" [ref=f4e151] [cursor=pointer]
+            - button "PDF" [ref=f4e152] [cursor=pointer]
+        - generic [ref=f4e153]:
+          - generic [ref=f4e154]:
+            - heading "Dialogando com o Mercado e PQEX 2026" [level=3] [ref=f4e155]
+            - generic [ref=f4e156]:
+              - generic [ref=f4e157]: Agendado
+              - generic [ref=f4e158]: 23/11/2026 atÃ© 25/11/2026
+          - generic [ref=f4e159]:
+            - paragraph [ref=f4e160]:
+              - strong [ref=f4e161]: "OrÃ§amento:"
+              - text: Dialogando com o Mercado e PQEX 2026
+            - paragraph [ref=f4e162]:
+              - strong [ref=f4e163]: "Cliente:"
+              - text: Flávia
+          - generic [ref=f4e164]:
+            - button "Gerenciar" [ref=f4e165] [cursor=pointer]
+            - button "PDF" [ref=f4e166] [cursor=pointer]
+        - generic [ref=f4e167]:
+          - generic [ref=f4e168]:
+            - heading "Andre - live" [level=3] [ref=f4e169]
+            - generic [ref=f4e170]:
+              - generic [ref=f4e171]: Arthur
+              - generic [ref=f4e172]: 23/10/2026 atÃ© 26/10/2026
+          - generic [ref=f4e173]:
+            - button "Gerenciar" [ref=f4e174] [cursor=pointer]
+            - button "Excluir" [ref=f4e175] [cursor=pointer]
+        - generic [ref=f4e176]:
+          - generic [ref=f4e177]:
+            - heading "Vista Savassi" [level=3] [ref=f4e178]
+            - generic [ref=f4e179]:
+              - generic [ref=f4e180]: Arthur
+              - generic [ref=f4e181]: 06/10/2026
+          - generic [ref=f4e182]:
+            - button "Gerenciar" [ref=f4e183] [cursor=pointer]
+            - button "Excluir" [ref=f4e184] [cursor=pointer]
+        - generic [ref=f4e185]:
+          - generic [ref=f4e186]:
+            - heading "Ibirite" [level=3] [ref=f4e187]
+            - generic [ref=f4e188]:
+              - generic [ref=f4e189]: Arthur
+              - generic [ref=f4e190]: 05/10/2026 atÃ© 08/10/2026
+          - generic [ref=f4e191]:
+            - button "Gerenciar" [ref=f4e192] [cursor=pointer]
+            - button "Excluir" [ref=f4e193] [cursor=pointer]
+        - generic [ref=f4e194]:
+          - generic [ref=f4e195]:
+            - heading "PACE CAR" [level=3] [ref=f4e196]
+            - generic [ref=f4e197]:
+              - generic [ref=f4e198]: Arthur
+              - generic [ref=f4e199]: 29/09/2026 atÃ© 03/10/2026
+          - generic [ref=f4e200]:
+            - button "Gerenciar" [ref=f4e201] [cursor=pointer]
+            - button "Excluir" [ref=f4e202] [cursor=pointer]
+        - generic [ref=f4e203]:
+          - generic [ref=f4e204]:
+            - heading "VALE - MINA DE PICO" [level=3] [ref=f4e205]
+            - generic [ref=f4e206]:
+              - generic [ref=f4e207]: Arthur
+              - generic [ref=f4e208]: 25/09/2026 atÃ© 28/09/2026
+          - generic [ref=f4e209]:
+            - button "Gerenciar" [ref=f4e210] [cursor=pointer]
+            - button "Excluir" [ref=f4e211] [cursor=pointer]
+        - generic [ref=f4e212]:
+          - generic [ref=f4e213]:
+            - heading "SALOMAO" [level=3] [ref=f4e214]
+            - generic [ref=f4e215]:
+              - generic [ref=f4e216]: Arthur
+              - generic [ref=f4e217]: 16/09/2026
+          - generic [ref=f4e218]:
+            - button "Gerenciar" [ref=f4e219] [cursor=pointer]
+            - button "Excluir" [ref=f4e220] [cursor=pointer]
+      - button "Criar evento" [ref=f4e221] [cursor=pointer]

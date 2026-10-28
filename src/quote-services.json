@@ -1,0 +1,85 @@
+[
+  {
+    "id": "projetor-6000-laser",
+    "name": "PROJETOR DE 6000 LASER",
+    "unitPrice": 1000
+  },
+  {
+    "id": "projetor-7000-laser",
+    "name": "PROJETOR DE 7000 LASER",
+    "unitPrice": 1400
+  },
+  {
+    "id": "painel-de-led",
+    "name": "PAINEL DE LED",
+    "unitPrice": 500,
+    "requiresDimensions": true,
+    "pricePerSquareMeter": 500
+  },
+  {
+    "id": "totem-de-led",
+    "name": "TOTEM DE LED",
+    "unitPrice": 0,
+    "editablePrice": true
+  },
+  {
+    "id": "fotografo",
+    "name": "FOTÓGRAFO",
+    "unitPrice": 1600
+  },
+  {
+    "id": "videomaker",
+    "name": "VIDEOMAKER",
+    "unitPrice": 2500
+  },
+  {
+    "id": "video-ate-1-minuto",
+    "name": "VÍDEO ATÉ 1 MINUTO",
+    "unitPrice": 1800
+  },
+  {
+    "id": "video-ate-3-minutos",
+    "name": "VÍDEO ATÉ 3 MINUTOS",
+    "unitPrice": 3000
+  },
+  {
+    "id": "video-ate-8-minutos",
+    "name": "VÍDEO ATÉ 8 MINUTOS",
+    "unitPrice": 6000
+  },
+  {
+    "id": "internet-dedicado-100mb",
+    "name": "LINK DE INTERNET DEDICADO 100MB",
+    "unitPrice": 2200
+  },
+  {
+    "id": "internet-dedicado-500mb",
+    "name": "LINK DE INTERNET DEDICADO 500MB",
+    "unitPrice": 3500
+  },
+  {
+    "id": "starlink-backup",
+    "name": "LINK DE INTERNET STARLINK BACKUP",
+    "unitPrice": 1000
+  },
+  {
+    "id": "tecnico-sonorizacao",
+    "name": "TÉCNICO DE SONORIZAÇÃO",
+    "unitPrice": 600
+  },
+  {
+    "id": "tecnico-video",
+    "name": "TÉCNICO DE VÍDEO",
+    "unitPrice": 600
+  },
+  {
+    "id": "tecnico-iluminacao",
+    "name": "TÉCNICO DE ILUMINAÇÃO",
+    "unitPrice": 600
+  },
+  {
+    "id": "tecnico-streaming",
+    "name": "TÉCNICO DE STREAMING",
+    "unitPrice": 1000
+  }
+]

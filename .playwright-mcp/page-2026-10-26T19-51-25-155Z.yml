@@ -1,0 +1,43 @@
+- generic [ref=e2]:
+  - complementary [ref=e3]:
+    - generic [ref=e4]:
+      - img "AGS" [ref=e6]
+      - paragraph [ref=e7]: Sistema de Controle
+    - navigation "Navegação principal" [ref=e8]:
+      - region [ref=e9]:
+        - paragraph [ref=e10]: Operação
+        - list [ref=e11]:
+          - listitem [ref=e12]:
+            - link "Eventos" [ref=e13] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e16]:
+            - link "Rastreador de equipamentos" [ref=e17] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e20]:
+            - link "Locação" [ref=e21] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e24]:
+            - link "Manutenção" [ref=e25] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e28]:
+            - link "Banco de Dados" [ref=e29] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e32]:
+            - link "Cadastrar Equipamento" [ref=e33] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e36]:
+            - link "Histórico" [ref=e37] [cursor=pointer]:
+              - /url: "#"
+      - region [ref=e40]:
+        - paragraph [ref=e41]: Comercial
+        - list
+    - button "Sair" [ref=e42] [cursor=pointer]
+  - button "Ocultar menu" [expanded] [ref=e45] [cursor=pointer]:
+    - generic [aria-hidden] [ref=e46]: ‹
+    - text: MENU
+  - main [ref=e47]:
+    - generic [ref=e48]:
+      - generic [ref=e49]:
+        - heading "Eventos Cadastrados" [level=1] [ref=e50]
+        - textbox "Buscar evento..." [ref=e52]
+      - button "Criar evento" [ref=e53] [cursor=pointer]

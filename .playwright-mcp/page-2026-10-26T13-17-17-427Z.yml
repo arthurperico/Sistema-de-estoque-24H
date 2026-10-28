@@ -1,0 +1,284 @@
+- generic [ref=f7e1]:
+  - generic [ref=f7e2]:
+    - generic [ref=f7e3]:
+      - generic [ref=f7e4]:
+        - heading "Somtec" [level=1] [ref=f7e45]
+        - paragraph [ref=f7e6]: "Data inicial: 17/08/2026 | Data final: 22/08/2026"
+      - img "AGS" [ref=f7e7]
+      - generic [ref=f7e8]:
+        - button "+ Relação" [ref=f7e9] [cursor=pointer]
+        - button "Saída" [ref=f7e10] [cursor=pointer]
+        - button "Entrada" [ref=f7e11] [cursor=pointer]
+        - button "Transferir" [active] [ref=f7e13] [cursor=pointer]
+        - button "Voltar" [ref=f7e14] [cursor=pointer]
+    - generic [ref=f7e15]:
+      - generic [ref=f7e16]:
+        - heading "Controle de Saída" [level=2] [ref=f7e17]
+        - paragraph [ref=f7e18]: Digite o código de barras ou use o botão Relação para selecionar no banco
+        - button "Desativar áudio de saída" [pressed] [ref=f7e19] [cursor=pointer]:
+          - generic [aria-hidden] [ref=f7e20]: 🔊
+      - generic [ref=f7e21]:
+        - generic [ref=f7e22]:
+          - heading "Espaços" [level=3] [ref=f7e23]
+          - button "Adicionar espaço" [ref=f7e24] [cursor=pointer]
+        - button "Evento geral" [ref=f7e47] [cursor=pointer]
+      - generic [ref=f7e26]:
+        - button "Equipamentos" [ref=f7e27] [cursor=pointer]
+        - button "Cabos" [ref=f7e28] [cursor=pointer]
+        - button "Outros" [ref=f7e29] [cursor=pointer]
+      - generic [ref=f7e30]:
+        - generic [ref=f7e31]:
+          - textbox "Código de barras..." [ref=f7e32]
+          - button "Registrar Saída" [ref=f7e33] [cursor=pointer]
+        - generic [ref=f7e35]:
+          - generic [ref=f7e36]:
+            - generic [ref=f7e37]:
+              - heading "Equipamentos em Saída" [level=3] [ref=f7e38]
+              - generic [ref=f7e39]:
+                - button "Gerar PDF 24H" [ref=f7e40] [cursor=pointer]
+                - button "Gerar PDF AGS" [ref=f7e41] [cursor=pointer]
+            - generic [ref=f7e42]:
+              - textbox "Pesquisar por nome ou código..." [ref=f7e43]
+              - button "Pesquisar" [ref=f7e44] [cursor=pointer]
+            - generic [ref=f7e48]:
+              - generic [ref=f7e49]:
+                - button "Excluir" [ref=f7e50] [cursor=pointer]
+                - generic [ref=f7e51]:
+                  - heading "TV SAMSUNG BUSINESS BED-H 50''" [level=4] [ref=f7e52]
+                  - paragraph [ref=f7e53]: "Cod: 1162"
+                - generic [ref=f7e54]: Em Saída
+              - generic [ref=f7e57]:
+                - button "Excluir" [ref=f7e58] [cursor=pointer]
+                - generic [ref=f7e59]:
+                  - heading "TV SAMSUNG BUSINESS BED-H 50''" [level=4] [ref=f7e60]
+                  - paragraph [ref=f7e61]: "Cod: 1166"
+                - generic [ref=f7e62]:
+                  - generic [ref=f7e63]: Arthur
+                  - generic [ref=f7e64]: ✅
+          - complementary [ref=f7e65]:
+            - generic [ref=f7e66]:
+              - heading "Ordem de Serviço" [level=3] [ref=f7e67]
+              - generic [ref=f7e68]: 0/2
+            - generic [ref=f7e70]:
+              - generic [ref=f7e71]:
+                - strong [ref=f7e72]: 02 TV 50''
+                - generic [ref=f7e73]: "Separado: 0 • Falta separar: 2"
+                - generic [ref=f7e74]: "Disponíveis no galpão: 3"
+                - generic [ref=f7e75]: "Déficit previsto no período: 2"
+              - generic "Saída pendente" [ref=f7e76]: ⏳
+  - dialog [ref=f7e77]:
+    - generic [ref=f7e78]:
+      - button "Fechar" [ref=f7e79] [cursor=pointer]: X
+      - heading "Transferir equipamentos" [level=2] [ref=f7e80]
+      - paragraph [ref=f7e81]: Escolha o evento que receberá todos os equipamentos com saída pendente.
+      - generic [ref=f7e82]:
+        - button "Dialogando com o Mercado e PQEX 2026 23/11/2026 até 25/11/2026 · Evento de orçamento" [ref=f7e83] [cursor=pointer]:
+          - strong [ref=f7e84]: Dialogando com o Mercado e PQEX 2026
+          - generic [ref=f7e85]: 23/11/2026 até 25/11/2026 · Evento de orçamento
+        - button "Dia mundial da segurança Anglo American 27/10/2026 até 28/10/2026 · Evento de orçamento" [ref=f7e86] [cursor=pointer]:
+          - strong [ref=f7e87]: Dia mundial da segurança Anglo American
+          - generic [ref=f7e88]: 27/10/2026 até 28/10/2026 · Evento de orçamento
+        - button "Andre - live 23/10/2026 até 26/10/2026" [ref=f7e89] [cursor=pointer]:
+          - strong [ref=f7e90]: Andre - live
+          - generic [ref=f7e91]: 23/10/2026 até 26/10/2026
+        - button "Anglo American 19/10/2026 até 20/10/2026 · Evento de orçamento" [ref=f7e92] [cursor=pointer]:
+          - strong [ref=f7e93]: Anglo American
+          - generic [ref=f7e94]: 19/10/2026 até 20/10/2026 · Evento de orçamento
+        - button "Vista - Restaurante Olga Nur 06/10/2026 · Evento de orçamento" [ref=f7e95] [cursor=pointer]:
+          - strong [ref=f7e96]: Vista - Restaurante Olga Nur
+          - generic [ref=f7e97]: 06/10/2026 · Evento de orçamento
+        - button "Vista Savassi 06/10/2026" [ref=f7e98] [cursor=pointer]:
+          - strong [ref=f7e99]: Vista Savassi
+          - generic [ref=f7e100]: 06/10/2026
+        - button "sessões de contação de história em culminância de um projeto de educação financeira 05/10/2026 até 08/10/2026 · Evento de orçamento" [ref=f7e101] [cursor=pointer]:
+          - strong [ref=f7e102]: sessões de contação de história em culminância de um projeto de educação financeira
+          - generic [ref=f7e103]: 05/10/2026 até 08/10/2026 · Evento de orçamento
+        - button "Ibirite 05/10/2026 até 08/10/2026" [ref=f7e104] [cursor=pointer]:
+          - strong [ref=f7e105]: Ibirite
+          - generic [ref=f7e106]: 05/10/2026 até 08/10/2026
+        - button "Locação 02/10/2026 até 03/10/2026 · Evento de orçamento" [ref=f7e107] [cursor=pointer]:
+          - strong [ref=f7e108]: Locação
+          - generic [ref=f7e109]: 02/10/2026 até 03/10/2026 · Evento de orçamento
+        - button "Marcelo 01/10/2026 até 05/10/2026" [ref=f7e110] [cursor=pointer]:
+          - strong [ref=f7e111]: Marcelo
+          - generic [ref=f7e112]: 01/10/2026 até 05/10/2026
+        - button "PACE CAR 29/09/2026 até 03/10/2026" [ref=f7e113] [cursor=pointer]:
+          - strong [ref=f7e114]: PACE CAR
+          - generic [ref=f7e115]: 29/09/2026 até 03/10/2026
+        - button "VALE - MINA DE PICO 25/09/2026 até 28/09/2026" [ref=f7e116] [cursor=pointer]:
+          - strong [ref=f7e117]: VALE - MINA DE PICO
+          - generic [ref=f7e118]: 25/09/2026 até 28/09/2026
+        - button "PEQUI 24/09/2026 até 28/09/2026" [ref=f7e119] [cursor=pointer]:
+          - strong [ref=f7e120]: PEQUI
+          - generic [ref=f7e121]: 24/09/2026 até 28/09/2026
+        - button "SALOMAO 16/09/2026" [ref=f7e122] [cursor=pointer]:
+          - strong [ref=f7e123]: SALOMAO
+          - generic [ref=f7e124]: 16/09/2026
+        - button "BAH 11/09/2026 até 14/09/2026" [ref=f7e125] [cursor=pointer]:
+          - strong [ref=f7e126]: BAH
+          - generic [ref=f7e127]: 11/09/2026 até 14/09/2026
+        - button "Inhotim Anoitecer 10/09/2026 até 12/09/2026 · Evento de orçamento" [ref=f7e128] [cursor=pointer]:
+          - strong [ref=f7e129]: Inhotim Anoitecer
+          - generic [ref=f7e130]: 10/09/2026 até 12/09/2026 · Evento de orçamento
+        - button "Vista 09/09/2026 até 09/10/2026" [ref=f7e131] [cursor=pointer]:
+          - strong [ref=f7e132]: Vista
+          - generic [ref=f7e133]: 09/09/2026 até 09/10/2026
+        - button "Baah 04/09/2026 até 08/09/2026" [ref=f7e134] [cursor=pointer]:
+          - strong [ref=f7e135]: Baah
+          - generic [ref=f7e136]: 04/09/2026 até 08/09/2026
+        - button "FOX AUTOMAÇAO 03/09/2026 até 03/09/2027" [ref=f7e137] [cursor=pointer]:
+          - strong [ref=f7e138]: FOX AUTOMAÇAO
+          - generic [ref=f7e139]: 03/09/2026 até 03/09/2027
+        - button "CNHI 01/09/2026 até 03/09/2026 · Evento de orçamento" [ref=f7e140] [cursor=pointer]:
+          - strong [ref=f7e141]: CNHI
+          - generic [ref=f7e142]: 01/09/2026 até 03/09/2026 · Evento de orçamento
+        - button "PEQUI 26/08/2026 até 22/09/2026" [ref=f7e143] [cursor=pointer]:
+          - strong [ref=f7e144]: PEQUI
+          - generic [ref=f7e145]: 26/08/2026 até 22/09/2026
+        - button "Brink's Day 25/08/2026 · Evento de orçamento" [ref=f7e146] [cursor=pointer]:
+          - strong [ref=f7e147]: Brink's Day
+          - generic [ref=f7e148]: 25/08/2026 · Evento de orçamento
+        - button "Estande U&M Exposibram 22/08/2026 até 27/08/2026 · Evento de orçamento" [ref=f7e149] [cursor=pointer]:
+          - strong [ref=f7e150]: Estande U&M Exposibram
+          - generic [ref=f7e151]: 22/08/2026 até 27/08/2026 · Evento de orçamento
+        - button "Exposibram 22/08/2026 até 27/08/2026 · Evento de orçamento" [ref=f7e152] [cursor=pointer]:
+          - strong [ref=f7e153]: Exposibram
+          - generic [ref=f7e154]: 22/08/2026 até 27/08/2026 · Evento de orçamento
+        - button "BAH -TELA 21/08/2026" [ref=f7e155] [cursor=pointer]:
+          - strong [ref=f7e156]: BAH -TELA
+          - generic [ref=f7e157]: 21/08/2026
+        - button "SALOMAO - Corrida 20/08/2026 até 22/08/2026" [ref=f7e158] [cursor=pointer]:
+          - strong [ref=f7e159]: SALOMAO - Corrida
+          - generic [ref=f7e160]: 20/08/2026 até 22/08/2026
+        - button "SHOW 031 - DIEGO 15/08/2026 até 16/08/2026" [ref=f7e161] [cursor=pointer]:
+          - strong [ref=f7e162]: SHOW 031 - DIEGO
+          - generic [ref=f7e163]: 15/08/2026 até 16/08/2026
+        - button "Hugo 14/08/2026 até 20/08/2026" [ref=f7e164] [cursor=pointer]:
+          - strong [ref=f7e165]: Hugo
+          - generic [ref=f7e166]: 14/08/2026 até 20/08/2026
+        - button "EVENTO ALEXANDRE 11/08/2026 até 13/08/2026" [ref=f7e167] [cursor=pointer]:
+          - strong [ref=f7e168]: EVENTO ALEXANDRE
+          - generic [ref=f7e169]: 11/08/2026 até 13/08/2026
+        - button "União Coordenadas + Especialistas 09/08/2026 até 12/08/2026 · Evento de orçamento" [ref=f7e170] [cursor=pointer]:
+          - strong [ref=f7e171]: União Coordenadas + Especialistas
+          - generic [ref=f7e172]: 09/08/2026 até 12/08/2026 · Evento de orçamento
+        - button "charles 05/08/2026" [ref=f7e173] [cursor=pointer]:
+          - strong [ref=f7e174]: charles
+          - generic [ref=f7e175]: 05/08/2026
+        - button "Festival Sensacional 05/08/2026 até 09/08/2026 · Evento de orçamento" [ref=f7e176] [cursor=pointer]:
+          - strong [ref=f7e177]: Festival Sensacional
+          - generic [ref=f7e178]: 05/08/2026 até 09/08/2026 · Evento de orçamento
+        - button "Anglo American 02/08/2026 até 03/08/2026 · Evento de orçamento" [ref=f7e179] [cursor=pointer]:
+          - strong [ref=f7e180]: Anglo American
+          - generic [ref=f7e181]: 02/08/2026 até 03/08/2026 · Evento de orçamento
+        - button "Anglo American 02/08/2026 até 03/08/2026" [ref=f7e182] [cursor=pointer]:
+          - strong [ref=f7e183]: Anglo American
+          - generic [ref=f7e184]: 02/08/2026 até 03/08/2026
+        - button "Anglo American 02/08/2026 até 03/08/2026" [ref=f7e185] [cursor=pointer]:
+          - strong [ref=f7e186]: Anglo American
+          - generic [ref=f7e187]: 02/08/2026 até 03/08/2026
+        - button "Helton 18/07/2026 até 20/07/2026" [ref=f7e188] [cursor=pointer]:
+          - strong [ref=f7e189]: Helton
+          - generic [ref=f7e190]: 18/07/2026 até 20/07/2026
+        - button "Fiat 18/07/2026 até 20/07/2026" [ref=f7e191] [cursor=pointer]:
+          - strong [ref=f7e192]: Fiat
+          - generic [ref=f7e193]: 18/07/2026 até 20/07/2026
+        - button "teste 17/07/2026 · Evento de orçamento" [ref=f7e194] [cursor=pointer]:
+          - strong [ref=f7e195]: teste
+          - generic [ref=f7e196]: 17/07/2026 · Evento de orçamento
+        - button "Audiencia Publica Ouro Preto- AGS 08/07/2026" [ref=f7e197] [cursor=pointer]:
+          - strong [ref=f7e198]: Audiencia Publica Ouro Preto- AGS
+          - generic [ref=f7e199]: 08/07/2026
+        - button "Flavio - festa 15 anos 03/07/2026" [ref=f7e200] [cursor=pointer]:
+          - strong [ref=f7e201]: Flavio - festa 15 anos
+          - generic [ref=f7e202]: 03/07/2026
+        - button "ANGLO AMERICAN 03/07/2026" [ref=f7e203] [cursor=pointer]:
+          - strong [ref=f7e204]: ANGLO AMERICAN
+          - generic [ref=f7e205]: 03/07/2026
+        - button "Alice - transformador 01/07/2026 até 02/07/2026" [ref=f7e206] [cursor=pointer]:
+          - strong [ref=f7e207]: Alice - transformador
+          - generic [ref=f7e208]: 01/07/2026 até 02/07/2026
+        - button "BAH 25/06/2026 até 28/06/2026" [ref=f7e209] [cursor=pointer]:
+          - strong [ref=f7e210]: BAH
+          - generic [ref=f7e211]: 25/06/2026 até 28/06/2026
+        - button "Hugo 24/06/2026 até 30/06/2026" [ref=f7e212] [cursor=pointer]:
+          - strong [ref=f7e213]: Hugo
+          - generic [ref=f7e214]: 24/06/2026 até 30/06/2026
+        - button "VISTA 23/06/2026 até 30/06/2026" [ref=f7e215] [cursor=pointer]:
+          - strong [ref=f7e216]: VISTA
+          - generic [ref=f7e217]: 23/06/2026 até 30/06/2026
+        - button "Andre - pegou simulado 18/06/2026 até 22/06/2026" [ref=f7e218] [cursor=pointer]:
+          - strong [ref=f7e219]: Andre - pegou simulado
+          - generic [ref=f7e220]: 18/06/2026 até 22/06/2026
+        - button "SIMULADO PETROBRÁS 17/06/2026" [ref=f7e221] [cursor=pointer]:
+          - strong [ref=f7e222]: SIMULADO PETROBRÁS
+          - generic [ref=f7e223]: 17/06/2026
+        - button "PRODEL 16/06/2026 até 19/06/2026" [ref=f7e224] [cursor=pointer]:
+          - strong [ref=f7e225]: PRODEL
+          - generic [ref=f7e226]: 16/06/2026 até 19/06/2026
+        - button "Tatiana - TV 12/06/2026" [ref=f7e227] [cursor=pointer]:
+          - strong [ref=f7e228]: Tatiana - TV
+          - generic [ref=f7e229]: 12/06/2026
+        - button "Concordia 12/06/2026" [ref=f7e230] [cursor=pointer]:
+          - strong [ref=f7e231]: Concordia
+          - generic [ref=f7e232]: 12/06/2026
+        - button "SOMTECH TV 10/06/2026 até 19/06/2026" [ref=f7e233] [cursor=pointer]:
+          - strong [ref=f7e234]: SOMTECH TV
+          - generic [ref=f7e235]: 10/06/2026 até 19/06/2026
+        - button "Batalhao 09/06/2026" [ref=f7e236] [cursor=pointer]:
+          - strong [ref=f7e237]: Batalhao
+          - generic [ref=f7e238]: 09/06/2026
+        - button "Hugo 08/06/2026 até 12/06/2026" [ref=f7e239] [cursor=pointer]:
+          - strong [ref=f7e240]: Hugo
+          - generic [ref=f7e241]: 08/06/2026 até 12/06/2026
+        - button "Hugowerneck 08/06/2026" [ref=f7e242] [cursor=pointer]:
+          - strong [ref=f7e243]: Hugowerneck
+          - generic [ref=f7e244]: 08/06/2026
+        - button "Guti starlink 03/06/2026" [ref=f7e245] [cursor=pointer]:
+          - strong [ref=f7e246]: Guti starlink
+          - generic [ref=f7e247]: 03/06/2026
+        - button "Festa 15 anos Vista 29/05/2026" [ref=f7e248] [cursor=pointer]:
+          - strong [ref=f7e249]: Festa 15 anos Vista
+          - generic [ref=f7e250]: 29/05/2026
+        - button "Charles 21/05/2026 até 25/05/2026" [ref=f7e251] [cursor=pointer]:
+          - strong [ref=f7e252]: Charles
+          - generic [ref=f7e253]: 21/05/2026 até 25/05/2026
+        - button "Corrida Salomao 20/05/2026" [ref=f7e254] [cursor=pointer]:
+          - strong [ref=f7e255]: Corrida Salomao
+          - generic [ref=f7e256]: 20/05/2026
+        - button "Totys br 18/05/2026" [ref=f7e257] [cursor=pointer]:
+          - strong [ref=f7e258]: Totys br
+          - generic [ref=f7e259]: 18/05/2026
+        - button "TV - Pequi 13/05/2026" [ref=f7e260] [cursor=pointer]:
+          - strong [ref=f7e261]: TV - Pequi
+          - generic [ref=f7e262]: 13/05/2026
+        - button "Link - Andre 13/05/2026" [ref=f7e263] [cursor=pointer]:
+          - strong [ref=f7e264]: Link - Andre
+          - generic [ref=f7e265]: 13/05/2026
+        - button "MEVAN - WALMIR 13/05/2026" [ref=f7e266] [cursor=pointer]:
+          - strong [ref=f7e267]: MEVAN - WALMIR
+          - generic [ref=f7e268]: 13/05/2026
+        - button "FORMATURA 13/05/2026" [ref=f7e269] [cursor=pointer]:
+          - strong [ref=f7e270]: FORMATURA
+          - generic [ref=f7e271]: 13/05/2026
+        - button "VISTA SENAC 104 13/05/2026" [ref=f7e272] [cursor=pointer]:
+          - strong [ref=f7e273]: VISTA SENAC 104
+          - generic [ref=f7e274]: 13/05/2026
+        - button "VISTA SESC PALLADIUM 13/05/2026" [ref=f7e275] [cursor=pointer]:
+          - strong [ref=f7e276]: VISTA SESC PALLADIUM
+          - generic [ref=f7e277]: 13/05/2026
+        - button "CASA 12/05/2026" [ref=f7e278] [cursor=pointer]:
+          - strong [ref=f7e279]: CASA
+          - generic [ref=f7e280]: 12/05/2026
+        - button "CNH - STARLINK 20/01/2026 até 01/01/2027" [ref=f7e281] [cursor=pointer]:
+          - strong [ref=f7e282]: CNH - STARLINK
+          - generic [ref=f7e283]: 20/01/2026 até 01/01/2027
+        - button "ana 11/11/1111 até 21/05/2026" [ref=f7e284] [cursor=pointer]:
+          - strong [ref=f7e285]: ana
+          - generic [ref=f7e286]: 11/11/1111 até 21/05/2026
+        - button "teste1 11/11/1111 até 20/05/2026" [ref=f7e287] [cursor=pointer]:
+          - strong [ref=f7e288]: teste1
+          - generic [ref=f7e289]: 11/11/1111 até 20/05/2026
+        - button "charles 01/11/1111 até 21/05/2026" [ref=f7e290] [cursor=pointer]:
+          - strong [ref=f7e291]: charles
+          - generic [ref=f7e292]: 01/11/1111 até 21/05/2026

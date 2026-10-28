@@ -1,0 +1,2 @@
+ALTER TABLE quotes ADD COLUMN logistics_price REAL NOT NULL DEFAULT 0;
+ALTER TABLE quotes ADD COLUMN technicians_price REAL NOT NULL DEFAULT 0;

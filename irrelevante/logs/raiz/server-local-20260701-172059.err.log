@@ -1,0 +1,2 @@
+SESSION_SECRET nao definido. Usando segredo local fixo para desenvolvimento.
+DELETE_PASSWORD_HASH nao definido. Exclusoes protegidas por senha ficarao indisponiveis.

@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24h Locações - Dashboard</title>
+    <link rel="icon" type="image/png" href="/fotos/favicon-24h.png">
+    <link rel="stylesheet" href="/css/dashboard.css?v=20260911-quote-card-actions-v3">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-mark">
+                    <img src="/fotos/logo-24h.png" alt="24H Locações" class="logo-image">
+                </div>
+                <p>Sistema de Controle</p>
+            </div>
+
+            <svg class="menu-icon-definitions" aria-hidden="true" focusable="false">
+                <symbol id="menu-icon-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M8 2.5v4M16 2.5v4M3 10h18"/></symbol>
+                <symbol id="menu-icon-tracker" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+                <symbol id="menu-icon-rental" viewBox="0 0 24 24"><path d="M4 7.5h16v12H4zM7 7.5V5h10v2.5M8 12h8M10 15h4"/></symbol>
+                <symbol id="menu-icon-maintenance" viewBox="0 0 24 24"><path d="M14.5 5.2a5 5 0 0 0-6.1 6.2L3.2 16.6a2 2 0 0 0 2.8 2.8l5.2-5.2a5 5 0 0 0 6.2-6.1l-3.2 3.2-2.6-.7-.7-2.6z"/></symbol>
+                <symbol id="menu-icon-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="7.5" ry="3"/><path d="M4.5 5v7c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V5M4.5 12v7c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-7"/></symbol>
+                <symbol id="menu-icon-add" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 7v10M7 12h10"/></symbol>
+                <symbol id="menu-icon-history" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.7M4 4v4.7h4.7"/><path d="M12 7.5V12l3.2 2"/></symbol>
+                <symbol id="menu-icon-starlink" viewBox="0 0 24 24"><circle cx="12" cy="7" r="1.4"/><path d="M12 8.5V20M8.5 20h7M9 20l3-10 3 10"/><path d="M7.4 4.5a6.5 6.5 0 0 0 0 5M16.6 4.5a6.5 6.5 0 0 1 0 5M4.5 2.2a10 10 0 0 0 0 9.6M19.5 2.2a10 10 0 0 1 0 9.6"/></symbol>
+                <symbol id="menu-icon-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></symbol>
+                <symbol id="menu-icon-document" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v5h5M9 12h6M9 16h6"/></symbol>
+                <symbol id="menu-icon-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 13.5v-3l-2-.7-.7-1.7.9-2.1-2.1-2.1-2.1.9-1.7-.7L10.5 3h-3l-.7 2.1-1.7.7-2.1-.9-2.1 2.1.9 2.1-.7 1.7-2.1.7v3l2.1.7.7 1.7-.9 2.1 2.1 2.1 2.1-.9 1.7.7.7 2.1h3l.7-2.1 1.7-.7 2.1.9 2.1-2.1-.9-2.1.7-1.7z"/></symbol>
+                <symbol id="menu-icon-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 20v-2.2A4.8 4.8 0 0 1 8.3 13h1.4a4.8 4.8 0 0 1 4.8 4.8V20M16 5.5a3 3 0 0 1 0 5.8M17 13.5a4.5 4.5 0 0 1 3.5 4.4V20"/></symbol>
+                <symbol id="menu-icon-logout" viewBox="0 0 24 24"><path d="M10 4H5v16h5M13 8l4 4-4 4M8 12h9"/></symbol>
+            </svg>
+
+            <nav class="menu" aria-label="Navegação principal">
+                <section id="operationMenuGroup" class="menu-group" aria-labelledby="operationMenuTitle">
+                    <p id="operationMenuTitle" class="menu-group-title">Operação</p>
+                    <ul>
+                        <li><a href="#" onclick="showSection('home')" class="menu-item active"><svg class="menu-icon"><use href="#menu-icon-calendar"/></svg>Eventos</a></li>
+                        <li><a href="#" onclick="showSection('rastreadorEquipamentos')" class="menu-item"><svg class="menu-icon"><use href="#menu-icon-tracker"/></svg>Rastreador de equipamentos</a></li>
+                        <li><a href="#" id="rentalMenuItem" onclick="showSection('locacao')" class="menu-item"><svg class="menu-icon"><use href="#menu-icon-rental"/></svg>Locação</a></li>
+                        <li><a href="#" onclick="showSection('manutencao')" class="menu-item"><svg class="menu-icon"><use href="#menu-icon-maintenance"/></svg>Manutenção</a></li>
+                        <li id="databaseMenuItem"><a href="#" onclick="showSection('banco')" class="menu-item"><svg class="menu-icon"><use href="#menu-icon-database"/></svg>Banco de Dados</a></li>
+                        <li><a href="#" onclick="showSection('cadastro')" class="menu-item"><svg class="menu-icon"><use href="#menu-icon-add"/></svg>Cadastrar Equipamento</a></li>
+                        <li><a href="#" onclick="showSection('historico')" class="menu-item"><svg class="menu-icon"><use href="#menu-icon-history"/></svg>Histórico</a></li>
+                        <li id="starlinkMenuItem" style="display: none;"><a href="#" onclick="showSection('starlink')" class="menu-item"><svg class="menu-icon"><use href="#menu-icon-starlink"/></svg>Starlink</a></li>
+                        <li id="usersMenuItem" style="display: none;"><a href="#" onclick="showSection('usuarios')" class="menu-item"><svg class="menu-icon"><use href="#menu-icon-lock"/></svg>Logins</a></li>
+                    </ul>
+                </section>
+
+                <section id="commercialMenuGroup" class="menu-group" aria-labelledby="commercialMenuTitle">
+                    <p id="commercialMenuTitle" class="menu-group-title">Comercial</p>
+                    <ul>
+                        <li id="quoteDatabaseMenuItem" style="display: none;"><a href="#" onclick="showSection('bancoOrcamentos')" class="menu-item"><svg class="menu-icon"><use href="#menu-icon-database"/></svg>Banco de Orçamentos</a></li>
+                        <li id="quotesMenuItem" style="display: none;"><a href="#" onclick="showSection('orcamentos')" class="menu-item"><svg class="menu-icon"><use href="#menu-icon-document"/></svg>Orçamentos</a></li>
+                        <li id="approvedQuotesMenuItem" style="display: none;"><a href="#" onclick="showSection('orcamentosAprovados')" class="menu-item"><svg class="menu-icon"><use href="#menu-icon-calendar"/></svg>Calendário de orçamentos</a></li>
+                        <li id="manageQuotesMenuItem" style="display: none;"><a href="#" onclick="showSection('gerenciarOrcamentos')" class="menu-item"><svg class="menu-icon"><use href="#menu-icon-settings"/></svg>Gerenciar orçamentos</a></li>
+                        <li id="operatorsMenuItem" style="display: none;"><a href="#" onclick="showSection('operadores')" class="menu-item"><svg class="menu-icon"><use href="#menu-icon-users"/></svg>Técnicos</a></li>
+                    </ul>
+                </section>
+            </nav>
+            <button type="button" class="menu-item logout-button" onclick="logout()"><svg class="menu-icon"><use href="#menu-icon-logout"/></svg>Sair</button>
+        </aside>
+        <button type="button" id="sidebarToggle" class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Ocultar menu" aria-expanded="true"><span aria-hidden="true">‹</span></button>
+
+        <main class="main-content">
+            <section id="home" class="section active">
+                <div class="section-header">
+                    <h1>Eventos Cadastrados</h1>
+                    <div class="search-container">
+                        <input type="text" id="searchEventInput" placeholder="Buscar evento..." onkeyup="searchEvents()">
+                    </div>
+                </div>
+                <div id="rentalReturnAlert" class="rental-return-alert" style="display: none;"></div>
+                <div class="events-grid" id="eventsGrid"></div>
+                <button type="button" class="floating-create-button" onclick="showSection('eventos')">Criar evento</button>
+            </section>
+
+            <section id="rastreadorEquipamentos" class="section">
+                <div class="section-header tracker-section-header">
+                    <div>
+                        <h1>Rastreador de equipamentos</h1>
+                        <p class="tracker-description">Consulte todos os eventos em que um equipamento teve saída, inclusive os finalizados e aqueles em andamento.</p>
+                    </div>
+                </div>
+
+                <form class="tracker-search-form" onsubmit="submitEquipmentTrackerSearch(event)">
+                    <label for="equipmentTrackerInput">Patrimônio ou nome do equipamento</label>
+                    <div class="tracker-search-row">
+                        <input type="search" id="equipmentTrackerInput" placeholder="Digite o patrimônio ou nome..." autocomplete="off" oninput="scheduleEquipmentTrackerSearch()">
+                        <button type="submit" id="equipmentTrackerButton" class="btn-primary">Buscar</button>
+                    </div>
+                </form>
+
+                <p id="equipmentTrackerMessage" class="tracker-message">Digite um patrimônio ou nome para iniciar a busca.</p>
+                <div class="history-title-row tracker-results-title">
+                    <h2>Eventos encontrados</h2>
+                    <span id="equipmentTrackerCount" class="history-count">0 eventos</span>
+                </div>
+                <div class="events-grid" id="equipmentTrackerGrid"></div>
+            </section>
+
+            <section id="orcamentos" class="section">
+                <div class="section-header">
+                    <h1>Orçamentos</h1>
+                    <div class="search-container">
+                        <input type="text" id="searchQuoteInput" placeholder="Buscar orçamento..." onkeyup="searchQuotes()">
+                    </div>
+                </div>
+
+                <div class="events-grid" id="quotesGrid"></div>
+                <button type="button" class="floating-create-button" onclick="openQuoteCreate()">Criar orçamento</button>
+            </section>
+
+            <section id="starlink" class="section">
+                <div class="section-header">
+                    <div class="section-header-content">
+                        <h1>Starlink</h1>
+                        <p class="starlink-section-description">Painel de operação das Starlinks do estoque de orçamentos.</p>
+                    </div>
+                    <div class="starlink-header-actions">
+                        <label class="starlink-number-search" for="starlinkNumberSearch">
+                            <span class="visually-hidden">Buscar Starlink pelo número</span>
+                            <input type="search" id="starlinkNumberSearch" inputmode="numeric" autocomplete="off" placeholder="Buscar pelo número..." oninput="searchLocalStarlinksByNumber()">
+                        </label>
+                        <div class="starlink-filter-buttons" aria-label="Modelo de Starlink">
+                            <button type="button" class="starlink-filter active" data-starlink-filter="v2" onclick="setActiveStarlinkModel('v2')">Starlink V2</button>
+                            <button type="button" class="starlink-filter" data-starlink-filter="mini" onclick="setActiveStarlinkModel('mini')">Starlink Mini</button>
+                        </div>
+                    </div>
+                </div>
+                <p id="starlinkMessage" class="starlink-message" aria-live="polite"></p>
+                <div id="starlinkList" class="starlink-grid" aria-live="polite">
+                    <p class="empty-state">Carregando Starlinks...</p>
+                </div>
+            </section>
+
+            <section id="orcamentosAprovados" class="section">
+                <div class="section-header">
+                    <h1>Calendário de orçamentos</h1>
+                </div>
+
+                <div class="approved-calendar">
+                    <div class="approved-calendar-toolbar">
+                        <button type="button" class="btn-secondary btn-small" onclick="changeApprovedQuotesMonth(-1)">Anterior</button>
+                        <h2 id="approvedCalendarTitle">Mês</h2>
+                        <button type="button" class="btn-secondary btn-small" onclick="changeApprovedQuotesMonth(1)">Próximo</button>
+                    </div>
+                    <div class="approved-calendar-weekdays">
+                        <span>Dom</span>
+                        <span>Seg</span>
+                        <span>Ter</span>
+                        <span>Qua</span>
+                        <span>Qui</span>
+                        <span>Sex</span>
+                        <span>Sab</span>
+                    </div>
+                    <div id="approvedQuotesCalendar" class="approved-calendar-grid"></div>
+                </div>
+
+                <div id="approvedQuoteDayDetails" class="approved-day-details"></div>
+            </section>
+
+            <section id="gerenciarOrcamentos" class="section">
+                <div class="section-header">
+                    <h1>Gerenciar orçamentos</h1>
+                    <div class="search-container">
+                        <input type="text" id="searchManagedApprovedQuoteInput" placeholder="Buscar orçamento aprovado..." onkeyup="searchManagedApprovedQuotes()">
+                    </div>
+                </div>
+
+                <div class="events-grid" id="managedApprovedQuotesGrid"></div>
+            </section>
+
+            <section id="orcamentoCriar" class="section">
+                <div class="section-header">
+                    <h1 id="quoteFormTitle">Criar Orçamento</h1>
+                </div>
+
+                <form id="quoteForm" class="form-grid quote-form">
+                    <div class="quote-form-block">
+                        <h2>Informações Gerais</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quoteProposalCity">Cidade da proposta</label>
+                        <input type="text" id="quoteProposalCity" name="proposalCity" value="Belo Horizonte" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quoteProposalDate">Data da proposta</label>
+                        <input
+                            type="text"
+                            id="quoteProposalDate"
+                            name="proposalDate"
+                            class="quote-masked-input"
+                            inputmode="numeric"
+                            autocomplete="off"
+                            maxlength="10"
+                            placeholder="DD/MM/AAAA"
+                            required
+                        >
+                        <small class="field-hint">Digite somente os números: dia, mês e ano.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quoteClientName">Nome do Cliente</label>
+                        <input type="text" id="quoteClientName" name="clientName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quoteEventName">Nome do Evento</label>
+                        <input type="text" id="quoteEventName" name="eventName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quoteEventLocation">Local do Evento</label>
+                        <input type="text" id="quoteEventLocation" name="eventLocation" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quoteAssemblyDatetime">Data de Montagem</label>
+                        <input
+                            type="text"
+                            id="quoteAssemblyDatetime"
+                            name="assemblyDatetime"
+                            class="quote-masked-input"
+                            inputmode="numeric"
+                            autocomplete="off"
+                            maxlength="25"
+                            placeholder="DD/MM/AAAA até DD/MM/AAAA"
+                            required
+                        >
+                        <small class="field-hint">Exemplo: 22092026 23092026 vira 22/09/2026 até 23/09/2026.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quoteEventDatetime">Data do Evento</label>
+                        <input
+                            type="text"
+                            id="quoteEventDatetime"
+                            name="eventDatetime"
+                            class="quote-masked-input"
+                            inputmode="numeric"
+                            autocomplete="off"
+                            maxlength="25"
+                            placeholder="DD/MM/AAAA até DD/MM/AAAA"
+                            required
+                        >
+                        <small class="field-hint">A segunda data pode ser igual à primeira.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quoteDisassemblyDatetime">Data de Desmontagem</label>
+                        <input
+                            type="text"
+                            id="quoteDisassemblyDatetime"
+                            name="disassemblyDatetime"
+                            class="quote-masked-input"
+                            inputmode="numeric"
+                            autocomplete="off"
+                            maxlength="25"
+                            placeholder="DD/MM/AAAA até DD/MM/AAAA"
+                            required
+                        >
+                        <small class="field-hint">A desmontagem deve ficar depois do evento ou no mesmo dia.</small>
+                    </div>
+
+                    <div class="quote-form-block">
+                        <h2>Descrição dos Equipamentos</h2>
+                    </div>
+
+                    <div class="quote-manual-item-section">
+                        <button
+                            type="button"
+                            id="quoteManualItemToggle"
+                            class="btn-secondary quote-manual-item-toggle"
+                            onclick="toggleQuoteManualItemFields()"
+                            aria-expanded="false"
+                            aria-controls="quoteManualItemFields"
+                        >+ Adicionar equipamento avulso</button>
+                    <div id="quoteManualItemFields" class="quote-manual-item-row" hidden>
+                        <div class="form-group">
+                            <label for="quoteManualItemDescription">Equipamento avulso / fornecedor</label>
+                            <input type="text" id="quoteManualItemDescription" maxlength="300" placeholder="Digite o nome do equipamento..." autocomplete="off">
+                            <small class="field-hint">Este item será usado somente neste orçamento e não será cadastrado no banco de equipamentos.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quoteManualItemQuantity">Quantidade</label>
+                            <input type="number" id="quoteManualItemQuantity" min="1" step="1" value="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quoteManualItemDailyUnits">Diárias/Uni.</label>
+                            <input type="number" id="quoteManualItemDailyUnits" min="1" step="1" value="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quoteManualItemUnitPrice">Preço unitário</label>
+                            <input type="text" id="quoteManualItemUnitPrice" class="quote-money-input" inputmode="numeric" autocomplete="off" value="R$ 0,00">
+                        </div>
+
+                        <button type="button" class="btn-primary" onclick="addQuoteManualItem()">Adicionar item avulso</button>
+                    </div>
+                    </div>
+
+                    <div class="quote-item-row">
+                        <div class="form-group">
+                            <label for="quoteItemDescription">Buscar equipamento, serviço ou tópico</label>
+                            <input type="text" id="quoteItemDescription" placeholder="Digite o nome do equipamento, serviço ou tópico..." autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quoteItemDailyUnits">Diárias/Uni.</label>
+                            <input type="number" id="quoteItemDailyUnits" min="1" step="1" value="1">
+                        </div>
+                    </div>
+                    <div id="quoteEquipmentResults" class="quote-equipment-results"></div>
+
+                    <div class="table-container quote-items-table">
+                        <table id="quoteItemsTable">
+                            <thead>
+                                <tr>
+                                    <th>Equipamentos e Serviços</th>
+                                    <th>Quantidade</th>
+                                    <th>Diárias/Uni.</th>
+                                    <th>Preço unitário</th>
+                                    <th>Total interno</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <div class="quote-fixed-services">
+                        <div class="form-group">
+                            <label for="quoteServicesPrice">Técnicos e Logística</label>
+                            <input type="text" id="quoteServicesPrice" class="quote-money-input" inputmode="numeric" autocomplete="off" value="R$ 0,00">
+                            <small class="field-hint">Digite o valor total de técnicos e logística, sem relação com os técnicos cadastrados.</small>
+                        </div>
+                    </div>
+
+                    <div class="quote-total-panel">
+                        <div>
+                            <span>Soma interna</span>
+                            <strong id="quoteSubtotal">R$ 0,00</strong>
+                        </div>
+                        <div class="form-group">
+                            <label for="quoteFinalTotal">Valor Total</label>
+                            <input
+                                type="text"
+                                id="quoteFinalTotal"
+                                class="quote-money-input"
+                                inputmode="numeric"
+                                autocomplete="off"
+                                value="R$ 0,00"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group quote-price-option">
+                        <label>
+                            <input type="checkbox" id="quoteShowItemPrices">
+                            Deseja que apareça o valor de cada equipamento no orçamento, incluindo os itens avulsos?
+                        </label>
+                        <label>
+                            <input type="checkbox" id="quoteShowServicesPrice">
+                            Deseja mostrar o valor de T&eacute;cnicos e Log&iacute;stica no or&ccedil;amento?
+                        </label>
+                    </div>
+
+                    <div class="form-group quote-notes-group">
+                        <label for="quoteNotes">Obs.</label>
+                        <textarea id="quoteNotes" rows="4">Obs.: A validade desta proposta está sujeita à verificação de disponibilidade de equipamentos e pessoal especializado após sua aprovação. Proposta válida por 7 dias.</textarea>
+                    </div>
+
+                    <div class="quote-form-block">
+                        <h2>Condições de Pagamento</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quotePaymentMethod">Forma de Pagamento</label>
+                        <input type="text" id="quotePaymentMethod" name="paymentMethod" value="Depósito em Conta Corrente" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quotePaymentDeadline">Prazo</label>
+                        <input
+                            type="text"
+                            id="quotePaymentDeadline"
+                            name="paymentDeadline"
+                            autocomplete="off"
+                            value="30 dias"
+                            placeholder="Ex.: 30 dias, à vista ou entrada + saldo"
+                            required
+                        >
+                        <small class="field-hint">Informe o prazo da forma que preferir.</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" id="quoteSubmitButton" class="btn-primary">Gerar PDF</button>
+                        <button type="button" onclick="cancelQuoteForm()" class="btn-secondary">Cancelar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section id="cadastro" class="section">
+                <div class="section-header">
+                    <div class="section-header-content">
+                        <h1 id="cadastroTitle">Cadastro de Equipamento</h1>
+                        <div class="database-toggle">
+                            <button type="button" id="cadastroEquipamentosTabButton" class="btn-secondary active" onclick="setCadastroTab('equipamentos')">Equipamentos</button>
+                            <button type="button" id="cadastroCabosTabButton" class="btn-secondary" onclick="setCadastroTab('cabos')">Cabos</button>
+                            <button type="button" id="cadastroOutrosTabButton" class="btn-secondary" onclick="setCadastroTab('outros')">Outros</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="cadastroEquipamentosView" class="database-view active">
+                    <form id="equipmentForm" class="form-grid">
+                        <div class="form-group">
+                            <label for="equipmentName">Nome do Equipamento</label>
+                            <input type="text" id="equipmentName" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="equipmentBarcode">Código de Barras</label>
+                            <input type="text" id="equipmentBarcode" name="barcode" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="equipmentCategory">Categorias</label>
+                            <input type="text" id="equipmentCategory" name="category" list="equipmentCategoryList" placeholder="Digite a categoria..." required>
+                            <datalist id="equipmentCategoryList"></datalist>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="equipmentSerialNumber">Numero de Serie</label>
+                            <input type="text" id="equipmentSerialNumber" name="serialNumber" placeholder="-">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="equipmentObservation">Observacao</label>
+                            <input type="text" id="equipmentObservation" name="observation" placeholder="-">
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Cadastrar Equipamento</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="cadastroCabosView" class="database-view">
+                    <form id="cableForm" class="form-grid">
+                        <div class="form-group">
+                            <label for="cableName">Nome do Cabo</label>
+                            <input type="text" id="cableName" name="name" placeholder="Ex: Cabo HDMI 10m" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cableQuantity">Quantidade</label>
+                            <input type="number" id="cableQuantity" name="quantity" min="0" step="1" placeholder="0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cableCategory">Categoria</label>
+                            <input type="text" id="cableCategory" name="category" list="cableCategoryList" placeholder="Digite a categoria..." required>
+                            <datalist id="cableCategoryList"></datalist>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Cadastrar Cabo</button>
+                            <button type="button" onclick="cancelCableForm()" class="btn-secondary">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="cadastroOutrosView" class="database-view">
+                    <form id="otherItemForm" class="form-grid">
+                        <div class="form-group">
+                            <label for="otherItemName">Nome do Item</label>
+                            <input type="text" id="otherItemName" name="name" placeholder="Ex: Capacete" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="otherItemQuantity">Quantidade Inicial</label>
+                            <input type="number" id="otherItemQuantity" name="quantity" min="0" step="1" placeholder="0" required>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Cadastrar Item</button>
+                            <button type="button" onclick="cancelOtherItemForm()" class="btn-secondary">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <section id="banco" class="section">
+                <div class="section-header">
+                    <div class="section-header-content">
+                        <h1 id="databaseTitle">Banco de Dados de Equipamentos</h1>
+                        <div class="database-toggle">
+                            <button type="button" id="equipamentosTabButton" class="btn-secondary active" onclick="setBancoTab('equipamentos')">Equipamentos</button>
+                            <button type="button" id="cabosTabButton" class="btn-secondary" onclick="setBancoTab('cabos')">Cabos</button>
+                            <button type="button" id="outrosTabButton" class="btn-secondary" onclick="setBancoTab('outros')">Outros</button>
+                        </div>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="Buscar equipamento..." onkeyup="scheduleDatabaseSearch(event)">
+                        <button type="button" class="search-button" onclick="searchDatabase()">Buscar</button>
+                    </div>
+                </div>
+
+                <div id="equipamentosDatabaseView" class="database-view active">
+                    <div class="table-container">
+                        <table id="equipmentsTable">
+                            <thead>
+                                <tr>
+                                    <th>Nome do Equipamento</th>
+                                    <th>Observação</th>
+                                    <th>Número de Série</th>
+                                    <th>Patrimônio</th>
+                                    <th>Status</th>
+                                    <th>Evento</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="cabosDatabaseView" class="database-view">
+                    <div class="table-container">
+                        <table id="cablesTable">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th class="cable-quantity-column">Quantidade Inicial</th>
+                                    <th class="cable-quantity-column">Quantidade Disponível</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="outrosDatabaseView" class="database-view">
+                    <div class="table-container">
+                        <table id="otherItemsTable">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th class="cable-quantity-column">Quantidade Inicial</th>
+                                    <th class="cable-quantity-column">Quantidade Atual</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="bancoOrcamentos" class="section">
+                <div class="section-header">
+                    <div class="section-header-content">
+                        <h1>Banco de Dados de Orçamentos</h1>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" id="quoteDatabaseSearchInput" placeholder="Buscar equipamento..." onkeyup="scheduleQuoteDatabaseSearch(event)">
+                        <button type="button" class="search-button" onclick="searchQuoteDatabase()">Buscar</button>
+                    </div>
+                </div>
+
+                <div class="quote-database-visual-notice">
+                    <span>Excluir oculta o equipamento somente nas telas de orçamento deste navegador, sem alterar o banco de dados.</span>
+                    <button type="button" id="restoreQuoteDatabaseVisualExclusionsButton" class="btn-secondary btn-small" onclick="restoreQuoteDatabaseVisualExclusions()" hidden>Restaurar excluídos</button>
+                </div>
+
+                <div class="table-container">
+                    <table id="quoteEquipmentsTable">
+                        <thead>
+                            <tr>
+                                <th>Equipamento</th>
+                                <th>Quantidade</th>
+                                <th>Preço</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="eventos" class="section">
+                <div class="section-header">
+                    <h1>Criar Evento</h1>
+                </div>
+
+                <form id="eventForm" class="form-grid">
+                    <div class="form-group">
+                        <label for="eventName">Nome do Evento</label>
+                        <input type="text" id="eventName" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventDate">Data Inicial</label>
+                        <input type="date" id="eventDate" name="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventEndDate">Data Final</label>
+                        <input type="date" id="eventEndDate" name="endDate" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Criar Evento</button>
+                        <button type="button" onclick="cancelEventForm()" class="btn-secondary">Cancelar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section id="historico" class="section">
+                <div class="section-header">
+                    <h1>Histórico</h1>
+                    <div class="search-container">
+                        <input type="text" id="searchHistoryInput" placeholder="Buscar histórico..." onkeyup="searchHistoryEvents()">
+                    </div>
+                </div>
+
+                <div class="history-block">
+                    <div class="history-title-row">
+                        <h2>Eventos finalizados</h2>
+                        <span id="historyEventsCount" class="history-count">0 eventos</span>
+                    </div>
+                    <div class="events-grid" id="historyEventsGrid"></div>
+                </div>
+
+                <div class="history-block">
+                    <div class="history-title-row">
+                        <h2>Locações finalizadas</h2>
+                        <span id="historyRentalsCount" class="history-count">0 locações</span>
+                    </div>
+                    <div class="events-grid" id="historyRentalsGrid"></div>
+                </div>
+            </section>
+
+            <section id="usuarios" class="section">
+                <div class="section-header">
+                    <h1>Gerenciamento de Logins</h1>
+                    <button type="button" id="openUserCreateButton" class="btn-primary" onclick="toggleCreateUserForm()">Cadastrar usuário</button>
+                </div>
+
+                <div class="users-panel">
+                    <form id="createUserForm" class="form-grid user-create-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="newUsername">Usuário</label>
+                            <input type="text" id="newUsername" name="username" autocomplete="off" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newUserPassword">Senha</label>
+                            <input type="password" id="newUserPassword" name="password" autocomplete="new-password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newUserRole">Classe</label>
+                            <select id="newUserRole" name="role">
+                                <option value="user">user</option>
+                                <option value="admin">admin</option>
+                                <option value="comercial">comercial</option>
+                            </select>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Salvar usuário</button>
+                            <button type="button" class="btn-secondary" onclick="toggleCreateUserForm(false)">Cancelar</button>
+                        </div>
+                    </form>
+
+                    <div class="table-container">
+                        <table id="usersTable">
+                            <thead>
+                                <tr>
+                                    <th>Usuário</th>
+                                    <th>Classe</th>
+                                    <th>Nova senha</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <p id="usersMessage" class="users-message"></p>
+                </div>
+            </section>
+
+            <section id="operadores" class="section">
+                <div class="section-header">
+                    <h1>Técnicos</h1>
+                    <div class="search-container operator-header-actions">
+                        <input type="text" id="searchOperatorInput" placeholder="Buscar técnico..." onkeyup="searchOperators()">
+                        <button type="button" class="btn-primary" onclick="openOperatorFormModal()">Cadastrar técnico</button>
+                    </div>
+                </div>
+
+                <div class="events-grid operators-grid" id="operatorsGrid"></div>
+            </section>
+
+            <section id="manutencao" class="section">
+                <div class="section-header">
+                    <div class="section-header-content">
+                        <h1>Controle de Manutenção</h1>
+                        <div class="database-toggle">
+                            <button type="button" id="maintenanceEquipamentosTabButton" class="btn-secondary active" onclick="setMaintenanceTab('equipamentos')">Equipamentos</button>
+                            <button type="button" id="maintenanceCabosTabButton" class="btn-secondary" onclick="setMaintenanceTab('cabos')">Cabos</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="maintenanceEquipamentosView" class="database-view active">
+                    <div class="maintenance-form">
+                        <div class="form-group">
+                            <label for="maintenanceBarcode">Código de Barras</label>
+                            <div class="maintenance-search-row">
+                                <input type="text" id="maintenanceBarcode" name="barcode" placeholder="Digite o código e pressione Enter" onkeypress="handleMaintenanceKeyPress(event)">
+                                <button type="button" class="search-button maintenance-search" onclick="searchMaintenanceEquipment()">Buscar Equipamento</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="maintenance-list-card">
+                        <div class="maintenance-list-header">
+                            <h2>Equipamentos em manutenção</h2>
+                            <span id="maintenanceCount" class="maintenance-count">0 itens</span>
+                        </div>
+                        <div id="maintenanceList" class="maintenance-list"></div>
+                    </div>
+                </div>
+
+                <div id="maintenanceCabosView" class="database-view">
+                    <div class="maintenance-form">
+                        <div class="form-group">
+                            <label for="maintenanceCableName">Nome do Cabo</label>
+                            <div class="maintenance-search-row">
+                                <input type="text" id="maintenanceCableName" name="cableName" placeholder="Digite o nome do cabo e pressione Enter" onkeypress="handleMaintenanceCableKeyPress(event)">
+                                <button type="button" class="search-button maintenance-search" onclick="searchMaintenanceCable()">Buscar Cabo</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="maintenance-list-card">
+                        <div class="maintenance-list-header">
+                            <h2>Cabos em manutenção</h2>
+                            <span id="maintenanceCableCount" class="maintenance-count">0 itens</span>
+                        </div>
+                        <div id="maintenanceCableList" class="maintenance-list"></div>
+                    </div>
+                </div>
+            </section>
+            <section id="locacao" class="section">
+                <div class="section-header">
+                    <h1>Locação</h1>
+                    <div class="search-container">
+                        <input type="text" id="searchRentalInput" placeholder="Buscar locação..." onkeyup="searchRentalEvents()">
+                    </div>
+                </div>
+
+                <div class="events-grid" id="rentalEventsGrid"></div>
+                <button type="button" class="floating-create-button" onclick="openRentalModal()">+ Criar Evento</button>
+            </section>
+        </main>
+    </div>
+
+    <div id="starlinkPlanModal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="starlinkPlanModalTitle">
+        <div class="modal-card starlink-plan-modal-card">
+            <button type="button" class="modal-close" onclick="closeStarlinkPlanModal()" aria-label="Fechar">×</button>
+            <h2 id="starlinkPlanModalTitle">Ativar Starlink</h2>
+            <p id="starlinkPlanModalSubtitle" class="modal-subtitle"></p>
+            <div id="starlinkPlanOptions" class="starlink-plan-options"></div>
+            <div class="starlink-plan-actions">
+                <button type="button" class="btn-secondary" onclick="closeStarlinkPlanModal()">Cancelar</button>
+                <button type="button" id="confirmStarlinkPlanButton" class="btn-success" onclick="confirmStarlinkPlan()" disabled>Confirmar plano</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="starlinkCancelModal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="starlinkCancelModalTitle">
+        <div class="modal-card starlink-plan-modal-card">
+            <button type="button" class="modal-close" onclick="closeStarlinkCancelModal()" aria-label="Fechar">×</button>
+            <h2 id="starlinkCancelModalTitle">Confirmar cancelamento</h2>
+            <p id="starlinkCancelModalMessage" class="modal-subtitle"></p>
+            <div class="starlink-plan-actions">
+                <button type="button" class="btn-secondary" onclick="closeStarlinkCancelModal()">Não, manter ativada</button>
+                <button type="button" id="confirmStarlinkCancellationButton" class="btn-danger" onclick="confirmStarlinkCancellation()">Sim, cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="quoteApprovalDestinationModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card quote-approval-destination-card">
+            <button type="button" class="modal-close" onclick="closeQuoteApprovalDestinationModal()" aria-label="Fechar">X</button>
+            <h2>Aprovar orçamento</h2>
+            <p class="modal-subtitle">Escolha onde a ordem de serviço será criada para os operadores.</p>
+            <div class="quote-approval-destination-actions">
+                <button type="button" class="btn-primary" data-approval-destination="event" onclick="approveQuoteWithDestination('event')">
+                    Criar como Evento
+                </button>
+                <button type="button" class="btn-primary" data-approval-destination="rental" onclick="approveQuoteWithDestination('rental')">
+                    Criar como Locação
+                </button>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="closeQuoteApprovalDestinationModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="availabilityConflictModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card availability-conflict-card">
+            <button type="button" class="modal-close" onclick="closeAvailabilityConflictModal()" aria-label="Fechar">X</button>
+            <h2>Conflito de disponibilidade</h2>
+                <p class="modal-subtitle">Este patrimônio não pode ser utilizado no período informado.</p>
+            <div id="availabilityConflictDetails" class="availability-conflict-details"></div>
+            <div class="form-actions">
+                <button type="button" class="btn-primary" onclick="closeAvailabilityConflictModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="editEquipmentModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <button type="button" class="modal-close" onclick="closeEditEquipmentModal()" aria-label="Fechar">X</button>
+            <h2 id="editEquipmentModalTitle">Editar equipamento</h2>
+            <p id="editEquipmentModalSubtitle" class="modal-subtitle">Altere os dados principais do equipamento.</p>
+            <form id="editEquipmentForm" class="edit-equipment-form">
+                <div class="form-group">
+                    <label for="editEquipmentName">Nome</label>
+                    <input type="text" id="editEquipmentName" autocomplete="off" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editEquipmentBarcode">Patrimonio</label>
+                    <input type="text" id="editEquipmentBarcode" autocomplete="off" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editEquipmentSerialNumber">Numero de Serie</label>
+                    <input type="text" id="editEquipmentSerialNumber" autocomplete="off" placeholder="-">
+                </div>
+
+                <div class="form-group">
+                    <label for="editEquipmentObservation">Observacao</label>
+                    <textarea id="editEquipmentObservation" rows="3" placeholder="-"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Salvar</button>
+                    <button type="button" class="btn-secondary" onclick="closeEditEquipmentModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="maintenanceModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <button type="button" class="modal-close" onclick="closeMaintenanceModal()" aria-label="Fechar">×</button>
+            <h2 id="maintenanceModalTitle">Registrar problema</h2>
+            <p id="maintenanceModalSubtitle" class="modal-subtitle"></p>
+            <div class="form-group" id="maintenanceModalQuantityGroup" style="display: none;">
+                <label for="maintenanceModalQuantity">Quantidade em manutenção</label>
+                <input type="number" id="maintenanceModalQuantity" min="1" step="1" value="1">
+            </div>
+            <div class="form-group">
+                <label for="maintenanceModalInput" id="maintenanceModalLabel">Descrição</label>
+                <textarea id="maintenanceModalInput" rows="4" placeholder="Descreva o problema..."></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="button" onclick="submitMaintenanceModal()" class="btn-primary" id="maintenanceModalAction">Salvar</button>
+                <button type="button" onclick="closeMaintenanceModal()" class="btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cableMaintenanceDetailsModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card cable-maintenance-details-card">
+            <button type="button" class="modal-close" onclick="closeCableMaintenanceDetailsModal()" aria-label="Fechar">×</button>
+            <h2>🛠️ Cabos em manutenção</h2>
+            <p id="cableMaintenanceDetailsSubtitle" class="modal-subtitle"></p>
+            <div id="cableMaintenanceDetailsSummary" class="cable-maintenance-summary"></div>
+            <div id="cableMaintenanceDetailsList" class="cable-maintenance-details-list"></div>
+            <div class="form-actions">
+                <button type="button" onclick="closeCableMaintenanceDetailsModal()" class="btn-secondary">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="rentalModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <button type="button" class="modal-close" onclick="closeRentalModal()" aria-label="Fechar">X</button>
+            <h2>Criar evento de locação</h2>
+            <p class="modal-subtitle">Informe as datas de retirada e devolução.</p>
+            <form id="rentalForm" class="rental-form">
+                <div class="form-group">
+                    <label for="rentalEventName">Nome do Evento</label>
+                    <input type="text" id="rentalEventName" name="name" required>
+                </div>
+
+                <div class="rental-date-row">
+                    <div class="form-group">
+                        <label for="rentalWithdrawalDate">Data de Retirada</label>
+                        <input type="date" id="rentalWithdrawalDate" name="withdrawalDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rentalReturnDate">Data de Devolução</label>
+                        <input type="date" id="rentalReturnDate" name="returnDate" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Criar Evento</button>
+                    <button type="button" onclick="closeRentalModal()" class="btn-secondary">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="operatorFormModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card operator-modal-card">
+            <button type="button" class="modal-close" onclick="closeOperatorFormModal()" aria-label="Fechar">X</button>
+            <h2 id="operatorFormTitle">Cadastrar técnico</h2>
+            <p class="modal-subtitle">Preencha os dados do técnico.</p>
+
+            <form id="operatorForm" class="form-grid operator-form">
+                <div class="operator-photo-field">
+                    <div id="operatorPhotoPreview" class="operator-photo-preview empty">Foto</div>
+                    <div class="form-group">
+                        <label for="operatorPhoto">Foto</label>
+                        <input type="file" id="operatorPhoto" accept="image/png,image/jpeg,image/webp">
+                        <input type="hidden" id="operatorPhotoData">
+                        <small class="field-hint">A imagem será compactada automaticamente ao salvar.</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="operatorFullName">Nome completo</label>
+                    <input type="text" id="operatorFullName" autocomplete="off" maxlength="160" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="operatorMotherName">Nome da mãe</label>
+                    <input type="text" id="operatorMotherName" autocomplete="off" maxlength="160" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="operatorArea">Área</label>
+                    <input type="text" id="operatorArea" autocomplete="off" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="operatorCpf">CPF</label>
+                    <input type="text" id="operatorCpf" inputmode="numeric" autocomplete="off" maxlength="14" placeholder="000.000.000-00" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="operatorRg">RG (opcional)</label>
+                    <input type="text" id="operatorRg" autocomplete="off" maxlength="30" placeholder="00.000.000-0">
+                </div>
+
+                <div class="form-group">
+                    <label for="operatorBirthDate">Data de nascimento</label>
+                    <input type="date" id="operatorBirthDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="operatorEmail">E-mail</label>
+                    <input type="email" id="operatorEmail" autocomplete="off" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="operatorPhone">Número de celular</label>
+                    <input type="tel" id="operatorPhone" inputmode="numeric" autocomplete="off" maxlength="15" placeholder="(00) 00000-0000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="operatorCacheValue">Valor do cachê</label>
+                    <input type="number" id="operatorCacheValue" min="0" step="0.01" placeholder="0,00" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="operatorHasVehicle">Possui automóvel?</label>
+                    <select id="operatorHasVehicle" required>
+                        <option value="nao">Não</option>
+                        <option value="sim">Sim</option>
+                    </select>
+                </div>
+
+                <div class="form-group operator-address-field">
+                    <label for="operatorAddress">Endereço</label>
+                    <textarea id="operatorAddress" rows="3" required></textarea>
+                </div>
+
+                <div class="operator-form-block">
+                    <h3>Dados bancários</h3>
+                </div>
+
+                <div class="form-group">
+                    <label for="operatorPix">Pix</label>
+                    <input type="text" id="operatorPix" autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="operatorAgency">Banco</label>
+                    <input type="text" id="operatorAgency" autocomplete="off">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="operatorSubmitButton" class="btn-primary">Salvar técnico</button>
+                    <button type="button" class="btn-secondary" onclick="closeOperatorFormModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="operatorDetailsModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card operator-modal-card">
+            <button type="button" class="modal-close" onclick="closeOperatorDetailsModal()" aria-label="Fechar">X</button>
+            <h2>Dados do técnico</h2>
+            <div id="operatorDetailsContent" class="operator-details"></div>
+        </div>
+    </div>
+
+    <div id="quoteItemEditModal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="quoteItemEditModalTitle">
+        <div class="modal-card quote-item-edit-card">
+            <button type="button" class="modal-close" onclick="closeQuoteItemEditModal()" aria-label="Fechar">×</button>
+            <h2 id="quoteItemEditModalTitle">Editar item do orçamento</h2>
+            <p id="quoteItemEditModalSubtitle" class="modal-subtitle"></p>
+            <form id="quoteItemEditForm" onsubmit="saveQuoteItemEdit(event)">
+                <input type="hidden" id="quoteItemEditGroupIndex">
+                <div class="quote-item-edit-fields">
+                    <div class="form-group">
+                        <label for="quoteItemEditDailyUnits">Diárias</label>
+                        <input type="number" id="quoteItemEditDailyUnits" min="1" step="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quoteItemEditUnitPrice">Preço unitário</label>
+                        <input type="text" id="quoteItemEditUnitPrice" class="quote-money-input" inputmode="numeric" autocomplete="off" oninput="formatQuoteItemEditPrice(this)" required>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Salvar alterações</button>
+                    <button type="button" class="btn-secondary" onclick="closeQuoteItemEditModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/javascript/quote-pdf-client.js?v=20260819-named-download"></script>
+    <script src="/javascript/dashboard.js?v=20260911-collapsible-manual-item-v13"></script>
+</body>
+</html>

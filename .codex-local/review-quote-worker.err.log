@@ -1,0 +1,5 @@
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mUnknown arguments: de, estoque, 24H\.codex-local\review-quote-20260713-232816[0m
+
+
+🪵  Logs were written to "C:\Users\Arthur S\AppData\Roaming\xdg.config\.wrangler\logs\wrangler-2026-07-14_02-29-02_865.log"
+Assertion failed: !(handle->flags & UV_HANDLE_CLOSING), file src\win\async.c, line 76

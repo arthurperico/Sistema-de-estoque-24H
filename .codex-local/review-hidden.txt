@@ -1,0 +1,35 @@
+Belo Horizonte, 13 de julho de 2026
+INFORMAÇÕES GERAIS:
+NOME DO CLIENTE Cliente Review
+NOME DO EVENTO Evento Review
+LOCAL DO EVENTO Local Review
+DATA DE MONTAGEM 14/07/2026
+DATA DO EVENTO 15/07/2026
+DATA DE DESMONTAGEM 16/07/2026
+DESCRIÇÃO DOS EQUIPAMENTOS:
+Item Equipamentos e Serviços Quant Diárias/Uni.
+01 Camera Review 01 02
+02 Fornecedor avulso 03 04
+Valor Total R$3.652,90
+Obs.: Teste de revis?o
+CONDIÇÕES DE PAGAMENTO:
+Valor Total R$3.652,90
+Forma de Pagamento Pix
+Prazo 30 dias
+
+-- 1 of 2 --
+
+RESPONSABILIDADES E GARANTIAS:
+- A 24H LOCAÇÃO DE EQUIPAMENTOS LTDA. se responsabiliza pela entrega e montagem (quando
+solicitada) dos equipamentos em perfeitas condições de uso, garantindo seu funcionamento, desde que
+submetido às condições pré-estabelecidas pelo fabricante.
+- Da mesma forma, é responsabilidade do cliente disponibilizar ambiente e condições adequadas para o
+bom funcionamento e a utilidade dos equipamentos, assim como zelar pela segurança e conservação
+deles durante a locação.
+Agradecemos e aguardamos retorno, na expectativa de que possamos trabalhar juntos em prol do sucesso
+deste evento.
+Atenciosamente,
+24H Locação
+
+-- 2 of 2 --
+

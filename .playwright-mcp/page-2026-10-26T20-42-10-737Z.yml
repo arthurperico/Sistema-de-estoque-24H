@@ -1,0 +1,447 @@
+- generic [ref=f11e2]:
+  - generic [ref=f11e3]:
+    - generic [ref=f11e4]:
+      - heading "Dia mundial da segurança Anglo American" [level=1] [ref=f11e5]
+      - paragraph [ref=f11e6]: "Data inicial: 27/10/2026 | Data final: 28/10/2026"
+    - generic [ref=f11e7]:
+      - button "+ Relação" [ref=f11e8] [cursor=pointer]
+      - button "Saída" [ref=f11e9] [cursor=pointer]
+      - button "Entrada" [ref=f11e10] [cursor=pointer]
+      - button "Transferir" [ref=f11e11] [cursor=pointer]
+      - button "Voltar" [ref=f11e12] [cursor=pointer]
+  - generic [ref=f11e13]:
+    - generic [ref=f11e14]:
+      - heading "Controle de Saída" [level=2] [ref=f11e15]
+      - paragraph [ref=f11e16]: Digite o código de barras ou use o botão Relação para selecionar no banco
+      - button "Desativar áudio de saída" [pressed] [ref=f11e17] [cursor=pointer]:
+        - generic [aria-hidden] [ref=f11e18]: 🔊
+    - generic [ref=f11e19]:
+      - generic [ref=f11e20]:
+        - heading "Espaços" [level=3] [ref=f11e21]
+        - button "Adicionar espaço" [ref=f11e22] [cursor=pointer]
+      - button "Evento geral" [ref=f11e556] [cursor=pointer]
+    - generic [ref=f11e26]:
+      - button "Equipamentos" [ref=f11e27] [cursor=pointer]
+      - button "Cabos" [ref=f11e28] [cursor=pointer]
+      - button "Outros" [ref=f11e29] [cursor=pointer]
+    - generic [ref=f11e30]:
+      - generic [ref=f11e31]:
+        - textbox "Código de barras..." [ref=f11e32]
+        - button "Registrar Saída" [ref=f11e33] [cursor=pointer]
+      - generic [ref=f11e35]:
+        - generic [ref=f11e36]:
+          - generic [ref=f11e37]:
+            - heading "Equipamentos em Saída" [level=3] [ref=f11e38]
+            - generic [ref=f11e39]:
+              - button "Gerar PDF 24H" [active] [ref=f11e40] [cursor=pointer]
+              - button "Gerar PDF AGS" [ref=f11e41] [cursor=pointer]
+          - generic [ref=f11e42]:
+            - textbox "Pesquisar por nome ou código..." [ref=f11e43]
+            - button "Pesquisar" [ref=f11e44] [cursor=pointer]
+          - generic [ref=f11e45]:
+            - generic [ref=f11e557]:
+              - button "Excluir" [ref=f11e558] [cursor=pointer]
+              - generic [ref=f11e559]:
+                - heading "MICROFONE SHURE SLXD2 G58" [level=4] [ref=f11e560]
+                - paragraph [ref=f11e561]: "Cod: 1248"
+              - generic [ref=f11e562]: Em Saída
+            - generic [ref=f11e565]:
+              - button "Excluir" [ref=f11e566] [cursor=pointer]
+              - generic [ref=f11e567]:
+                - heading "MICROFONE SHURE SLXD2 G58" [level=4] [ref=f11e568]
+                - paragraph [ref=f11e569]: "Cod: 1247"
+              - generic [ref=f11e570]: Em Saída
+            - generic [ref=f11e573]:
+              - button "Excluir" [ref=f11e574] [cursor=pointer]
+              - generic [ref=f11e575]:
+                - heading "MICROFONE SHURE SLXD2 G58" [level=4] [ref=f11e576]
+                - paragraph [ref=f11e577]: "Cod: 1245"
+              - generic [ref=f11e578]: Em Saída
+            - generic [ref=f11e581]:
+              - button "Excluir" [ref=f11e582] [cursor=pointer]
+              - generic [ref=f11e583]:
+                - heading "MICROFONE SHURE SLXD2 G58" [level=4] [ref=f11e584]
+                - paragraph [ref=f11e585]: "Cod: 1244"
+              - generic [ref=f11e586]: Em Saída
+            - generic [ref=f11e589]:
+              - button "Excluir" [ref=f11e590] [cursor=pointer]
+              - generic [ref=f11e591]:
+                - heading "CONTROLADORA PTZ NEOID CONTROLLER IP+ ( EM OBSERVAÇAO❗ )" [level=4] [ref=f11e592]
+                - paragraph [ref=f11e593]: "Cod: 0474"
+              - generic [ref=f11e594]: Em Saída
+            - generic [ref=f11e597]:
+              - button "Excluir" [ref=f11e598] [cursor=pointer]
+              - generic [ref=f11e599]:
+                - heading "SWITCH DE REDE" [level=4] [ref=f11e600]
+                - paragraph [ref=f11e601]: "Cod: 1185"
+              - generic [ref=f11e602]: Em Saída
+            - generic [ref=f11e605]:
+              - button "Excluir" [ref=f11e606] [cursor=pointer]
+              - generic [ref=f11e607]:
+                - heading "PASSADOR DE SLIDE PERFECT CUE MICRO" [level=4] [ref=f11e608]
+                - paragraph [ref=f11e609]: "Cod: 0523"
+              - generic [ref=f11e610]: Em Saída
+            - generic [ref=f11e613]:
+              - button "Excluir" [ref=f11e614] [cursor=pointer]
+              - generic [ref=f11e615]:
+                - heading "CAMERA ROBOTICA PTZ NEOID 20X" [level=4] [ref=f11e616]
+                - paragraph [ref=f11e617]: "Cod: 0466"
+              - generic [ref=f11e618]: Em Saída
+            - generic [ref=f11e621]:
+              - button "Excluir" [ref=f11e622] [cursor=pointer]
+              - generic [ref=f11e623]:
+                - heading "CAMERA ROBOTICA PTZ NEOID 20X" [level=4] [ref=f11e624]
+                - paragraph [ref=f11e625]: "Cod: 0461"
+              - generic [ref=f11e626]: Em Saída
+            - generic [ref=f11e629]:
+              - button "Excluir" [ref=f11e630] [cursor=pointer]
+              - generic [ref=f11e631]:
+                - heading "TRIPÉ COM BRAÇO DE EXTENSÃO" [level=4] [ref=f11e632]
+                - paragraph [ref=f11e633]: "Cod: 1220"
+              - generic [ref=f11e634]: Em Saída
+            - generic [ref=f11e637]:
+              - button "Excluir" [ref=f11e638] [cursor=pointer]
+              - generic [ref=f11e639]:
+                - heading "TRIPÉ COM BRAÇO DE EXTENSÃO" [level=4] [ref=f11e640]
+                - paragraph [ref=f11e641]: "Cod: 0208"
+              - generic [ref=f11e642]: Em Saída
+            - generic [ref=f11e645]:
+              - button "Excluir" [ref=f11e646] [cursor=pointer]
+              - generic [ref=f11e647]:
+                - heading "CAIXA DE SOM SOUNDBOX OMNE 600" [level=4] [ref=f11e648]
+                - paragraph [ref=f11e649]: "Cod: 0019"
+              - generic [ref=f11e650]: Em Saída
+            - generic [ref=f11e653]:
+              - button "Excluir" [ref=f11e654] [cursor=pointer]
+              - generic [ref=f11e655]:
+                - heading "CAIXA DE SOM SOUNDBOX OMNE 600" [level=4] [ref=f11e656]
+                - paragraph [ref=f11e657]: "Cod: 0017"
+              - generic [ref=f11e658]: Em Saída
+            - generic [ref=f11e661]:
+              - button "Excluir" [ref=f11e662] [cursor=pointer]
+              - generic [ref=f11e663]:
+                - heading "TRIPÉ PARA CÂMERA" [level=4] [ref=f11e664]
+                - paragraph [ref=f11e665]: "Cod: 0585"
+              - generic [ref=f11e666]: Em Saída
+            - generic [ref=f11e669]:
+              - button "Excluir" [ref=f11e670] [cursor=pointer]
+              - generic [ref=f11e671]:
+                - heading "TRIPÉ PARA CÂMERA" [level=4] [ref=f11e672]
+                - paragraph [ref=f11e673]: "Cod: 0588"
+              - generic [ref=f11e674]: Em Saída
+            - generic [ref=f11e677]:
+              - button "Excluir" [ref=f11e678] [cursor=pointer]
+              - generic [ref=f11e679]:
+                - heading "CAMERA SONY 4K PXW-Z90V" [level=4] [ref=f11e680]
+                - paragraph [ref=f11e681]: "Cod: 0854"
+              - generic [ref=f11e682]: Em Saída
+            - generic [ref=f11e685]:
+              - button "Excluir" [ref=f11e686] [cursor=pointer]
+              - generic [ref=f11e687]:
+                - heading "MESA DE CORTE MINI ATEM" [level=4] [ref=f11e688]
+                - paragraph [ref=f11e689]: "Cod: 0481"
+              - generic [ref=f11e690]: Em Saída
+            - generic [ref=f11e693]:
+              - button "Excluir" [ref=f11e694] [cursor=pointer]
+              - generic [ref=f11e695]:
+                - heading "LINK SEM FIO" [level=4] [ref=f11e696]
+                - paragraph [ref=f11e697]: "Cod: 0974"
+              - generic [ref=f11e698]: Em Saída
+            - generic [ref=f11e701]:
+              - button "Excluir" [ref=f11e702] [cursor=pointer]
+              - generic [ref=f11e703]:
+                - heading "VNNBBS TRANSMISSOR SEM FIO" [level=4] [ref=f11e704]
+                - paragraph [ref=f11e705]: "Cod: 0973"
+              - generic [ref=f11e706]: Em Saída
+            - generic [ref=f11e709]:
+              - button "Excluir" [ref=f11e710] [cursor=pointer]
+              - generic [ref=f11e711]:
+                - heading "KIT RÁDIOS EARTEC CABEADO" [level=4] [ref=f11e712]
+                - paragraph [ref=f11e713]: "Cod: 0582"
+              - generic [ref=f11e714]: Em Saída
+            - generic [ref=f11e717]:
+              - button "Excluir" [ref=f11e718] [cursor=pointer]
+              - generic [ref=f11e719]:
+                - heading "CARREGADOR RADIO 10 PORT CHARGER CHLX10E" [level=4] [ref=f11e720]
+                - paragraph [ref=f11e721]: "Cod: 0583"
+              - generic [ref=f11e722]: Em Saída
+            - generic [ref=f11e725]:
+              - button "Excluir" [ref=f11e726] [cursor=pointer]
+              - generic [ref=f11e727]:
+                - heading "ATEM TELEVISION 4K" [level=4] [ref=f11e728]
+                - paragraph [ref=f11e729]: "Cod: 0830"
+              - generic [ref=f11e730]: Em Saída
+            - generic [ref=f11e733]:
+              - button "Excluir" [ref=f11e734] [cursor=pointer]
+              - generic [ref=f11e735]:
+                - heading "GRAVADOR HYPERDECK STUDIO MINI" [level=4] [ref=f11e736]
+                - paragraph [ref=f11e737]: "Cod: 0453"
+              - generic [ref=f11e738]: Em Saída
+            - generic [ref=f11e741]:
+              - button "Excluir" [ref=f11e742] [cursor=pointer]
+              - generic [ref=f11e743]:
+                - heading "PLACA DE AUDIO TEYUN Q-22 ( ILHA NEOID 2 )" [level=4] [ref=f11e744]
+                - paragraph [ref=f11e745]: "Cod: 0113"
+              - generic [ref=f11e746]: Em Saída
+            - generic [ref=f11e749]:
+              - button "Excluir" [ref=f11e750] [cursor=pointer]
+              - generic [ref=f11e751]:
+                - heading "PLACA DE CAPTURA SDI" [level=4] [ref=f11e752]
+                - paragraph [ref=f11e753]: "Cod: 0506"
+              - generic [ref=f11e754]: Em Saída
+            - generic [ref=f11e757]:
+              - button "Excluir" [ref=f11e758] [cursor=pointer]
+              - generic [ref=f11e759]:
+                - heading "PLACA DE CAPTURA HDMI" [level=4] [ref=f11e760]
+                - paragraph [ref=f11e761]: "Cod: 0502"
+              - generic [ref=f11e762]: Em Saída
+            - generic [ref=f11e765]:
+              - button "Excluir" [ref=f11e766] [cursor=pointer]
+              - generic [ref=f11e767]:
+                - heading "PLACA DE CAPTURA HDMI" [level=4] [ref=f11e768]
+                - paragraph [ref=f11e769]: "Cod: 0503"
+              - generic [ref=f11e770]: Em Saída
+            - generic [ref=f11e773]:
+              - button "Excluir" [ref=f11e774] [cursor=pointer]
+              - generic [ref=f11e775]:
+                - heading "PLACA DE CAPTURA HDTV VIDEO CAPTURE 4K ULTRAHD" [level=4] [ref=f11e776]
+                - paragraph [ref=f11e777]: "Cod: 1027"
+              - generic [ref=f11e778]: Em Saída
+            - generic [ref=f11e781]:
+              - button "Excluir" [ref=f11e782] [cursor=pointer]
+              - generic [ref=f11e783]:
+                - heading "PLACA DE CAPTURA HDTV VIDEO CAPTURE 4K ULTRAHD" [level=4] [ref=f11e784]
+                - paragraph [ref=f11e785]: "Cod: 1042"
+              - generic [ref=f11e786]: Em Saída
+            - generic [ref=f11e789]:
+              - button "Excluir" [ref=f11e790] [cursor=pointer]
+              - generic [ref=f11e791]:
+                - heading "PLACA DE CAPTURA SDI" [level=4] [ref=f11e792]
+                - paragraph [ref=f11e793]: "Cod: 1065"
+              - generic [ref=f11e794]: Em Saída
+            - generic [ref=f11e797]:
+              - button "Excluir" [ref=f11e798] [cursor=pointer]
+              - generic [ref=f11e799]:
+                - heading "PLACA DE AUDIO" [level=4] [ref=f11e800]
+                - paragraph [ref=f11e801]: "Cod: 0112"
+              - generic [ref=f11e802]: Em Saída
+            - generic [ref=f11e805]:
+              - button "Excluir" [ref=f11e806] [cursor=pointer]
+              - generic [ref=f11e807]:
+                - heading "SPLITTER DE VIDEO" [level=4] [ref=f11e808]
+                - paragraph [ref=f11e809]: "Cod: 0514"
+              - generic [ref=f11e810]: Em Saída
+            - generic [ref=f11e813]:
+              - button "Excluir" [ref=f11e814] [cursor=pointer]
+              - generic [ref=f11e815]:
+                - heading "SPLITTER DE VIDEO" [level=4] [ref=f11e816]
+                - paragraph [ref=f11e817]: "Cod: 0750"
+              - generic [ref=f11e818]: Em Saída
+            - generic [ref=f11e821]:
+              - button "Excluir" [ref=f11e822] [cursor=pointer]
+              - generic [ref=f11e823]:
+                - heading "SPLITTER DE VIDEO" [level=4] [ref=f11e824]
+                - paragraph [ref=f11e825]: "Cod: 0752"
+              - generic [ref=f11e826]: Em Saída
+            - generic [ref=f11e829]:
+              - button "Excluir" [ref=f11e830] [cursor=pointer]
+              - generic [ref=f11e831]:
+                - heading "MATRIZ HDMI KRAMER 4X4 VS-48HN" [level=4] [ref=f11e832]
+                - paragraph [ref=f11e833]: "Cod: 0491"
+              - generic [ref=f11e834]: Em Saída
+            - generic [ref=f11e837]:
+              - button "Excluir" [ref=f11e838] [cursor=pointer]
+              - generic [ref=f11e839]:
+                - heading "SPLITTER DE VIDEO" [level=4] [ref=f11e840]
+                - paragraph [ref=f11e841]: "Cod: 1045"
+              - generic [ref=f11e842]: Em Saída
+            - generic [ref=f11e845]:
+              - button "Excluir" [ref=f11e846] [cursor=pointer]
+              - generic [ref=f11e847]:
+                - heading "SPLITTER DE VIDEO" [level=4] [ref=f11e848]
+                - paragraph [ref=f11e849]: "Cod: 1059"
+              - generic [ref=f11e850]: Em Saída
+            - generic [ref=f11e853]:
+              - button "Excluir" [ref=f11e854] [cursor=pointer]
+              - generic [ref=f11e855]:
+                - heading "PASSADOR DE SLIDE LOGITECH" [level=4] [ref=f11e856]
+                - paragraph [ref=f11e857]: "Cod: 0525"
+              - generic [ref=f11e858]: Em Saída
+            - generic [ref=f11e861]:
+              - button "Excluir" [ref=f11e862] [cursor=pointer]
+              - generic [ref=f11e863]:
+                - heading "PASSADOR DE SLIDE LOGITECH" [level=4] [ref=f11e864]
+                - paragraph [ref=f11e865]: "Cod: 0526"
+              - generic [ref=f11e866]: Em Saída
+            - generic [ref=f11e869]:
+              - button "Excluir" [ref=f11e870] [cursor=pointer]
+              - generic [ref=f11e871]:
+                - heading "NOTBOOK POSITIVO MASTERN6140" [level=4] [ref=f11e872]
+                - paragraph [ref=f11e873]: "Cod: 0438"
+              - generic [ref=f11e874]: Em Saída
+            - generic [ref=f11e877]:
+              - button "Excluir" [ref=f11e878] [cursor=pointer]
+              - generic [ref=f11e879]:
+                - heading "NOTBOOK POSITIVO MASTERN6140" [level=4] [ref=f11e880]
+                - paragraph [ref=f11e881]: "Cod: 0437"
+              - generic [ref=f11e882]: Em Saída
+            - generic [ref=f11e885]:
+              - button "Excluir" [ref=f11e886] [cursor=pointer]
+              - generic [ref=f11e887]:
+                - heading "ALIENWARE M15 P109F" [level=4] [ref=f11e888]
+                - paragraph [ref=f11e889]: "Cod: 0431"
+              - generic [ref=f11e890]: Em Saída
+            - generic [ref=f11e893]:
+              - button "Excluir" [ref=f11e894] [cursor=pointer]
+              - generic [ref=f11e895]:
+                - heading "ALIENWARE AREA 51 P38E" [level=4] [ref=f11e896]
+                - paragraph [ref=f11e897]: "Cod: 0428"
+              - generic [ref=f11e898]: Em Saída
+            - generic [ref=f11e901]:
+              - button "Excluir" [ref=f11e902] [cursor=pointer]
+              - generic [ref=f11e903]:
+                - heading "DOCKSTATION DELL K17A" [level=4] [ref=f11e904]
+                - paragraph [ref=f11e905]: "Cod: 0545"
+              - generic [ref=f11e906]: Em Saída
+            - generic [ref=f11e909]:
+              - button "Excluir" [ref=f11e910] [cursor=pointer]
+              - generic [ref=f11e911]:
+                - heading "SWITCH DE REDE" [level=4] [ref=f11e912]
+                - paragraph [ref=f11e913]: "Cod: 0688"
+              - generic [ref=f11e914]: Em Saída
+            - generic [ref=f11e917]:
+              - button "Excluir" [ref=f11e918] [cursor=pointer]
+              - generic [ref=f11e919]:
+                - heading "STARLINK MINI UTA-231" [level=4] [ref=f11e920]
+                - paragraph [ref=f11e921]: "Cod: 1072"
+              - generic [ref=f11e922]: Em Saída
+            - generic [ref=f11e925]:
+              - button "Excluir" [ref=f11e926] [cursor=pointer]
+              - generic [ref=f11e927]:
+                - heading "CAMERA SONY 4K PXW-Z90V" [level=4] [ref=f11e928]
+                - paragraph [ref=f11e929]: "Cod: 0825"
+              - generic [ref=f11e930]: Em Saída
+            - generic [ref=f11e933]:
+              - button "Excluir" [ref=f11e934] [cursor=pointer]
+              - generic [ref=f11e935]:
+                - heading "PLACA DE AUDIO" [level=4] [ref=f11e936]
+                - paragraph [ref=f11e937]: "Cod: 1089"
+              - generic [ref=f11e938]: Em Saída
+            - generic [ref=f11e941]:
+              - button "Excluir" [ref=f11e942] [cursor=pointer]
+              - generic [ref=f11e943]:
+                - heading "PLACA DE AUDIO TEYUN Q-22" [level=4] [ref=f11e944]
+                - paragraph [ref=f11e945]: "Cod: 1048"
+              - generic [ref=f11e946]: Em Saída
+            - generic [ref=f11e949]:
+              - button "Excluir" [ref=f11e950] [cursor=pointer]
+              - generic [ref=f11e951]:
+                - heading "PLACA DE AUDIO" [level=4] [ref=f11e952]
+                - paragraph [ref=f11e953]: "Cod: 0110"
+              - generic [ref=f11e954]: Em Saída
+            - generic [ref=f11e957]:
+              - button "Excluir" [ref=f11e958] [cursor=pointer]
+              - generic [ref=f11e959]:
+                - heading "LENOVO 20NS" [level=4] [ref=f11e960]
+                - paragraph [ref=f11e961]: "Cod: 1037"
+              - generic [ref=f11e962]: Em Saída
+            - generic [ref=f11e965]:
+              - button "Excluir" [ref=f11e966] [cursor=pointer]
+              - generic [ref=f11e967]:
+                - heading "RACK DE MIC 01 (04 BASTOES, 04 BOCAIS)" [level=4] [ref=f11e968]
+                - paragraph [ref=f11e969]: "Cod: 0913"
+              - generic [ref=f11e970]: Em Saída
+        - complementary [ref=f11e462]:
+          - generic [ref=f11e463]:
+            - heading "Ordem de Serviço" [level=3] [ref=f11e464]
+            - generic [ref=f11e465]: 27/52
+          - generic [ref=f11e466]:
+            - generic [ref=f11e467]:
+              - generic [ref=f11e468]:
+                - strong [ref=f11e469]: 01 MESA DE SOM
+                - generic [ref=f11e470]: "Separado: 0 • Falta separar: 1"
+                - generic [ref=f11e471]: "Disponíveis no galpão: 14"
+              - generic "Saída pendente" [ref=f11e472]: ⏳
+            - generic [ref=f11e473]:
+              - generic [ref=f11e474]:
+                - strong [ref=f11e475]: 06 MICROFONE SEM FIO RACK
+                - generic [ref=f11e476]: "Separado: 4 • Falta separar: 2"
+                - generic [ref=f11e477]: "Disponíveis no galpão: 26"
+              - generic "Saída pendente" [ref=f11e478]: ⏳
+            - generic [ref=f11e479]:
+              - generic [ref=f11e480]:
+                - strong [ref=f11e481]: 01 MONITOR
+                - generic [ref=f11e482]: "Separado: 0 • Falta separar: 1"
+                - generic [ref=f11e483]: "Disponíveis no galpão: 4"
+              - generic "Saída pendente" [ref=f11e484]: ⏳
+            - generic [ref=f11e485]:
+              - generic [ref=f11e486]:
+                - strong [ref=f11e487]: 20 PARLED
+                - generic [ref=f11e488]: "Separado: 0 • Falta separar: 20"
+                - generic [ref=f11e489]: "Disponíveis no galpão: 111"
+              - generic "Saída pendente" [ref=f11e490]: ⏳
+            - generic [ref=f11e491]:
+              - generic [ref=f11e492]:
+                - strong [ref=f11e493]: 04 PLACA DE AUDIO
+                - generic [ref=f11e494]: "Separado: 3 • Falta separar: 1"
+                - generic [ref=f11e495]: "Disponíveis no galpão: 11"
+              - generic "Saída pendente" [ref=f11e496]: ⏳
+            - generic [ref=f11e497]:
+              - generic [ref=f11e498]:
+                - strong [ref=f11e499]: 02 CAIXA DE SOM
+                - generic [ref=f11e500]: "Separado: 2 • Falta separar: 0"
+                - generic [ref=f11e501]: "Disponíveis no galpão: 50"
+              - generic "Quantidade solicitada atendida" [ref=f11e502]: ✅
+            - generic [ref=f11e503]:
+              - generic [ref=f11e504]:
+                - strong [ref=f11e505]: 03 CAMERAS
+                - generic [ref=f11e506]: "Separado: 5 • Falta separar: 0"
+                - generic [ref=f11e507]: "Disponíveis no galpão: 34"
+                - generic [ref=f11e508]: 3/3 solicitado • +2 extra
+              - generic "Quantidade solicitada atendida" [ref=f11e509]: ✅
+            - generic [ref=f11e510]:
+              - generic [ref=f11e511]:
+                - strong [ref=f11e512]: 01 GRAVADOR
+                - generic [ref=f11e513]: "Separado: 1 • Falta separar: 0"
+                - generic [ref=f11e514]: "Disponíveis no galpão: 1"
+              - generic "Quantidade solicitada atendida" [ref=f11e515]: ✅
+            - generic [ref=f11e516]:
+              - generic [ref=f11e517]:
+                - strong [ref=f11e518]: 01 ILHAS DE VIDEO
+                - generic [ref=f11e519]: "Separado: 1 • Falta separar: 0"
+                - generic [ref=f11e520]: "Disponíveis no galpão: 4"
+              - generic "Quantidade solicitada atendida" [ref=f11e521]: ✅
+            - generic [ref=f11e522]:
+              - generic [ref=f11e523]:
+                - strong [ref=f11e524]: 01 MESA DE CORTE
+                - generic [ref=f11e525]: "Separado: 2 • Falta separar: 0"
+                - generic [ref=f11e526]: "Disponíveis no galpão: 12"
+                - generic [ref=f11e527]: 1/1 solicitado • +1 extra
+              - generic "Quantidade solicitada atendida" [ref=f11e528]: ✅
+            - generic [ref=f11e529]:
+              - generic [ref=f11e530]:
+                - strong [ref=f11e531]: 05 NOTBOOK
+                - generic [ref=f11e532]: "Separado: 5 • Falta separar: 0"
+                - generic [ref=f11e533]: "Disponíveis no galpão: 17"
+              - generic "Quantidade solicitada atendida" [ref=f11e534]: ✅
+            - generic [ref=f11e535]:
+              - generic [ref=f11e536]:
+                - strong [ref=f11e537]: 01 PASSADOR DE SLIDE
+                - generic [ref=f11e538]: "Separado: 3 • Falta separar: 0"
+                - generic [ref=f11e539]: "Disponíveis no galpão: 8"
+                - generic [ref=f11e540]: 1/1 solicitado • +2 extra
+              - generic "Quantidade solicitada atendida" [ref=f11e541]: ✅
+            - generic [ref=f11e542]:
+              - generic [ref=f11e543]:
+                - strong [ref=f11e544]: 05 PLACA DE CAPTURA
+                - generic [ref=f11e545]: "Separado: 6 • Falta separar: 0"
+                - generic [ref=f11e546]: "Disponíveis no galpão: 36"
+                - generic [ref=f11e547]: 5/5 solicitado • +1 extra
+              - generic "Quantidade solicitada atendida" [ref=f11e548]: ✅
+            - generic [ref=f11e549]:
+              - generic [ref=f11e550]:
+                - strong [ref=f11e551]: 01 RADIOS
+                - generic [ref=f11e552]: "Separado: 2 • Falta separar: 0"
+                - generic [ref=f11e553]: "Disponíveis no galpão: 2"
+                - generic [ref=f11e554]: 1/1 solicitado • +1 extra
+              - generic "Quantidade solicitada atendida" [ref=f11e555]: ✅

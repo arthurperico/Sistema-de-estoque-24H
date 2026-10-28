@@ -3,8 +3,8 @@ const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
 const projectRoot = path.resolve(__dirname, '..');
-const sourceDbPath = path.join(projectRoot, 'database.db');
-const outputPath = path.resolve(projectRoot, process.argv[2] || 'd1-export.sql');
+const sourceDbPath = path.join(projectRoot, 'banco de dados', 'database.db');
+const outputPath = path.resolve(projectRoot, process.argv[2] || path.join('banco de dados', 'd1-export.sql'));
 
 const tableOrder = [
     'users',
@@ -98,7 +98,7 @@ async function exportTable(db, tableName) {
 
 async function main() {
     if (!fs.existsSync(sourceDbPath)) {
-        throw new Error(`Banco SQLite nao encontrado em ${sourceDbPath}`);
+        throw new Error(`Banco SQLite não encontrado em ${sourceDbPath}`);
     }
 
     const db = await openDatabase(sourceDbPath);
@@ -106,7 +106,7 @@ async function main() {
     try {
         const lines = [
             '-- Arquivo gerado para importar os dados atuais do SQLite para o Cloudflare D1.',
-            '-- Execute este arquivo com: npx wrangler d1 execute <NOME_DO_BANCO> --remote --file d1-export.sql',
+            '-- Execute este arquivo com: npx wrangler d1 execute <NOME_DO_BANCO> --remote --file "banco de dados/d1-export.sql"',
             '',
             'DELETE FROM sessions;',
             'DELETE FROM cable_event_movements;',
@@ -131,7 +131,7 @@ async function main() {
             }
         }
         fs.writeFileSync(outputPath, `${lines.join('\n')}\n`, 'utf8');
-        console.log(`Arquivo de exportacao criado em ${outputPath}`);
+        console.log(`Arquivo de exportação criado em ${outputPath}`);
     } finally {
         await close(db);
     }

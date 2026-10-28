@@ -1,0 +1,9 @@
+
+ ⛅️ wrangler 4.107.0
+────────────────────
+Successfully created tail, expires at 2026-07-03T22:44:18Z
+Connected to sistema-estoque-24h, waiting for logs...
+POST https://estoque.24hlocacoes.com/api/login - Exception Thrown @ 03/07/2026, 13:46:05
+POST https://estoque.24hlocacoes.com/api/login - Exception Thrown @ 03/07/2026, 13:46:10
+POST https://estoque.24hlocacoes.com/api/login - Exception Thrown @ 03/07/2026, 13:46:16
+GET https://estoque.24hlocacoes.com/api/auth/status - Ok @ 03/07/2026, 13:46:49

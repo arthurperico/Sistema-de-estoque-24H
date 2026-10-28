@@ -1,0 +1,148 @@
+
+> controle-estoque-equipamentos@1.0.0 dev:worker
+> npm run sync:assets && wrangler dev --local --port 8787
+
+
+> controle-estoque-equipamentos@1.0.0 sync:assets
+> npm run build:quote-pdf-client && node scripts/sync-public-assets.js
+
+
+> controle-estoque-equipamentos@1.0.0 build:quote-pdf-client
+> esbuild src/quote-pdf-browser.mjs --bundle --format=iife --platform=browser --target=es2022 --minify --outfile=javascript/quote-pdf-client.js
+
+html -> public\html
+css -> public\css
+javascript -> public\javascript
+fotos -> public\fotos
+
+ ⛅️ wrangler 4.124.0 (update available 4.128.0)
+───────────────────────────────────────────────
+Active profile: estoque-24h
+Using secrets defined in .dev.vars
+Your Worker has access to the following bindings:
+Binding                                                          Resource                  Mode
+env.DB (sistema-estoque-24h)                                     D1 Database               local
+env.AI                                                           AI                        not supported
+env.COMMERCIAL_ASSISTANT_RATE_LIMITER (4 requests/60s)           Rate Limit                local
+env.ASSETS                                                       Assets                    local
+env.SESSION_SECRET ("(hidden)")                                  Environment Variable      local
+
+Wrangler detected this dev session is running in an AI agent.
+The Local Explorer API is available at http://127.0.0.1:8787/cdn-cgi/local/explorer/api
+Useful routes:
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api/local/workers - local Workers and bindings
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api/storage/kv/namespaces - KV namespaces
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api/d1/database - D1 databases
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api/r2/buckets - R2 buckets
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api/workers/durable_objects/namespaces - Durable Object namespaces
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api/workflows - Workflows
+  POST http://127.0.0.1:8787/cdn-cgi/local/explorer/api/local/observability/query - run a read-only SQL query (SELECT/WITH only) over captured request traces and console logs. Tables: spans, logs (read attributes via json(attributes)). Example:
+    curl -X POST http://127.0.0.1:8787/cdn-cgi/local/explorer/api/local/observability/query -H 'Content-Type: application/json' -d '{"sql":"SELECT service, name, outcome, duration_ms FROM spans WHERE parent_id IS NULL LIMIT 20"}'
+If the routes above don't cover what you need, fetch the full OpenAPI schema (large - use only as a last resort):
+  GET http://127.0.0.1:8787/cdn-cgi/local/explorer/api - OpenAPI schema
+⎔ Starting local server...
+[wrangler:info] Ready on http://127.0.0.1:8787
+[wrangler:info] GET /login.html 307 Temporary Redirect (24ms)
+[wrangler:info] GET /html/login 200 OK (11ms)
+[wrangler:info] GET /api/auth/status 200 OK (6ms)
+[wrangler:info] GET / 307 Temporary Redirect (8ms)
+[wrangler:info] GET /html/ 200 OK (15ms)
+[wrangler:info] GET /css/login.css 200 OK (16ms)
+[wrangler:info] GET /fotos/logo.PNG 200 OK (24ms)
+[wrangler:info] GET /javascript/login.js 200 OK (26ms)
+[wrangler:info] GET /api/auth/status 200 OK (6ms)
+[wrangler:info] GET /html/ 200 OK (7ms)
+[wrangler:info] GET /css/login.css 200 OK (6ms)
+[wrangler:info] GET /fotos/logo.PNG 200 OK (7ms)
+[wrangler:info] GET /javascript/login.js 200 OK (10ms)
+[wrangler:info] GET /api/auth/status 200 OK (7ms)
+[wrangler:info] GET /fotos/logo.PNG 304 Not Modified (5ms)
+[wrangler:info] POST /api/login 401 Unauthorized (104ms)
+[wrangler:info] POST /api/login 401 Unauthorized (67ms)
+[wrangler:info] POST /api/login 500 Internal Server Error (87ms)
+[wrangler:info] POST /api/login 401 Unauthorized (431ms)
+[wrangler:info] POST /api/login 401 Unauthorized (70ms)
+[wrangler:info] POST /api/login 401 Unauthorized (65ms)
+[wrangler:info] GET /html/ 304 Not Modified (5ms)
+[wrangler:info] GET /css/login.css 304 Not Modified (3ms)
+[wrangler:info] GET /fotos/logo.PNG 304 Not Modified (4ms)
+[wrangler:info] GET /javascript/login.js 304 Not Modified (5ms)
+[wrangler:info] GET /api/auth/status 200 OK (6ms)
+[wrangler:info] GET /fotos/logo.PNG 304 Not Modified (5ms)
+[wrangler:info] POST /api/login 401 Unauthorized (65ms)
+[wrangler:info] POST /api/login 500 Internal Server Error (433ms)
+[wrangler:info] POST /api/login 500 Internal Server Error (82ms)
+[wrangler:info] GET /html/ 304 Not Modified (5ms)
+[wrangler:info] GET /css/login.css 304 Not Modified (4ms)
+[wrangler:info] GET /fotos/logo.PNG 304 Not Modified (4ms)
+[wrangler:info] GET /javascript/login.js 304 Not Modified (5ms)
+[wrangler:info] GET /api/auth/status 200 OK (5ms)
+[wrangler:info] GET /fotos/logo.PNG 304 Not Modified (4ms)
+[wrangler:info] POST /api/login 500 Internal Server Error (75ms)
+[wrangler:info] POST /api/login 200 OK (451ms)
+[wrangler:info] POST /api/login 200 OK (72ms)
+[wrangler:info] GET /dashboard.html 307 Temporary Redirect (7ms)
+[wrangler:info] GET /html/dashboard 200 OK (20ms)
+[wrangler:info] GET /css/dashboard.css 200 OK (14ms)
+[wrangler:info] GET /css/commercial-assistant.css 200 OK (21ms)
+[wrangler:info] GET /fotos/logo.PNG 304 Not Modified (22ms)
+[wrangler:info] GET /javascript/quote-pdf-client.js 200 OK (456ms)
+[wrangler:info] GET /javascript/commercial-assistant.js 200 OK (473ms)
+[wrangler:info] GET /javascript/dashboard.js 200 OK (515ms)
+[wrangler:info] GET /api/auth/status 200 OK (7ms)
+[wrangler:info] GET /api/events 200 OK (47ms)
+[wrangler:info] GET /api/scheduled-events 200 OK (55ms)
+[wrangler:info] GET /api/rental-return-alerts 200 OK (65ms)
+[wrangler:info] GET /api/rental-return-alerts 200 OK (15ms)
+[wrangler:info] GET /api/events 200 OK (10ms)
+[wrangler:info] GET /api/scheduled-events 200 OK (20ms)
+[wrangler:info] GET /api/rental-return-alerts 200 OK (28ms)
+[wrangler:info] GET /api/rental-return-alerts 200 OK (13ms)
+[wrangler:info] GET /api/rental-events 200 OK (8ms)
+[wrangler:info] GET /api/rental-return-alerts 200 OK (16ms)
+[wrangler:info] GET /api/rental-return-alerts 200 OK (12ms)
+Using secrets defined in .dev.vars
+Your Worker has access to the following bindings:
+Binding                                       Resource                  Mode
+env.DB (sistema-estoque-24h)                  D1 Database               local
+env.ASSETS                                    Assets                    local
+env.SESSION_SECRET ("(hidden)")               Environment Variable      local
+
+⎔ Reloading local server...
+⎔ Local server updated and ready
+⎔ Reloading local server...
+⎔ Local server updated and ready
+[wrangler:info] POST /api/login 200 OK (448ms)
+[wrangler:info] GET /dashboard.html 307 Temporary Redirect (9ms)
+[wrangler:info] GET /html/dashboard 200 OK (6ms)
+[wrangler:info] GET /html/dashboard 200 OK (10ms)
+[wrangler:info] GET /css/dashboard.css 200 OK (6ms)
+[wrangler:info] GET /fotos/logo.PNG 304 Not Modified (6ms)
+[wrangler:info] GET /javascript/quote-pdf-client.js 200 OK (450ms)
+[wrangler:info] GET /javascript/dashboard.js 200 OK (452ms)
+[wrangler:info] GET /api/auth/status 200 OK (6ms)
+[wrangler:info] GET /fotos/logo.PNG 304 Not Modified (4ms)
+[wrangler:info] GET /api/events 200 OK (25ms)
+[wrangler:info] GET /api/scheduled-events 200 OK (32ms)
+[wrangler:info] GET /api/rental-return-alerts 200 OK (42ms)
+[wrangler:info] GET /html/dashboard 304 Not Modified (11ms)
+[wrangler:info] GET /css/dashboard.css 304 Not Modified (3ms)
+[wrangler:info] GET /fotos/logo.PNG 304 Not Modified (5ms)
+[wrangler:info] GET /javascript/quote-pdf-client.js 304 Not Modified (5ms)
+[wrangler:info] GET /javascript/dashboard.js 304 Not Modified (5ms)
+[wrangler:info] GET /api/auth/status 200 OK (7ms)
+[wrangler:info] GET /fotos/logo.PNG 304 Not Modified (8ms)
+[wrangler:info] GET /api/events 200 OK (11ms)
+[wrangler:info] GET /api/scheduled-events 200 OK (19ms)
+[wrangler:info] GET /api/rental-return-alerts 200 OK (27ms)
+[wrangler:info] GET /api/equipments 200 OK (14ms)
+[wrangler:info] GET /api/rental-return-alerts 200 OK (22ms)
+⎔ Reloading local server...
+⎔ Local server updated and ready
+⎔ Reloading local server...
+⎔ Local server updated and ready
+⎔ Reloading local server...
+⎔ Local server updated and ready
+[wrangler:info] POST /api/login 200 OK (450ms)
+[wrangler:info] GET /api/auth/status 200 OK (5ms)
+[wrangler:info] GET /api/local-starlinks 404 Not Found (5ms)

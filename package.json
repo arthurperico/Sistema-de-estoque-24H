@@ -5,14 +5,27 @@
   "main": "server.js",
   "scripts": {
     "dev": "node server.js",
-    "dev:worker": "wrangler dev",
-    "deploy": "wrangler deploy",
+    "build:quote-pdf-client": "esbuild src/quote-pdf-browser.mjs --bundle --format=iife --platform=browser --target=es2022 --minify --outfile=javascript/quote-pdf-client.js",
+    "sync:assets": "npm run build:quote-pdf-client && node scripts/sync-public-assets.js",
+    "dev:worker": "npm run sync:assets && wrangler dev",
+    "deploy": "npm run backup:d1 && npm run migrate:d1:remote && npm run guard:d1:remote && npm run sync:assets && wrangler deploy",
     "cf:typegen": "wrangler types",
     "export:d1": "node scripts/export-sqlite-to-d1.js",
     "backup:sqlite": "node scripts/create-sqlite-backup.js",
-    "hash:secret": "node scripts/generate-bcrypt-hash.js"
+    "backup:d1": "node scripts/create-d1-backup.js",
+    "migrate:d1:remote": "wrangler d1 migrations apply sistema-estoque-24h --remote",
+    "guard:d1:remote": "wrangler d1 execute sistema-estoque-24h --remote --file=\"./banco de dados/d1-integrity-triggers.sql\" --yes",
+    "hash:secret": "node scripts/generate-bcrypt-hash.js",
+    "start": "node server.js",
+    "test": "node --test test/*.test.mjs"
   },
-  "keywords": ["estoque", "equipamentos", "controle", "nodejs", "sqlite"],
+  "keywords": [
+    "estoque",
+    "equipamentos",
+    "controle",
+    "nodejs",
+    "sqlite"
+  ],
   "author": "Desenvolvedor",
   "license": "MIT",
   "dependencies": {
@@ -20,9 +33,21 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
+    "pdf-lib": "^1.17.1",
+    "pdfkit": "^0.19.1",
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {
-    "wrangler": "^4.11.1"
-  }
+    "esbuild": "^0.27.3",
+    "wrangler": "^4.124.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arthurperico/Sistema-de-estoque-24H.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/arthurperico/Sistema-de-estoque-24H/issues"
+  },
+  "homepage": "https://github.com/arthurperico/Sistema-de-estoque-24H#readme"
 }

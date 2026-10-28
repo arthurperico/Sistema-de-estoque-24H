@@ -1,0 +1,19 @@
+
+ ⛅️ wrangler 4.80.0 (update available 4.110.0)
+──────────────────────────────────────────────
+Your Worker has access to the following bindings:
+Binding                                       Resource                  Mode
+env.DB (sistema-estoque-24h)                  D1 Database               local
+env.ASSETS                                    Assets                    local
+env.SESSION_SECRET ("(hidden)")               Environment Variable      local
+
+⎔ Starting local server...
+[wrangler:info] Ready on http://127.0.0.1:8788
+[wrangler:info] POST /api/login 200 OK (113ms)
+[wrangler:info] GET /api/orcamentos/equipamentos-banco 200 OK (10ms)
+[wrangler:info] PATCH /api/equipments/1 200 OK (15ms)
+[wrangler:info] GET /api/orcamentos/equipamentos-banco 200 OK (7ms)
+[wrangler:info] PATCH /api/equipments/1 200 OK (16ms)
+[wrangler:info] GET /api/equipments 200 OK (9ms)
+[wrangler:info] GET /api/orcamentos/equipamentos-disponiveis 200 OK (8ms)
+[wrangler:info] POST /api/logout 200 OK (13ms)

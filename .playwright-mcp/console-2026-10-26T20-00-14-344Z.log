@@ -1,0 +1,6 @@
+[      -3ms] [ERROR] The Content Security Policy directive 'upgrade-insecure-requests' is ignored when delivered in a report-only policy. @ https://web.whatsapp.com/send/?phone=553132255020&text&type=phone_number&app_absent=0:0
+[     470ms] [ERROR] ErrorUtils caught an error:
+
+[storage] storage bucket persistence denied (aquire-persistent-storage-denied)
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 17896, clientTime: 1793044814, extra: Object, guardList: Array(0), hash: ful32r} @ https://static.whatsapp.net/rsrc.php/v4/yU/r/WTkqok0RSi-.js:84

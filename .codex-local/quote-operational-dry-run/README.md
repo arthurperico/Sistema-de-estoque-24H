@@ -1,0 +1,1 @@
+This folder contains the built output assets for the worker "sistema-estoque-24h" generated at 2026-08-19T16:06:20.776Z.

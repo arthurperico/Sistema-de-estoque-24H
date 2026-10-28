@@ -3,6 +3,21 @@ main = "src/worker.mjs"
 compatibility_date = "2026-04-05"
 compatibility_flags = ["nodejs_compat"]
 
+[vars]
+LOCAL_STARLINK_TAB_ENABLED = "true"
+
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+invocation_logs = true
+
+[observability.traces]
+enabled = true
+head_sampling_rate = 0.01
+
 [[routes]]
 pattern = "estoque.24hlocacoes.com"
 zone_name = "24hlocacoes.com"
@@ -11,9 +26,31 @@ custom_domain = true
 [assets]
 directory = "./public"
 binding = "ASSETS"
+run_worker_first = [
+  "/",
+  "/index.html",
+  "/login.html",
+  "/dashboard.html",
+  "/event.html",
+  "/entrada.html",
+  "/saida.html",
+  "/html/*",
+  "/api/*",
+  "/logo.PNG",
+  "/quote-header.png",
+  "/quote-signature.png",
+  "/dashboard.css",
+  "/event.css",
+  "/login.css",
+  "/style.css",
+  "/dashboard.js",
+  "/event.js",
+  "/login.js",
+  "/script.js"
+]
 
 [[d1_databases]]
 binding = "DB"
 database_name = "sistema-estoque-24h"
 database_id = "6b412f11-d7ca-4ae0-a485-7f1c6e063c9d"
-migrations_dir = "./migrations"
+migrations_dir = "./banco de dados/migrations"

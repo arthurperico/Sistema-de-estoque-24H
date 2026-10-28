@@ -1,0 +1,21 @@
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mError: D1_ERROR: Internal error while starting up D1 DB storage caused object to be reset; reference = ukg0mlnme8mb0ee6dicbr99v[0m
+
+      at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:146:19)
+      at async cloudflare-internal:d1-api:331:39
+      at async login (worker.js:2884:16)
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mError: D1_ERROR: Internal error while starting up D1 DB storage caused object to be reset; reference = 2vpth408eib1g1dg5jbbs091[0m
+
+      at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:146:19)
+      at async cloudflare-internal:d1-api:331:39
+      at async login (worker.js:2884:16)
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mError: D1_ERROR: Internal error while starting up D1 DB storage caused object to be reset; reference = ceac92q8j232btk0jbc8afrv[0m
+
+      at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:146:19)
+      at async cloudflare-internal:d1-api:331:39
+      at async login (worker.js:2884:16)
+
+

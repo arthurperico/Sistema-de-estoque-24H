@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24h Locações - Evento</title>
+    <link rel="icon" type="image/png" href="/fotos/favicon-24h.png">
+    <link rel="stylesheet" href="/css/event.css?v=20260903-title-design-v3">
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="event-container">
+        <div class="event-header">
+            <div class="event-info">
+                <h1 id="eventName">Nome do Evento</h1>
+                <p id="eventDate">Data: --</p>
+            </div>
+            <div class="event-actions">
+                <button onclick="iniciarRelacao()" class="btn-secondary" style="border-color: #ff3333; color: #ff3333;">+ Relação</button>
+                <button onclick="showSection('saida')" class="btn-secondary active" data-section="saida">Saída</button>
+                <button onclick="showSection('entrada')" class="btn-secondary" data-section="entrada">Entrada</button>
+                <button onclick="showSection('conferencia')" class="btn-secondary" data-section="conferencia">Conferência</button>
+                <button type="button" onclick="openTransferModal()" class="btn-secondary">Transferir</button>
+                <button onclick="window.location.href='/dashboard.html'" class="btn-close">Voltar</button>
+            </div>
+        </div>
+
+        <div id="saida" class="section active">
+            <div class="section-title">
+                <h2>Controle de Saída</h2>
+                <p>Digite o código de barras ou use o botão <b>Relação</b> para selecionar no banco</p>
+                <button type="button" id="saidaAudioToggle" class="movement-audio-toggle" onclick="toggleMovementAudio('saida')" aria-label="Desativar áudio de saída" aria-pressed="true" title="Desativar áudio de saída">
+                    <span id="saidaAudioToggleIcon" aria-hidden="true">&#128266;</span>
+                </button>
+            </div>
+
+            <div class="space-panel">
+                <div class="space-panel-header">
+                    <h3>Espaços</h3>
+                    <button type="button" class="btn-secondary" onclick="addEventSpace()">Adicionar espaço</button>
+                </div>
+                <div id="saidaSpaceButtons" class="space-buttons"></div>
+                <div id="spaceMessage" class="message"></div>
+            </div>
+
+            <div class="saida-toggle">
+                <button type="button" id="saidaEquipamentosTabButton" class="btn-secondary active" onclick="setSaidaTab('equipamentos')">Equipamentos</button>
+                <button type="button" id="saidaCabosTabButton" class="btn-secondary" onclick="setSaidaTab('cabos')">Cabos</button>
+                <button type="button" id="saidaOutrosTabButton" class="btn-secondary" onclick="setSaidaTab('outros')">Outros</button>
+            </div>
+
+            <div id="saidaEquipamentosView" class="saida-view active">
+                <div class="barcode-input">
+                    <input type="text" id="saidaBarcode" onkeypress="handleSaidaKeyPress(event)" placeholder="Código de barras...">
+                    <button onclick="handleSaidaButton()" class="btn-primary">Registrar Saída</button>
+                    <div id="saidaMessage" class="message"></div>
+                </div>
+
+                <div class="saida-equipment-layout">
+                    <div class="equipment-list">
+                        <div class="list-header">
+                            <h3>Equipamentos em Saída</h3>
+                            <div class="pdf-actions">
+                                <button type="button" class="btn-secondary" onclick="generateSaidaPdf()">Gerar PDF 24H</button>
+                                <button type="button" class="btn-secondary" onclick="generateAgsPdf()">Gerar PDF AGS</button>
+                                <button type="button" id="printRental24hButton" class="btn-primary rental-print-action" onclick="printRentalPdf('24h')" hidden>Imprimir 24H (2 vias)</button>
+                                <button type="button" id="printRentalAgsButton" class="btn-primary rental-print-action" onclick="printRentalPdf('ags')" hidden>Imprimir AGS (2 vias)</button>
+                            </div>
+                        </div>
+                        <div class="conference-filter">
+                            <input type="text" id="saidaSearch" oninput="filterSaidaList()" placeholder="Pesquisar por nome ou código...">
+                            <button onclick="filterSaidaList()" class="btn-secondary">Pesquisar</button>
+                        </div>
+                        <div id="saidaList" class="list-container"></div>
+                    </div>
+
+                    <aside id="serviceOrderPanel" class="service-order-panel" style="display: none;">
+                        <div class="service-order-header">
+                            <h3>Ordem de Serviço</h3>
+                            <span id="serviceOrderCount">0/0</span>
+                        </div>
+                        <div id="serviceOrderList" class="service-order-list"></div>
+                    </aside>
+                </div>
+            </div>
+
+            <div id="saidaCabosView" class="saida-view">
+                <div class="barcode-input barcode-input-cables">
+                    <div class="cable-saida-form">
+                        <input type="text" id="saidaCableName" list="saidaCableOptions" onkeypress="handleCableSaidaKeyPress(event)" placeholder="Nome do cabo...">
+                        <datalist id="saidaCableOptions"></datalist>
+                        <input type="number" id="saidaCableQuantity" min="1" step="1" onkeypress="handleCableSaidaKeyPress(event)" placeholder="Quantidade">
+                        <button onclick="handleCableSaidaButton()" class="btn-primary">Registrar Saída</button>
+                    </div>
+                    <div id="saidaCableMessage" class="message"></div>
+                </div>
+
+                <div class="equipment-list">
+                    <h3>Cabos em Saída</h3>
+                    <div id="saidaCableList" class="list-container"></div>
+                </div>
+            </div>
+
+            <div id="saidaOutrosView" class="saida-view">
+                <div class="barcode-input barcode-input-cables">
+                    <div class="cable-saida-form">
+                        <input type="text" id="saidaOtherItemName" list="saidaOtherItemOptions" onkeypress="handleOtherItemSaidaKeyPress(event)" placeholder="Nome do item...">
+                        <datalist id="saidaOtherItemOptions"></datalist>
+                        <input type="number" id="saidaOtherItemQuantity" min="1" step="1" onkeypress="handleOtherItemSaidaKeyPress(event)" placeholder="Quantidade">
+                        <button onclick="handleOtherItemSaidaButton()" class="btn-primary">Registrar Saída</button>
+                    </div>
+                    <div id="saidaOtherItemMessage" class="message"></div>
+                </div>
+
+                <div class="equipment-list">
+                    <h3>Outros em Saída</h3>
+                    <div id="saidaOtherItemList" class="list-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="entrada" class="section">
+            <div class="section-title">
+                <h2>Controle de Entrada</h2>
+                <p>Digite o código de barras e pressione Enter</p>
+                <button type="button" id="entradaAudioToggle" class="movement-audio-toggle" onclick="toggleMovementAudio('entrada')" aria-label="Desativar áudio de entrada" aria-pressed="true" title="Desativar áudio de entrada">
+                    <span id="entradaAudioToggleIcon" aria-hidden="true">&#128266;</span>
+                </button>
+            </div>
+
+            <div class="saida-toggle">
+                <button type="button" id="entradaEquipamentosTabButton" class="btn-secondary active" onclick="setEntradaTab('equipamentos')">Equipamentos</button>
+                <button type="button" id="entradaCabosTabButton" class="btn-secondary" onclick="setEntradaTab('cabos')">Cabos</button>
+                <button type="button" id="entradaOutrosTabButton" class="btn-secondary" onclick="setEntradaTab('outros')">Outros</button>
+            </div>
+
+            <div id="entradaEquipamentosView" class="entrada-view active">
+                <div class="barcode-input">
+                    <input type="text" id="entradaBarcode" onkeypress="handleEntradaKeyPress(event)" placeholder="Código de barras...">
+                    <button onclick="handleEntradaButton()" class="btn-primary">Registrar Entrada</button>
+                    <div id="entradaMessage" class="message"></div>
+                </div>
+
+                <div class="equipment-list">
+                    <h3>Equipamentos pendentes</h3>
+                    <div id="entradaList" class="list-container"></div>
+                </div>
+            </div>
+
+            <div id="entradaCabosView" class="entrada-view">
+                <div class="equipment-list">
+                    <div class="list-header">
+                        <h3>Cabos pendentes</h3>
+                    </div>
+                    <div id="entradaCableMessage" class="message"></div>
+                    <div class="cable-entry-table-wrapper">
+                        <table class="cable-entry-table">
+                            <thead>
+                                <tr>
+                                    <th>Cabo</th>
+                                    <th>Saída</th>
+                                    <th>Entrada</th>
+                                    <th>Final</th>
+                                    <th>Voltou</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="entradaCableTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="entradaOutrosView" class="entrada-view">
+                <div class="equipment-list">
+                    <div class="list-header">
+                        <h3>Outros pendentes</h3>
+                    </div>
+                    <div id="entradaOtherItemMessage" class="message"></div>
+                    <div class="cable-entry-table-wrapper">
+                        <table class="cable-entry-table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Saída</th>
+                                    <th>Entrada</th>
+                                    <th>Final</th>
+                                    <th>Voltou</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="entradaOtherItemTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="conferencia" class="section">
+            <div class="section-title">
+                <h2>Conferência do Evento</h2>
+                <p>Lista de equipamentos vinculados a este evento</p>
+            </div>
+
+            <div class="equipment-list">
+                <div class="list-header">
+                    <h3>Equipamentos selecionados</h3>
+                    <div class="conference-search">
+                        <input type="text" id="conferenciaBarcode" onkeypress="handleConferenciaKeyPress(event)" placeholder="Código de barras...">
+                        <button onclick="handleConferenciaButton()" class="btn-primary">Registrar Saída</button>
+                    </div>
+                </div>
+                <div class="conference-filter">
+                    <input type="text" id="conferenciaSearch" oninput="filterConferenciaList()" placeholder="Pesquisar por nome ou código...">
+                    <button onclick="filterConferenciaList()" class="btn-secondary">Pesquisar</button>
+                </div>
+                <div id="conferenciaMessage" class="message"></div>
+                <div id="conferenciaList" class="list-container"></div>
+            </div>
+
+            <div class="equipment-list">
+                <div class="list-header">
+                    <h3>Outros selecionados</h3>
+                </div>
+                <div id="conferenciaOtherItemMessage" class="message"></div>
+                <div id="conferenciaOtherItemList" class="list-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="availabilityConflictModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card availability-conflict-card">
+            <button type="button" class="modal-close" onclick="closeAvailabilityConflictModal()" aria-label="Fechar">X</button>
+            <h2 id="availabilityConflictTitle">Conflito de disponibilidade</h2>
+            <p class="modal-subtitle">Este patrimônio não pode ser utilizado no período deste evento.</p>
+            <div id="availabilityConflictDetails" class="availability-conflict-details"></div>
+            <div class="modal-actions">
+                <button type="button" id="availabilityConflictOkButton" class="btn-primary" onclick="closeAvailabilityConflictModal(false)">OK</button>
+                <button type="button" id="availabilityWarningCancelButton" class="btn-secondary" style="display: none;" onclick="closeAvailabilityConflictModal(false)">Cancelar</button>
+                <button type="button" id="availabilityWarningContinueButton" class="btn-primary" style="display: none;" onclick="closeAvailabilityConflictModal(true)">Continuar saída</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="transferModal" class="modal-overlay transfer-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="transferModalTitle">
+        <div class="modal-card transfer-modal-card">
+            <button type="button" class="modal-close" onclick="closeTransferModal()" aria-label="Fechar">X</button>
+            <h2 id="transferModalTitle">Transferir itens pendentes</h2>
+            <p class="modal-subtitle">Selecione os tipos de item e escolha o evento que receberá somente as saídas pendentes.</p>
+            <fieldset class="transfer-category-options" aria-label="Tipos de item para transferir">
+                <legend>O que deseja transferir?</legend>
+                <label class="transfer-category-option"><input type="checkbox" name="transferCategory" value="equipment" checked><span>Equipamentos</span></label>
+                <label class="transfer-category-option"><input type="checkbox" name="transferCategory" value="cable" checked><span>Cabos</span></label>
+                <label class="transfer-category-option"><input type="checkbox" name="transferCategory" value="other" checked><span>Outros</span></label>
+            </fieldset>
+            <div id="transferEventList" class="transfer-event-list"></div>
+            <div id="transferMessage" class="message"></div>
+        </div>
+    </div>
+
+    <div id="transferConfirmModal" class="modal-overlay transfer-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="transferConfirmTitle">
+        <div class="modal-card transfer-confirm-card">
+            <button type="button" class="modal-close" onclick="closeTransferConfirmModal()" aria-label="Fechar">X</button>
+            <h2 id="transferConfirmTitle">Confirmar transferência</h2>
+            <p id="transferConfirmText" class="modal-subtitle"></p>
+            <div class="modal-actions transfer-modal-actions">
+                <button type="button" class="btn-secondary" onclick="closeTransferConfirmModal()">Cancelar</button>
+                <button type="button" id="confirmTransferButton" class="btn-primary" onclick="confirmTransfer()">Confirmar transferência</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/javascript/event.js?v=20260819-quote-operational-topics"></script>
+</body>
+</html>
+
+

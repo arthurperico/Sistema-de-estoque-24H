@@ -1,0 +1,43 @@
+- generic [ref=f3e2]:
+  - complementary [ref=f3e3]:
+    - generic [ref=f3e4]:
+      - img "24h Locações" [ref=f3e6]
+      - paragraph [ref=f3e7]: Sistema de Controle
+    - navigation "Navegação principal" [ref=f3e8]:
+      - region [ref=f3e9]:
+        - paragraph [ref=f3e10]: Operação
+        - list [ref=f3e11]:
+          - listitem [ref=f3e12]:
+            - link "Eventos" [ref=f3e13] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f3e16]:
+            - link "Rastreador de equipamentos" [ref=f3e17] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f3e20]:
+            - link "Locação" [ref=f3e21] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f3e24]:
+            - link "Manutenção" [ref=f3e25] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f3e28]:
+            - link "Banco de Dados" [ref=f3e29] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f3e32]:
+            - link "Cadastrar Equipamento" [ref=f3e33] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f3e36]:
+            - link "Histórico" [ref=f3e37] [cursor=pointer]:
+              - /url: "#"
+      - region [ref=f3e40]:
+        - paragraph [ref=f3e41]: Comercial
+        - list
+    - button "Sair" [ref=f3e42] [cursor=pointer]
+  - button "Ocultar menu" [expanded] [ref=f3e45] [cursor=pointer]:
+    - generic [aria-hidden] [ref=f3e46]: ‹
+    - text: MENU
+  - main [ref=f3e47]:
+    - generic [ref=f3e48]:
+      - generic [ref=f3e49]:
+        - heading "Eventos Cadastrados" [level=1] [ref=f3e50]
+        - textbox "Buscar evento..." [ref=f3e52]
+      - button "Criar evento" [ref=f3e53] [cursor=pointer]

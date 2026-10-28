@@ -1,0 +1,210 @@
+
+ ⛅️ wrangler 4.80.0 (update available 4.107.0)
+──────────────────────────────────────────────
+Your Worker has access to the following bindings:
+Binding                               Resource         Mode
+env.DB (sistema-estoque-24h)          D1 Database      local
+env.ASSETS                            Assets           local
+
+⎔ Starting local server...
+[wrangler:info] Ready on http://127.0.0.1:8787
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (58ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (8ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (7ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (7ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (8ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (7ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (11ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (7ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (8ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (7ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (7ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (5ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (4ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (7ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (5ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (7ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (7ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (5ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (7ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (5ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (6ms)
+[wrangler:error] Error: SESSION_SECRET nao configurado no Worker
+    at getSessionFromRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:1678:15)
+    at handlePageRequest (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:75:27)
+    at Object.fetch (file:///C:/Users/Arthur%20S/Documents/GitHub/Sistema%20de%20estoque%2024H/src/worker.mjs:62:20)
+[wrangler:info] GET /login.html 500 Internal Server Error (5ms)
